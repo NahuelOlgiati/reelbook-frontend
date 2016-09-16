@@ -1,0 +1,52 @@
+{
+  "project": {
+    "version": "1.0.0-beta.14",
+    "name": "reelbook-frontend"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": "assets",
+      "index": "index.html",
+      "main": "main.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "rb",
+      "mobile": false,
+      "styles": [
+        "./assets/sass/main.scss"
+      ],
+      "scripts": [
+        "assets/js/jquery.min.js",
+        "assets/js/jquery.scrolly.min.js",
+        "assets/js/jquery.scrollex.min.js",
+        "assets/js/skel.min.js",
+        "assets/js/util.js",
+        "assets/js/ie/respond.min.js",
+        "assets/js/main.js"
+      ],
+      "environments": {
+        "source": "environments/environment.ts",
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "addons": [],
+  "packages": [],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "sass",
+    "prefixInterfaces": false
+  }
+}
