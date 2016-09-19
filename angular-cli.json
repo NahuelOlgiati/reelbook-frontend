@@ -15,7 +15,10 @@
       "prefix": "rb",
       "mobile": false,
       "styles": [
-        "./assets/sass/main.scss"
+        "./assets/sass/main.scss",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/primeng/resources/primeng.min.css"
       ],
       "scripts": [
         "assets/js/jquery.min.js",
