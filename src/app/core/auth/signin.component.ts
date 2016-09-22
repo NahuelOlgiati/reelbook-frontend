@@ -1,11 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GrowlMessageService } from '../../shared/growl-message/growl-message.service';
 
 import { AuthService } from "./auth.service";
 
 @Component({
-    templateUrl: './signin.component.html'
+    templateUrl: './signin.component.html',
+    styleUrls: ['./signin.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: {class:'rb'}
 })
 export class SigninComponent implements OnInit {
     myForm: FormGroup;
