@@ -1,3 +1,10 @@
+/// Gets a global value.
+/// @param {string} $keys Key(s).
+/// @return {string} Value.
+@function _global($keys...) {
+	@return val($global, $keys...);
+}
+
 /// Gets a duration value.
 /// @param {string} $keys Key(s).
 /// @return {string} Value.

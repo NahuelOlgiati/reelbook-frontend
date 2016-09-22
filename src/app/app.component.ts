@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { Message } from 'primeng/primeng';
 
-import { HeaderComponent } from "./header.component";
 import { GrowlMessageService } from "./shared/growl-message/growl-message.service";
 
 @Component({
   selector: 'rb-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   msgs: Message[] = [];

@@ -6,9 +6,9 @@ import { GrowlModule } from 'primeng/components/growl/growl';
 
 // Components
 import { AppComponent }   from './app.component';
-import { HeaderComponent } from "./header.component";
+import { HeaderComponent } from "./layout/header.component";
 import { MenuComponent } from "./menu.component";
-import { FooterComponent } from "./footer.component";
+import { FooterComponent } from "./layout/footer.component";
 import { HomeComponent } from "./home.component";
 import { ProtectedComponent } from "./protected/protected.component";
 

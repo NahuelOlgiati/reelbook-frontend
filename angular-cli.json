@@ -26,7 +26,6 @@
         "assets/js/jquery.scrollex.min.js",
         "assets/js/skel.min.js",
         "assets/js/util.js",
-        "assets/js/ie/respond.min.js",
         "assets/js/main.js"
       ],
       "environments": {
@@ -49,7 +48,7 @@
     }
   },
   "defaults": {
-    "styleExt": "sass",
+    "styleExt": "scss",
     "prefixInterfaces": false
   }
 }
