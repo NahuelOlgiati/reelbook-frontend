@@ -9,19 +9,23 @@ import { AppComponent }   from './app.component';
 import { HeaderComponent } from "./layout/header.component";
 import { MenuComponent } from "./layout/menu.component";
 import { FooterComponent } from "./layout/footer.component";
-import { HomeComponent } from "./home/home.component";
 import { ProtectedComponent } from "./protected/protected.component";
+
+// Provider
+import { CustomHttpProvider } from "./core/custom-http/custom-http.provider";
+
+// Guard
+import { AuthGuard } from "./core/auth/auth.guard";
 
 // Services
 import { GrowlMessageService } from './shared/growl-message/growl-message.service';
-import { AuthGuard } from "./core/auth/auth.guard";
 import { AuthService } from "./core/auth/auth.service";
-import { CUSTOM_HTTP_PROVIDER } from "./core/custom-http/custom-http.provider";
 import { DocumentTypeService } from './document-type/document-type.service';
 
 // Modules
 import { CoreModule } from './core/core.module';
 import { AppRouterModule } from "./app.routing";
+import { HomeModule } from "./home/home.module";
 import { DocumentTypeModule } from './document-type/document-type.module';
 
 
@@ -31,14 +35,13 @@ import { DocumentTypeModule } from './document-type/document-type.module';
         HeaderComponent,
         MenuComponent,
         FooterComponent,
-        HomeComponent,
         ProtectedComponent
     ],
-    imports: [BrowserModule, AppRouterModule, GrowlModule, CoreModule, DocumentTypeModule],
+    imports: [BrowserModule, AppRouterModule, GrowlModule, CoreModule, HomeModule, DocumentTypeModule],
     providers: [
+        CustomHttpProvider,
         AuthGuard,
         AuthService,
-        CUSTOM_HTTP_PROVIDER,
         GrowlMessageService,
         DocumentTypeService
     ],
