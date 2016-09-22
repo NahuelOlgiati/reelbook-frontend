@@ -5,20 +5,7 @@ import { GrowlMessageService } from '../../shared/growl-message/growl-message.se
 import { AuthService } from "./auth.service";
 
 @Component({
-    template: `
-        <h3>Please sign up to use all features</h3>
-        <form [formGroup]="myForm" (ngSubmit)="onSignin()">
-            <div class="form-group">
-                <label for="username">User name</label>
-                <input formControlName="username" type="text" id="username" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input formControlName="password" type="password" id="password" class="form-control">
-            </div>
-            <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Sign In</button>
-        </form>
-    `
+    templateUrl: './signin.component.html'
 })
 export class SigninComponent implements OnInit {
     myForm: FormGroup;
@@ -32,10 +19,10 @@ export class SigninComponent implements OnInit {
             .subscribe(
             res => {
                 if (res.success) {
-                        this.authService.saveToken(res.body); 
-                        this.growlMessageService.notifyError([{severity:'info', summary:'Info Message', detail:'Signin Sucess'}]);
-                    }
-                })
+                    this.authService.saveToken(res.body);
+                    this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
+                }
+            })
     }
 
     ngOnInit(): any {

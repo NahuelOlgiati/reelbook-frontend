@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Message } from 'primeng/primeng';
 
@@ -7,7 +7,8 @@ import { GrowlMessageService } from "./shared/growl-message/growl-message.servic
 @Component({
   selector: 'rb-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
   msgs: Message[] = [];

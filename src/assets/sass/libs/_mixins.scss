@@ -1,3 +1,17 @@
+@mixin inner {
+	> .inner {
+		@include padding(4em, 0);
+		margin: 0 auto;
+		max-width: _size(inner);
+		width: calc(100% - 6em);
+
+		@include breakpoint(small) {
+			@include padding(3em, 0);
+			width: calc(100% - 3em);
+		}
+	}
+}
+
 /// Makes an element's :before pseudoelement a FontAwesome icon.
 /// @param {string} $content Optional content value to use.
 /// @param {string} $where Optional pseudoelement to target (before or after).
