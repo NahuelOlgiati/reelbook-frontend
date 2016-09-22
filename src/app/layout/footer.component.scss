@@ -22,9 +22,6 @@
 		}
 	}
 
-//@debug (_global(xsmall));
-//@debug (breakpoint(_global(xsmall)));
-@debug (hola);
 	@include breakpoint(xsmall) {
 		.copyright {
 			li {
@@ -36,5 +33,4 @@
 			}
 		}
 	}
-	@debug (hola2);
 }

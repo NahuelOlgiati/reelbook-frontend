@@ -1,11 +1,11 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { AuthGuard } from "./core/auth/auth.guard";
-import { HomeComponent } from "./home.component";
 import { SignupComponent } from "./core/auth/signup.component";
 import { SigninComponent } from "./core/auth/signin.component";
-import { ProtectedComponent } from "./protected/protected.component";
 import { ErrorPageComponent } from "./core/error-page/error-page.component";
+import { HomeComponent } from "./home/home.component";
+import { ProtectedComponent } from "./protected/protected.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
