@@ -5,7 +5,7 @@ import { AuthService } from "./auth.service";
 
 @Component({
     selector: 'rb-logout',
-    template: `<a *ngIf="isAuth()" (click)="onLogout()"><span> | </span>Logout</a>`
+    template: `<span *ngIf="isAuth()"> |</span><a *ngIf="isAuth()" (click)="onLogout()" style="cursor: pointer;">Logout</a>`
 })
 export class LogoutComponent {
     constructor(private router : Router, private authService: AuthService, private growlMessageService: GrowlMessageService) { }
