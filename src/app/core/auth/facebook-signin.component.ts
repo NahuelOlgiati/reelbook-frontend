@@ -4,7 +4,11 @@ declare const FB: any;
 
 @Component({
     selector: 'rb-facebook-signin',
-    templateUrl: './facebook-signin.component.html'
+    template: `
+        <button type="button" class="button next scrolly" (click)="onFacebookLoginClick()">
+            <i class="fa fa-facebook fa-fw"></i> Sign in
+        </button>
+        `
 })
 export class FacebookSigninComponent implements OnInit {
 
@@ -44,7 +48,7 @@ export class FacebookSigninComponent implements OnInit {
 
         }
     };
-    
+
     ngOnInit() {
         FB.getLoginStatus(response => {
             this.statusChangeCallback(response);

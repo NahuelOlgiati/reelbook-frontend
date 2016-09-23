@@ -1,33 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit , ViewEncapsulation} from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { GrowlMessageService } from '../../shared/growl-message/growl-message.service';
 import { AuthService } from "./auth.service";
 
 @Component({
-    template: `
-        <h3>Please sign up to use all features</h3>
-        <form [formGroup]="myForm" (ngSubmit)="onSignup()">
-            <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input formControlName="email" type="email" id="email" #email class="form-control">
-                <span *ngIf="!email.pristine && email.errors != null && email.errors['noEmail']">Invalid mail address</span>
-            </div>
-            <div class="form-group">
-                <label for="username">User name</label>
-                <input formControlName="username" type="text" id="username" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input formControlName="password" type="password" id="password" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input formControlName="confirmPassword" type="password" id="confirm-password" #confirmPassword class="form-control">
-                <span *ngIf="!confirmPassword.pristine && confirmPassword.errors != null && confirmPassword.errors['passwordsNotMatch']">Passwords do not match</span>
-            </div>
-            <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Sign Up</button>
-        </form>
-    `
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: {class:'rb'}
 })
 export class SignupComponent implements OnInit {
     myForm: FormGroup;

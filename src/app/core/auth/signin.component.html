@@ -1,7 +1,7 @@
 <section id="signin" class="major">
     <div class="inner">
         <header class="major">
-            <h1>Please sign up to use all features</h1>
+            <h2>Please sign in to use all features</h2>
         </header>
         <form [formGroup]="myForm" (ngSubmit)="onSignin()">
             <div class="field half first">
@@ -13,7 +13,7 @@
                 <input formControlName="password" type="password" id="password" class="form-control">
             </div>
             <ul class="actions">
-                <li><input type="submit" [disabled]="!myForm.valid" value="Send Message" class="special" /></li>
+                <li><input type="submit" [disabled]="!myForm.valid" value="Sing in" class="special" /></li>
                 <rb-facebook-signin></rb-facebook-signin>
             </ul>
         </form>
