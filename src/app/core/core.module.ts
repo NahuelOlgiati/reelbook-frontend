@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GrowlModule } from 'primeng/components/growl/growl';
 
 import { SigninComponent } from "./auth/signin.component";
+import { FacebookSigninComponent } from "./auth/facebook-signin.component";
 import { SignupComponent } from "./auth/signup.component";
 import { LogoutComponent } from "./auth/logout.component";
 import { ErrorPageComponent } from "./error-page/error-page.component";
@@ -13,6 +14,7 @@ import { ErrorPageComponent } from "./error-page/error-page.component";
 @NgModule({
     declarations: [
         SigninComponent,
+        FacebookSigninComponent,
         SignupComponent,
         LogoutComponent,
         ErrorPageComponent
