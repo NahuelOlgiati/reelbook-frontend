@@ -1,3 +1,3 @@
 export class DocumentType {
-    constructor(public description: string, public summaryDescription: string) { }
+    constructor(public id: number, public description: string, public summaryDescription: string) { }
 }

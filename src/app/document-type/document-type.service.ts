@@ -6,6 +6,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DocumentTypeService {
 
+  headers = new Headers({ 'Content-Type': 'application/json' });
+  options = new RequestOptions({ headers: this.headers });
+
   documentTypesChanged = new EventEmitter<DocumentType[]>();
 
   private documentTypes: DocumentType[] = [];
@@ -27,10 +30,19 @@ export class DocumentTypeService {
       );
   }
 
-  createDocumentType(documentType : DocumentType) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:8080/rest/documentType', JSON.stringify(documentType), options)
+  createDocumentType(documentType: DocumentType) {
+    return this.http.post('http://localhost:8080/rest/documentType', JSON.stringify(documentType), this.options)
+      .map((response: Response) => response.json())
+      .subscribe(
+      (data: DocumentType[]) => {
+        this.documentTypes = data;
+        this.documentTypesChanged.emit(this.documentTypes);
+      }
+      );
+  }
+
+  removeDocumentType(documentType: DocumentType) {
+    return this.http.delete('http://localhost:8080/rest/documentType/' + documentType.id, this.options)
       .map((response: Response) => response.json())
       .subscribe(
       (data: DocumentType[]) => {
