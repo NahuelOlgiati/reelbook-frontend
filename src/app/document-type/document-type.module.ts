@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PanelModule } from 'primeng/components/panel/panel';
 import { AutoCompleteModule } from 'primeng/components/autocomplete/autocomplete';
@@ -16,7 +17,7 @@ import { DocumentTypeItemComponent } from './document-type-item/document-type-it
         DocumentTypeListComponent,
         DocumentTypeItemComponent
     ],
-    imports: [CommonModule, PanelModule, AutoCompleteModule, DataTableModule, TabViewModule, CarouselModule, GrowlModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, AutoCompleteModule, DataTableModule, TabViewModule, CarouselModule, GrowlModule],
     exports: [DocumentTypeListComponent]
 })
 export class DocumentTypeModule { }

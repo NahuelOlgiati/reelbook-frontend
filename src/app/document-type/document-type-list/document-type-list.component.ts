@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DocumentType } from '../document-type';
 import { DocumentTypeService } from '../document-type.service';
 import { GrowlMessageService } from '../../shared/growl-message/growl-message.service';
@@ -15,7 +16,9 @@ export class DocumentTypeListComponent implements OnInit {
   text: string;
   results: DocumentType[];
 
-  constructor(private documentTypeService: DocumentTypeService, private growlMessageService: GrowlMessageService) {
+  myForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private documentTypeService: DocumentTypeService, private growlMessageService: GrowlMessageService) {
     this.growlMessageService.onError(err => {
       this.error = err;
       console.log("onError: " + err);
@@ -28,12 +31,21 @@ export class DocumentTypeListComponent implements OnInit {
     this.documentTypeService.documentTypesChanged.subscribe(
       (documentTypes: DocumentType[]) => this.documentTypes = documentTypes
     );
+
+    this.myForm = this.fb.group({
+      description: ['', Validators.required],
+      summaryDescription: ['', Validators.required],
+    });
   }
 
   search(event) {
-        console.log("Begin Search...");
-        this.results = this.documentTypeService.getDocumentTypes();
-        console.log("End Search...");
-    }
+    console.log("Begin Search...");
+    this.results = this.documentTypeService.getDocumentTypes();
+    console.log("End Search...");
+  }
+
+  create() {
+    this.documentTypeService.createDocumentType(this.myForm.value);
+  }
 
 }

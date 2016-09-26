@@ -11,8 +11,20 @@
     </div>
 
     <div class="col-md-6">
-      <p-panel header="Title">
-        Content
+      <p-panel header="P-Panel">
+        <form [formGroup]="myForm" (ngSubmit)="create()">
+            <div class="field half first">
+                <label for="description">description</label>
+                <input formControlName="description" type="text" id="description" class="form-control">
+            </div>
+            <div class="field half">
+                <label for="summaryDescription">summaryDescription</label>
+                <input formControlName="summaryDescription" type="text" id="summaryDescription" class="form-control">
+            </div>
+            <ul class="actions">
+                <li><input type="submit" value="Add Document Type" class="special" /></li>
+            </ul>
+        </form>
       </p-panel>
     </div>
 
