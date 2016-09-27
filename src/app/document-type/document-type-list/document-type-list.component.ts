@@ -18,6 +18,8 @@ export class DocumentTypeListComponent implements OnInit {
 
   myForm: FormGroup;
 
+  id : number;
+
   constructor(private fb: FormBuilder, private documentTypeService: DocumentTypeService, private growlMessageService: GrowlMessageService) {
     this.growlMessageService.onError(err => {
       this.error = err;
@@ -41,4 +43,15 @@ export class DocumentTypeListComponent implements OnInit {
     this.documentTypeService.createDocumentType(this.myForm.value);
   }
 
+  onEditClicked(documentType: DocumentType){
+    this.id = documentType.id;
+    this.myForm.setValue({description : 'hola', summaryDescription:'HOLIS'});
+    //console.log(JSON.stringify(documentType));
+  }
+
+  edit() {
+    let dt = new DocumentType(this.id, this.myForm.value.description, this.myForm.value.summaryDescription);
+    console.log(JSON.stringify(dt));
+    this.documentTypeService.editDocumentType(dt);
+  }
 }

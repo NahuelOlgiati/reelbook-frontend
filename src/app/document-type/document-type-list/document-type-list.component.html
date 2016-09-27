@@ -6,7 +6,7 @@
 
     <div class="col-md-6">
       <ul class="list-group">
-        <rb-document-type-item *ngFor="let documentType of documentTypes" [documentType]="documentType"></rb-document-type-item>
+        <rb-document-type-item *ngFor="let documentType of documentTypes" [documentType]="documentType" (editClicked)="onEditClicked($event)"></rb-document-type-item>
       </ul>
     </div>
 
@@ -23,6 +23,24 @@
             </div>
             <ul class="actions">
                 <li><input type="submit" value="Add Document Type" class="special" /></li>
+            </ul>
+        </form>
+      </p-panel>
+    </div>
+
+    <div class="col-md-6">
+      <p-panel header="P-Panel">
+        <form [formGroup]="myForm" (ngSubmit)="edit()">
+            <div class="field half first">
+                <label for="description">description</label>
+                <input formControlName="description" type="text" id="description" class="form-control">
+            </div>
+            <div class="field half">
+                <label for="summaryDescription">summaryDescription</label>
+                <input formControlName="summaryDescription" type="text" id="summaryDescription" class="form-control">
+            </div>
+            <ul class="actions">
+                <li><input type="submit" value="Edit Document Type" class="special" /></li>
             </ul>
         </form>
       </p-panel>

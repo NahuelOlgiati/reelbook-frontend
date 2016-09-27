@@ -1,11 +1,14 @@
-<a class="list-group-item clearfix" (click)="remove()">
+<a class="list-group-item clearfix">
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{documentType.description}}</h4>
     <p class="list-group-item-text">{{documentType.summaryDescription}}</p>
   </div>
   <span class="pull-right">
+    <img class="img-responsive"
+           src="http://www.jleague.jp/img/cache/2016/urawa/mascot/mascot_L.jpg"
+           style="max-height: 50px; cursor: pointer;" (click)="edit()"/>
       <img class="img-responsive"
            src="http://harashobo.com/img/13128_3.jpg"
-           style="max-height: 50px;"/>
+           style="max-height: 50px; cursor: pointer;" (click)="remove()"/>
   </span>
 </a>

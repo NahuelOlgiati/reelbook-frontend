@@ -44,13 +44,13 @@ export class CustomHttp extends Http {
   put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
     let opt = this._buildRequestOptionsArgs(RequestMethod.Put, url, options, body);
     this._beforeCall(url, opt);
-    return this._handle(super.put(url, opt), url, opt);
+    return this._handle(super.put(url, body, opt), url, opt);
   }
 
   patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
     let opt = this._buildRequestOptionsArgs(RequestMethod.Patch, url, options, body);
     this._beforeCall(url, opt);
-    return this._handle(super.patch(url, opt), url, opt);
+    return this._handle(super.patch(url, body, opt), url, opt);
   }
 
   delete(url: string, options?: RequestOptionsArgs): Observable<Response> {

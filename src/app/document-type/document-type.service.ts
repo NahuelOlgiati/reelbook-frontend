@@ -39,6 +39,17 @@ export class DocumentTypeService {
       );
   }
 
+  editDocumentType(documentType: DocumentType) {
+    return this.http.put('http://localhost:8080/rest/documentType', JSON.stringify(documentType), this.options)
+      .map((response: ModelResponse<DocumentType>) => response.json())
+      .subscribe((res: ModelResponse<DocumentType>) => {
+        this.documentTypes = this.documentTypes.filter((t, n, arr) => t.id !== res.model.id);
+        this.documentTypes.push(res.model);
+        this.documentTypesChanged.emit(this.documentTypes);
+      }
+      );
+  }
+
   removeDocumentType(documentType: DocumentType) {
     return this.http.delete('http://localhost:8080/rest/documentType/' + documentType.id, this.options)
       .map((response: ModelResponse<DocumentType>) => response.json())

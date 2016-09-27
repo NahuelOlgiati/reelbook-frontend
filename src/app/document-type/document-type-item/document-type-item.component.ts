@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentType } from '../document-type';
 
 import { DocumentTypeService } from '../document-type.service';
@@ -10,13 +10,18 @@ import { DocumentTypeService } from '../document-type.service';
 export class DocumentTypeItemComponent implements OnInit {
 
   @Input() documentType: DocumentType;
+  @Output() editClicked = new EventEmitter<DocumentType>();
 
   constructor(private documentTypeService: DocumentTypeService) { }
 
   ngOnInit() {
   }
 
-  remove(){
+  remove() {
     this.documentTypeService.removeDocumentType(this.documentType);
+  }
+
+  edit() {
+    this.editClicked.emit(this.documentType);
   }
 }
