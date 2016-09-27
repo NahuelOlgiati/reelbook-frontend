@@ -43,7 +43,7 @@ export class DocumentTypeService {
     return this.http.delete('http://localhost:8080/rest/documentType/' + documentType.id, this.options)
       .map((response: ModelResponse<DocumentType>) => response.json())
       .subscribe((res: ModelResponse<DocumentType>) => {
-        this.documentTypes.splice(this.documentTypes.indexOf(res.model), 1);
+        this.documentTypes = this.documentTypes.filter((t, n, arr) => t.id !== res.model.id);
         this.documentTypesChanged.emit(this.documentTypes);
       }
       );
