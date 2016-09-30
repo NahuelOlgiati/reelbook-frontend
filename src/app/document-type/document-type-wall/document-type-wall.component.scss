@@ -1,0 +1,27 @@
+.wall-container{
+    background:rgba(84, 131, 86, 0.9);
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+}
+
+.wall-col{
+    padding-top: 0.1em;
+    padding-left: 0.1em;
+    padding-bottom: 0.1em;
+    padding-right: 0.1em;
+}
+
+.wall-card{
+    margin-bottom: 0.1em;
+}
+
+.nombre {
+    color: #fff;
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 600;
+    position: absolute;
+    z-index: 100;
+    text-align: center;
+    bottom: 50px;
+}
