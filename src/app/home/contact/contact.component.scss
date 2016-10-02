@@ -4,17 +4,18 @@
 	border-bottom: solid 1px _palette(border);
 	overflow-x: hidden;
 
+	@include inner;
 	> .inner {
 		@include vendor('display', 'flex');
 		padding: 0 !important;
 
-		> :nth-child(2n - 1) {
+		> .message {
 			@include padding(4em, 0, (0, 3em, 0, 0));
 			border-right: solid 1px _palette(border);
 			width: 60%;
 		}
 
-		> :nth-child(2n) {
+		> .info {
 			padding-left: 3em;
 			width: 40%;
 		}
@@ -49,13 +50,13 @@
 		> .inner {
 			display: block;
 
-			> :nth-child(2n - 1) {
+			> .message {
 				@include padding(4em, 0, (0, 0, 0, 0));
 				border-right: 0;
 				width: 100%;
 			}
 
-			> :nth-child(2n) {
+			> .info {
 				padding-left: 0;
 				width: 100%;
 			}
@@ -79,7 +80,7 @@
 
 	@include breakpoint(small) {
 		> .inner {
-			> :nth-child(2n - 1) {
+			> .message {
 				@include padding(3em, 0, (0, 0, 0, 0));
 			}
 		}

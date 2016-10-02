@@ -3,9 +3,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'rb-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: {class:'rb'}
+  styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
 }

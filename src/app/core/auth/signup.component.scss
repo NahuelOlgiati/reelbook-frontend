@@ -1,9 +1,11 @@
 @import '../../../assets/sass/libs/index';
 
 #signup {
+	@include page;
 	border-bottom: solid 1px _palette(border);
 	overflow-x: hidden;
 
+	@include inner;
 	> .inner {
 		padding: 0 !important;
 

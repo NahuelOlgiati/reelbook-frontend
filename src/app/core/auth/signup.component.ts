@@ -5,9 +5,7 @@ import { AuthService } from "./auth.service";
 
 @Component({
     templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    host: {class:'rb'}
+    styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
     myForm: FormGroup;

@@ -38,6 +38,7 @@
 		font-size: 3.25em;
 	}
 
+	@include inner;
 	> .inner {
 		@include vendor('transition', (
 			'opacity 1.5s ease',
