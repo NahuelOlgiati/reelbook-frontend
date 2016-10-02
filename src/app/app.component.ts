@@ -7,8 +7,7 @@ import { GrowlMessageService } from "./shared/growl-message/growl-message.servic
 @Component({
   selector: 'rb-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   msgs: Message[] = [];
