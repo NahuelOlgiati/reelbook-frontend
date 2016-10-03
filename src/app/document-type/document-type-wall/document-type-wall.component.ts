@@ -11,6 +11,8 @@ import { GrowlMessageService } from '../../shared/growl-message/growl-message.se
 })
 export class DocumentTypeWallComponent implements OnInit {
 
+  private isActive :boolean = false;
+
   documentTypes: DocumentType[];
 
   selectedDocumentType: DocumentType;

@@ -3,7 +3,7 @@
         <div class="col-md-3">.col-md-3</div>
         <div class="col-md-9">
             <div class="col-md-3 col-sm-4 wall-col wall-hover" *ngFor="let documentType of documentTypes">
-                <div class="wall-selection active">
+                <div [ngClass]="{'active': isActive }" class="wall-selection" (click)="isActive = !isActive;">
                     <img class="img-responsive" src="http://kyototraditions.com/images/large/11046c%20shoki.jpg"><!--https://67.media.tumblr.com/0077d03c2806b7749b84968544290f65/tumblr_nm3a9vrHa41tv4cyio1_400.gif-->
                     <div class="overlay">
                         <h5>Juan Alberto Badia</h5>
