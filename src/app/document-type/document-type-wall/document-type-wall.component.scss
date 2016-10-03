@@ -1,150 +1,109 @@
+@import '../../../assets/sass/libs/index';
+
 .wall-container{
-    background:rgba(84, 131, 86, 0.9);
+    background:rgba(84, 131, 86, 0.9); //_palette(border-bg)
     padding-left: 0.1em;
     padding-right: 0.1em;
 }
 
 .wall-col{
-    padding-top: 0.1em;
-    padding-left: 0.1em;
-    padding-bottom: 0.1em;
-    padding-right: 0.1em;
+    padding: 0.1em;
 }
 
-.wall-card{
-    margin-bottom: 0.1em;
-}
+.wall-selection {
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
 
-.nombre {
-    color: #fff;
-    width: 100%;
-    font-size: 1.2em;
-    font-weight: 600;
-    position: absolute;
-    z-index: 100;
-    text-align: center;
-    bottom: 50px;
-}
-
-
-
-.hovereffect {
-    width: 100%;
-    height: 100%;
-    float: left;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    cursor: default;
-}
-.hovereffect .overlay {
+  .overlay {
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
     width: 100%;
     position: absolute;
     overflow: hidden;
     left: 0;
-	top: auto;
-	bottom: 0;
-	padding: 1em;
-	height: 4.75em;
-	background: #79FAC4;
-	color: #3c4a50;
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translate3d(0,100%,0);
-	transform: translate3d(0,100%,0);
-}
-
-.hovereffect img {
+    top: auto;
+    bottom: 0;
+    padding: 0.1em;
+    background: _palette(highlight);
+    color: #3c4a50;
+  }
+  &.active .overlay{
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  
+  img {
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
     display: block;
     position: relative;
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-}
+  }
+  &.active img {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 
-.hovereffect:active img {
--webkit-transform: translate3d(0,-10%,0);
-	transform: translate3d(0,-10%,0);
-}
-
-.hovereffect h2 {
+  h5 {
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    -webkit-transform: translate3d(0, 200%, 0);
+    transform: translate3d(0, 200%, 0);
     text-transform: uppercase;
     color: #fff;
     text-align: center;
     position: relative;
     font-size: 17px;
-    padding: 10px;
     background: rgba(0, 0, 0, 0.6);
-	float: left;
-	margin: 0px;
-	display: inline-block;
-}
-
-.hovereffect a.info {
+    margin: 0px;
     display: inline-block;
-    text-decoration: none;
-    padding: 7px 14px;
-    text-transform: uppercase;
-	color: #fff;
-	border: 1px solid #fff;
-	margin: 50px 0 0 0;
-	background-color: transparent;
-}
-.hovereffect a.info:active {
-    box-shadow: 0 0 5px #fff;
+  }
+  &.active h5{
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-transition-delay: 0.05s;
+      transition-delay: 0.05s;
+  }
 }
 
+.wall-hover {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
 
-.hovereffect p.icon-links a {
-	float: right;
-	color: #3c4a50;
-	font-size: 1.4em;
-}
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-color: _palette(highlight);
+    border-style: solid;
+    border-width: 0;
+    -webkit-transition-property: border-width;
+    transition-property: border-width;
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
 
-.hovereffect:active p.icon-links a:active,
-.hovereffect:active p.icon-links a:focus {
-	color: #252d31;
-}
-
-.hovereffect h2,
-.hovereffect p.icon-links a {
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translate3d(0,200%,0);
-	transform: translate3d(0,200%,0);
-}
-
-.hovereffect p.icon-links a span:before {
-	display: inline-block;
-	padding: 8px 10px;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-
-.hovereffect:active .overlay,
-.hovereffect:active h2,
-.hovereffect:active p.icon-links a {
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-}
-
-.hovereffect:active h2 {
-	-webkit-transition-delay: 0.05s;
-	transition-delay: 0.05s;
-}
-
-.hovereffect:active p.icon-links a:nth-child(3) {
-	-webkit-transition-delay: 0.1s;
-	transition-delay: 0.1s;
-}
-
-.hovereffect:active p.icon-links a:nth-child(2) {
-	-webkit-transition-delay: 0.15s;
-	transition-delay: 0.15s;
-}
-
-.hovereffect:active p.icon-links a:first-child {
-	-webkit-transition-delay: 0.2s;
-	transition-delay: 0.2s;
+  &:hover:before, &:focus:before, &:active:before {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    border-width: 4px;
+  }
 }

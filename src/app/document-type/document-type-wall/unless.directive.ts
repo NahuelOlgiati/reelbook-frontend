@@ -1,5 +1,8 @@
 import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
 
+/**
+    @Example:<div *unless="false" class="ZARAZA">Conditional Text</div>
+*/
 @Directive({
     selector: '[unless]'
 })
