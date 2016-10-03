@@ -32,20 +32,12 @@
     background: _palette(highlight);
     color: #3c4a50;
   }
-  &.active .overlay{
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
   
   img {
     -webkit-transition: -webkit-transform 0.35s;
     transition: transform 0.35s;
     display: block;
     position: relative;
-  }
-  &.active img {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
   }
 
   h5 {
@@ -62,12 +54,27 @@
     margin: 0px;
     display: inline-block;
   }
-  &.active h5{
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      -webkit-transition-delay: 0.05s;
-      transition-delay: 0.05s;
+
+  &.active {
+
+      .overlay {
+          -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
+      }
+
+      img {
+          -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
+      }
+
+      h5 {
+          -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
+          -webkit-transition-delay: 0.05s;
+          transition-delay: 0.05s;
+      }
   }
+  
 }
 
 .wall-hover {
