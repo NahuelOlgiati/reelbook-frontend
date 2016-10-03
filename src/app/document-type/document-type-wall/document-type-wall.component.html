@@ -1,21 +1,37 @@
-<!--
 <div class="container wall-container">
-    <div class="col-sm-4 col-lg-3 wall-col" *ngFor="let documentType of documentTypes">
-        <img class="card-img-top img-fluid" src="http://harashobo.com/img/13128_3.jpg" alt="Card image cap">
-        <div class="card card-inverse card-block wall-card" style="background-color: #333; border-color: #333;">
-            <span class="label label-default">{{documentType.description}}</span>
-            <p class="card-text">{{documentType.summaryDescription}}</p>
-            <button type="button" class="button next scrolly">
-            <i class="fa fa-facebook fa-fw"></i> Sign in
-        </button>
+    <div class="row">
+        <div class="col-md-3">.col-md-3</div>
+        <div class="col-md-9">
+            <div class="col-md-3 col-sm-4 wall-col" *ngFor="let documentType of documentTypes">
+                <img class="img-responsive" src="http://kyototraditions.com/images/large/11046c%20shoki.jpg">
+            </div>
         </div>
     </div>
 </div>
--->
-<div class="container wall-container">
-    <!--<div class="row">-->
-        <div class="col-sm-4 col-lg-3 wall-col" *ngFor="let documentType of documentTypes">
-            <img class="img-rounded img-responsive" src="http://kyototraditions.com/images/large/11046c%20shoki.jpg">
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="http://placehold.it/350x200" alt="">
+                <div class="overlay">
+                    <h2>Effect 10</h2>
+                    <p class="icon-links">
+                        <a href="#">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                        <a href="#">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a href="#">
+                            <span class="fa fa-instagram"></span>
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
-    <!--</div>-->
+    </div>
 </div>
+
+<div [highlight]="'blue'" [defaultColor]="'red'">Some Text</div>
+<div *unless="false" class="ZARAZA">Conditional Text</div>

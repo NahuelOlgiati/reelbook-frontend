@@ -16,11 +16,16 @@ import { DocumentTypeListComponent } from './document-type-list/document-type-li
 import { DocumentTypeItemComponent } from './document-type-item/document-type-item.component';
 import { DocumentTypeWallComponent } from './document-type-wall/document-type-wall.component';
 
+import { HighlightDirective } from './document-type-wall/highlight.directive';
+import { UnlessDirective } from './document-type-wall/unless.directive';
+
 @NgModule({
     declarations: [
         DocumentTypeListComponent,
         DocumentTypeItemComponent,
-        DocumentTypeWallComponent
+        DocumentTypeWallComponent,
+        HighlightDirective,
+        UnlessDirective
     ],
     imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, AutoCompleteModule, DataTableModule, DataGridModule, DialogModule, PaginatorModule, TabViewModule, CarouselModule, GrowlModule],
     exports: [DocumentTypeListComponent, DocumentTypeWallComponent]
