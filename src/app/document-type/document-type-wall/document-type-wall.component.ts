@@ -11,35 +11,27 @@ import { GrowlMessageService } from '../../service/growl-message.service';
 })
 export class DocumentTypeWallComponent implements OnInit {
 
-  private isActive: boolean = false;
-
   documentTypes: DocumentType[];
-
-  selectedDocumentType: DocumentType;
-
-  displayDialog: boolean;
+  selectedDocumentTypes: number[] = [];
 
   constructor(private documentTypeService: DocumentTypeService) { }
 
   ngOnInit() {
-    let a = new Array<DocumentType>();
-    let x1 = new DocumentType(1, 'hola', 'hola');
-    let x2 = new DocumentType(2, 'hola', 'hola');
-    a.push(x1);
-    a.push(x2);
-
     this.documentTypeService.fetchData();
     this.documentTypeService.documentTypesChanged.subscribe(
       (documentTypes: DocumentType[]) => this.documentTypes = documentTypes
     );
   }
 
-  selectDocumentType(documentType: DocumentType) {
-    this.selectedDocumentType = documentType;
-    this.displayDialog = true;
+  onActive(documentType: DocumentType) {
+    if (this.isActive(documentType)) {
+      this.selectedDocumentTypes.splice(this.selectedDocumentTypes.indexOf(documentType.id), 1);
+    } else {
+      this.selectedDocumentTypes.push(documentType.id);
+    }
   }
 
-  onDialogHide() {
-    this.selectedDocumentType = null;
+  isActive(documentType: DocumentType): Boolean {
+    return this.selectedDocumentTypes.indexOf(documentType.id) >= 0;
   }
 }
