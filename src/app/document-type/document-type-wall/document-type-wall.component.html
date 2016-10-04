@@ -1,10 +1,28 @@
+<div class="left">
+    <div class="item">
+        <span class="glyphicon glyphicon-th-large"></span>
+    </div>
+    <div class="item active">
+        <span class="glyphicon glyphicon-th-list"></span> Que sale?</div>
+    <div class="item">
+        <span class="glyphicon glyphicon-log-out"></span> Que sale?</div>
+    <div class="item">
+        <span class="glyphicon glyphicon-log-in"></span> Que sale?</div>
+    <div class="item">
+        <span class="glyphicon glyphicon-random"></span> Que sale?</div>
+    <div class="item">
+        <span class="glyphicon glyphicon-remove"></span> Que sale?</div>
+</div>
+
+
 <div class="container wall-container">
     <div class="row">
         <div class="col-md-3">.col-md-3</div>
         <div class="col-md-9">
             <div class="col-md-3 col-sm-4 wall-col wall-hover" *ngFor="let documentType of documentTypes">
                 <div [ngClass]="{'active': isActive(documentType) }" class="wall-selection" (click)="onActive(documentType)">
-                    <img class="img-responsive" src="http://kyototraditions.com/images/large/11046c%20shoki.jpg"><!--https://67.media.tumblr.com/0077d03c2806b7749b84968544290f65/tumblr_nm3a9vrHa41tv4cyio1_400.gif-->
+                    <img class="img-responsive" src="http://kyototraditions.com/images/large/11046c%20shoki.jpg" draggable="false">
+                    <!--https://67.media.tumblr.com/0077d03c2806b7749b84968544290f65/tumblr_nm3a9vrHa41tv4cyio1_400.gif-->
                     <div class="overlay">
                         <h5>Juan Alberto Badia</h5>
                     </div>
