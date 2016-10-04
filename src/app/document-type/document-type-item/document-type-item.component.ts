@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentType } from '../document-type';
+import { DocumentType } from '../../shared/model/document-type';
 
 import { DocumentTypeService } from '../document-type.service';
 

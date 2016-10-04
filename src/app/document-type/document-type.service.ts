@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Headers, Http, Response, RequestOptions} from "@angular/http";
-import { DocumentType } from './document-type';
-import { ModelResponse } from '../shared/interface/model-response.interface';
+import { DocumentType } from '../shared/model/document-type';
+import { ModelResponse } from '../shared/model/model-response';
 import 'rxjs/add/operator/map';
 
 @Injectable()

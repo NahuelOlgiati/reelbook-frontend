@@ -18,7 +18,7 @@ import { CustomHttpProvider } from "./core/custom-http/custom-http.provider";
 import { AuthGuard } from "./core/auth/auth.guard";
 
 // Services
-import { GrowlMessageService } from './shared/growl-message/growl-message.service';
+import { GrowlMessageService } from './service/growl-message.service';
 import { AuthService } from "./core/auth/auth.service";
 import { DocumentTypeService } from './document-type/document-type.service';
 

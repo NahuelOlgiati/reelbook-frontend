@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { DocumentType } from '../document-type';
+import { DocumentType } from '../../shared/model/document-type';
 import { DocumentTypeService } from '../document-type.service';
-import { GrowlMessageService } from '../../shared/growl-message/growl-message.service';
+import { GrowlMessageService } from '../../service/growl-message.service';
 
 @Component({
   selector: 'rb-document-type-wall',
@@ -11,7 +11,7 @@ import { GrowlMessageService } from '../../shared/growl-message/growl-message.se
 })
 export class DocumentTypeWallComponent implements OnInit {
 
-  private isActive :boolean = false;
+  private isActive: boolean = false;
 
   documentTypes: DocumentType[];
 
@@ -22,6 +22,12 @@ export class DocumentTypeWallComponent implements OnInit {
   constructor(private documentTypeService: DocumentTypeService) { }
 
   ngOnInit() {
+    let a = new Array<DocumentType>();
+    let x1 = new DocumentType(1, 'hola', 'hola');
+    let x2 = new DocumentType(2, 'hola', 'hola');
+    a.push(x1);
+    a.push(x2);
+
     this.documentTypeService.fetchData();
     this.documentTypeService.documentTypesChanged.subscribe(
       (documentTypes: DocumentType[]) => this.documentTypes = documentTypes

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { DocumentType } from '../document-type';
+import { DocumentType } from '../../shared/model/document-type';
 import { DocumentTypeService } from '../document-type.service';
-import { GrowlMessageService } from '../../shared/growl-message/growl-message.service';
+import { GrowlMessageService } from '../../service/growl-message.service';
 
 @Component({
   selector: 'rb-document-type-list',

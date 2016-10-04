@@ -1,6 +1,6 @@
 import { Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CustomHttp } from "./custom-http.http";
-import { GrowlMessageService } from '../../shared/growl-message/growl-message.service';
+import { GrowlMessageService } from '../../service/growl-message.service';
 import { Router } from '@angular/router';
 
 export const CustomHttpProvider = [GrowlMessageService,

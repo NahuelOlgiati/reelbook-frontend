@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 import 'rxjs/Rx';
 
-import { User } from "../../shared/interface/user.interface";
+import { User } from "../../shared/model/user";
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,7 @@ export class AuthService {
     return this.http.post('http://localhost:8080/rest/authentication/signup', body, {
       headers: headers
     })
-      .map((res:Response) => res.json())
+      .map((res: Response) => res.json())
       .catch(error => {
         console.log('Falló signupUser Mapeo');
         console.log(error);
