@@ -14,6 +14,8 @@ export class DocumentTypeWallComponent implements OnInit {
   documentTypes: DocumentType[];
   selectedDocumentTypes: number[] = [];
 
+  deploySelection: boolean = false;
+
   constructor(private documentTypeService: DocumentTypeService) { }
 
   ngOnInit() {
@@ -33,5 +35,11 @@ export class DocumentTypeWallComponent implements OnInit {
 
   isActive(documentType: DocumentType): Boolean {
     return this.selectedDocumentTypes.indexOf(documentType.id) >= 0;
+  }
+
+  getSelectedDocumentTypes(): DocumentType[] {
+    if (this.documentTypes != undefined) 
+    return this.documentTypes.filter(
+      (value: DocumentType, index: number, array: DocumentType[]) => (this.selectedDocumentTypes.indexOf(value.id) >= 0));
   }
 }
