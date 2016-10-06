@@ -302,12 +302,7 @@
 					event.stopPropagation();
 
 					// Hide.
-						$menu._hide();
-
-					// Redirect.
-						window.setTimeout(function() {
-							window.location.href = href;
-						}, 250);
+					$menu._hide();
 
 				});
 
