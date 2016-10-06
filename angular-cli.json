@@ -15,13 +15,16 @@
       "prefix": "rb",
       "mobile": false,
       "styles": [
-        "./assets/sass/main.scss",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
         "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
-        "../node_modules/primeng/resources/primeng.min.css"
+        "../node_modules/primeng/resources/primeng.min.css",
+        "./assets/sass/main.scss"
       ],
       "scripts": [
-        "assets/js/jquery.min.js",
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "assets/js/jquery.scrolly.min.js",
         "assets/js/jquery.scrollex.min.js",
         "assets/js/skel.min.js",

@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ModalModule } from './modal/modal.module';
 import { GrowlModule } from 'primeng/components/growl/growl';
 
 import { SigninComponent } from "./auth/signin.component";
@@ -19,7 +20,7 @@ import { ErrorPageComponent } from "./error-page/error-page.component";
         LogoutComponent,
         ErrorPageComponent
     ],
-    imports: [CommonModule, HttpModule, FormsModule, ReactiveFormsModule, GrowlModule],
-    exports: [LogoutComponent]
+    imports: [CommonModule, HttpModule, FormsModule, ReactiveFormsModule, ModalModule, GrowlModule],
+    exports: [LogoutComponent, ModalModule]
 })
 export class CoreModule { }

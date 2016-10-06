@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // TODO Must Remove
 
 // 3er Party
 import { GrowlModule } from 'primeng/components/growl/growl';
@@ -10,6 +11,7 @@ import { HeaderComponent } from "./layout/header.component";
 import { MenuComponent } from "./layout/menu.component";
 import { FooterComponent } from "./layout/footer.component";
 import { ProtectedComponent } from "./protected/protected.component";
+import { ModalDemoComponent } from "./protected/modal-demo/modal-demo.component";
 
 // Provider
 import { CustomHttpProvider } from "./core/custom-http/custom-http.provider";
@@ -35,9 +37,10 @@ import { DocumentTypeModule } from './document-type/document-type.module';
         HeaderComponent,
         MenuComponent,
         FooterComponent,
-        ProtectedComponent
+        ProtectedComponent,
+        ModalDemoComponent
     ],
-    imports: [BrowserModule, AppRouterModule, GrowlModule, CoreModule, HomeModule, DocumentTypeModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRouterModule, GrowlModule, CoreModule, HomeModule, DocumentTypeModule],
     providers: [
         CustomHttpProvider,
         AuthGuard,
