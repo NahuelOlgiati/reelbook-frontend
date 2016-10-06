@@ -38,7 +38,7 @@ export class ModalDemoComponent {
     }
 
     navigate() {
-        this.router.navigateByUrl('/hello');
+        this.router.navigateByUrl('/home');
     }
 
     open() {

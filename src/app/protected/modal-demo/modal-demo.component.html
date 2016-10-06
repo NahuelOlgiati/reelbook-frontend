@@ -34,58 +34,58 @@
     <h2>Output</h2>
     <pre>{{ output }}</pre>
 
-    <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+    <rb-modal class="modal-center" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
         (onOpen)="opened()" [cssClass]="cssClass" #modal>
-        <modal-header [show-close]="true">
+        <rb-modal-header [show-close]="true">
             <h4 class="modal-title">I'm a modal!</h4>
-        </modal-header>
-        <modal-body>
+        </rb-modal-header>
+        <rb-modal-body>
             <ul>
                 <li *ngFor="let item of items">
                     <a href="#" (click)="$event.preventDefault(); selected = item">{{ item }}</a>
                 </li>
             </ul>
             <p *ngIf="selected">Selected: <b>{{ selected }}</b></p>
-        </modal-body>
-        <modal-footer [show-default-buttons]="true"></modal-footer>
-    </modal>
+        </rb-modal-body>
+        <rb-modal-footer [show-default-buttons]="true"></rb-modal-footer>
+    </rb-modal>
 
-    <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass"
+    <rb-modal class="modal-center" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass"
         #navigateModal>
-        <modal-header [show-close]="true">
+        <rb-modal-header [show-close]="true">
             <h4 class="modal-title">I'm a modal!</h4>
-        </modal-header>
-        <modal-body>
+        </rb-modal-header>
+        <rb-modal-body>
             <p>I will navigate to another route when you close the modal.</p>
-        </modal-body>
-        <modal-footer>
+        </rb-modal-body>
+        <rb-modal-footer>
             <button type="button" class="btn btn-default" data-dismiss="modal" (click)="navigateModal.dismiss()">Close</button>
-            <button type="button" class="btn btn-primary" modal-autofocus (click)="navigateModal.close()">Go</button>
-        </modal-footer>
-    </modal>
+            <button type="button" class="btn btn-primary" rb-modal-autofocus (click)="navigateModal.close()">Go</button>
+        </rb-modal-footer>
+    </rb-modal>
 
-    <modal style="z-index: 1049" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+    <rb-modal class="modal-center" class="modal-center" style="z-index: 1049" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
         (onOpen)="opened()" [cssClass]="cssClass" #parentModal>
-        <modal-header [show-close]="true">
+        <rb-modal-header [show-close]="true">
             <h4 class="modal-title">I'm a modal!</h4>
-        </modal-header>
-        <modal-body>
+        </rb-modal-header>
+        <rb-modal-body>
             <p><strong>Note:</strong> My <code>z-index</code> is set to <code>1049</code>.</p>
             <button type="button" class="btn btn-default" (click)="modal.open()">Open another modal</button>
-        </modal-body>
-        <modal-footer>
+        </rb-modal-body>
+        <rb-modal-footer>
             <button type="button" class="btn btn-default" data-dismiss="modal" (click)="parentModal.dismiss()">Cancel</button>
             <button type="button" class="btn btn-primary" (click)="parentModal.close()">Ok</button>
-        </modal-footer>
-    </modal>
+        </rb-modal-footer>
+    </rb-modal>
 
-    <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+    <rb-modal class="modal-center" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
         (onOpen)="opened()" [cssClass]="cssClass" #validationModal>
         <form #modalForm="ngForm">
-            <modal-header [show-close]="true">
+            <rb-modal-header [show-close]="true">
                 <h4 class="modal-title">I'm a modal!</h4>
-            </modal-header>
-            <modal-body>
+            </rb-modal-header>
+            <rb-modal-body>
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input type="text" class="form-control" required [(ngModel)]="model.firstName" name="firstName" id="firstName">
@@ -94,11 +94,11 @@
                     <label for="lastName">Last Name</label>
                     <input type="text" class="form-control" required [(ngModel)]="model.lastName" name="lastName" id="lastName">
                 </div>
-            </modal-body>
-            <modal-footer>
+            </rb-modal-body>
+            <rb-modal-footer>
                 <button type="button" class="btn btn-default" data-dismiss="modal" (click)="validationModal.dismiss()">Cancel</button>
                 <button type="button" class="btn btn-primary" [disabled]="!modalForm.valid" (click)="validationModal.close()">Save</button>
-            </modal-footer>
+            </rb-modal-footer>
         </form>
-    </modal>
+    </rb-modal>
 </section>

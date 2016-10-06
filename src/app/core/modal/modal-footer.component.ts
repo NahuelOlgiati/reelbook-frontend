@@ -2,7 +2,7 @@ import { Component, Input, Inject } from '@angular/core';
 import { ModalComponent } from './modal.component';
 
 @Component({
-    selector: 'modal-footer',
+    selector: 'rb-modal-footer',
     template: `
         <div class="modal-footer">
             <ng-content></ng-content>
@@ -12,8 +12,10 @@ import { ModalComponent } from './modal.component';
     `
 })
 export class ModalFooterComponent {
+
     @Input('show-default-buttons') showDefaultButtons: boolean = false;
     @Input('dismiss-button-label') dismissButtonLabel: string = 'Dismiss';
     @Input('close-button-label') closeButtonLabel: string = 'Close';
+
     constructor(private modal: ModalComponent) { }
 }

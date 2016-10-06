@@ -2,7 +2,7 @@ import { Component, OnDestroy, Input, Output, EventEmitter, Type, ElementRef, Ho
 import { ModalInstance, ModalResult } from './modal-instance';
 
 @Component({
-    selector: 'modal',
+    selector: 'rb-modal',
     host: {
         'class': 'modal',
         'role': 'dialog',
