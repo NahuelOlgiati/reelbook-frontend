@@ -4,6 +4,24 @@
         text-align: center;
         padding: 0!important;
 
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .modal-header {
+            background-color: _palette(bg-alt);
+        }
+
+        .modal-body {
+            background-color: _palette(bg);
+        }
+
+        .modal-footer {
+            background-color: _palette(bg-alt);
+        }
+
         &:before {
             content: '';
             display: inline-block;
@@ -11,12 +29,10 @@
             vertical-align: middle;
             margin-right: -4px;
         }
+    }
 
-        > .modal-dialog {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
-        }
+    form {
+        margin: 0 !important;
     }
     
 }
