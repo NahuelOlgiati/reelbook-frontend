@@ -1,21 +1,19 @@
-<section id="signin" class="major">
-    <div class="inner">
-        <header class="major">
-            <h2>Please sign in to use all features</h2>
-        </header>
-        <form [formGroup]="myForm" (ngSubmit)="onSignin()">
-            <div class="field half first">
-                <label for="username">User name</label>
-                <input formControlName="username" type="text" id="username" class="form-control">
-            </div>
-            <div class="field half">
-                <label for="password">Password</label>
-                <input formControlName="password" type="password" id="password" class="form-control">
-            </div>
-            <ul class="actions">
-                <li><input type="submit" [disabled]="!myForm.valid" value="Sing in" class="special" /></li>
-                <rb-facebook-signin></rb-facebook-signin>
-            </ul>
-        </form>
+<div>
+    <div class="social-buttons">
+        <rb-facebook-signin></rb-facebook-signin>
+        <a href="#" class="button btn-tw small fit"><i class="fa fa-twitter"></i> Twitter</a>
     </div>
-</section>
+    or
+    <form [formGroup]="myForm" (ngSubmit)="onSignin()">
+        <div class="form-group">
+            <input formControlName="username" placeholder="User Name" type="text" id="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <input formControlName="password" id="password" placeholder="Password" type="password" class="form-control">
+            <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+        </div>
+        <div class="form-group">
+            <input type="submit" [disabled]="!myForm.valid" value="Sing in" class="button special fit" />
+        </div>
+    </form>
+</div>

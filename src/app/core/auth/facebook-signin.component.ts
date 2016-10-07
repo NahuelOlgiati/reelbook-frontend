@@ -4,11 +4,7 @@ declare const FB: any;
 
 @Component({
     selector: 'rb-facebook-signin',
-    template: `
-        <button type="button" class="button next scrolly" (click)="onFacebookLoginClick()">
-            <i class="fa fa-facebook fa-fw"></i> Sign in
-        </button>
-        `
+    template: `<button type="button" class="button btn-fb small fit" (click)="onFacebookLoginClick()"><i class="fa fa-facebook"></i> Facebook</button>`
 })
 export class FacebookSigninComponent implements OnInit {
 

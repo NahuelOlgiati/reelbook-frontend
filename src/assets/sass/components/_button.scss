@@ -121,4 +121,22 @@ button,
 		cursor: default;
 		opacity: 0.25;
 	}
+
+	&.btn-fb {
+        color: #fff;
+        background-color: #3b5998;
+        &:hover {
+            color: #fff;
+            background-color: #496ebc;
+        }
+    }
+
+    &.btn-tw {
+        color: #fff;
+        background-color: #55acee;
+        &:hover {
+            color: #fff;
+            background-color: #59b5fa;
+        }
+    }
 }

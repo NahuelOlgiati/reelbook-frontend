@@ -1,29 +1,19 @@
 <nav id="menu">
   <ul class="links">
     <li><a [routerLink]="['home']">Home</a></li>
-    <li><a [routerLink]="['signup']">Sign Up</a></li>
-    <li><a [routerLink]="['signin']">Sign In</a></li>
     <li><a [routerLink]="['protected']">Protected</a></li>
+
+    <rb-signin></rb-signin>
+
+    <div class="bottom text-center">
+      New here ? <a [routerLink]="['signup']"><b>Join Us</b></a>
+    </div>
+
   </ul>
+  <!--
   <ul class="actions vertical">
     <li><a href="#" class="button special fit">Get Started</a></li>
     <li><a href="#" class="button fit">Log In</a></li>
   </ul>
+  -->
 </nav>
-
-<!--
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-
-      <ul class="nav navbar-nav">
-
-        <li><a [routerLink]="['signup']">Sign Up</a></li>
-        <li><a [routerLink]="['signin']">Sign In</a></li>
-        <li><a [routerLink]="['protected']">Protected</a></li>
-
-      </ul>
-      <rb-logout></rb-logout>
-    </div>
-
-  </nav>
--->

@@ -21,6 +21,6 @@ import { ErrorPageComponent } from "./error-page/error-page.component";
         ErrorPageComponent
     ],
     imports: [CommonModule, HttpModule, FormsModule, ReactiveFormsModule, ModalModule, GrowlModule],
-    exports: [LogoutComponent, ModalModule]
+    exports: [LogoutComponent, ModalModule, SigninComponent]
 })
 export class CoreModule { }

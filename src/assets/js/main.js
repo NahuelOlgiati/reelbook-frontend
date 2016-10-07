@@ -296,10 +296,14 @@
 				})
 				.on('click', 'a', function(event) {
 
-					var href = $(this).attr('href');
-
 					event.preventDefault();
 					event.stopPropagation();
+
+					// Hide.
+					$menu._hide();
+
+				})
+				.on('click', 'input[type="submit"]', function(event) {
 
 					// Hide.
 					$menu._hide();
@@ -308,6 +312,7 @@
 
 			$menu
 				.appendTo($body)
+				/*
 				.on('click', function(event) {
 
 					event.stopPropagation();
@@ -315,7 +320,7 @@
 
 					$body.removeClass('is-menu-visible');
 
-				})
+				})*/
 				.append('<a class="close" href="#menu">Close</a>');
 
 			$body
@@ -328,12 +333,13 @@
 						$menu._toggle();
 
 				})
+				/*
 				.on('click', function(event) {
 
 					// Hide.
 						$menu._hide();
 
-				})
+				})*/
 				.on('keydown', function(event) {
 
 					// Hide on escape.

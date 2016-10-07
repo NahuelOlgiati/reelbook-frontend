@@ -5,8 +5,8 @@ import { GrowlMessageService } from '../../service/growl-message.service';
 import { AuthService } from "./auth.service";
 
 @Component({
-    templateUrl: './signin.component.html',
-    styleUrls: ['./signin.component.scss']
+    selector : 'rb-signin',
+    templateUrl: './signin.component.html'
 })
 export class SigninComponent implements OnInit {
     myForm: FormGroup;
@@ -15,7 +15,7 @@ export class SigninComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private authService: AuthService, private growlMessageService: GrowlMessageService) { }
 
-    onSignin() {
+    onSignin() {        
         this.authService.signinUser(this.myForm.value)
             .subscribe(
             res => {
