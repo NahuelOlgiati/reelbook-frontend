@@ -11,6 +11,7 @@ import { PaginatorModule } from 'primeng/components/paginator/paginator';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { CarouselModule } from 'primeng/components/carousel/carousel';
 import { GrowlModule } from 'primeng/components/growl/growl';
+import { FileUploadModule } from 'primeng/components/fileupload/fileupload';
 
 import { DocumentTypeListComponent } from './document-type-list/document-type-list.component';
 import { DocumentTypeItemComponent } from './document-type-item/document-type-item.component';
@@ -27,7 +28,7 @@ import { UnlessDirective } from './document-type-wall/unless.directive';
         HighlightDirective,
         UnlessDirective
     ],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, AutoCompleteModule, DataTableModule, DataGridModule, DialogModule, PaginatorModule, TabViewModule, CarouselModule, GrowlModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, AutoCompleteModule, DataTableModule, DataGridModule, DialogModule, PaginatorModule, TabViewModule, CarouselModule, GrowlModule, FileUploadModule],
     exports: [DocumentTypeListComponent, DocumentTypeWallComponent]
 })
 export class DocumentTypeModule { }

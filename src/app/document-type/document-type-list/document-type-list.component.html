@@ -13,17 +13,17 @@
     <div class="col-md-6">
       <p-panel header="P-Panel">
         <form [formGroup]="myForm" (ngSubmit)="create()">
-            <div class="field half first">
-                <label for="description">description</label>
-                <input formControlName="description" type="text" id="description" class="form-control">
-            </div>
-            <div class="field half">
-                <label for="summaryDescription">summaryDescription</label>
-                <input formControlName="summaryDescription" type="text" id="summaryDescription" class="form-control">
-            </div>
-            <ul class="actions">
-                <li><input type="submit" value="Add Document Type" class="special" /></li>
-            </ul>
+          <div class="field half first">
+            <label for="description">description</label>
+            <input formControlName="description" type="text" id="description" class="form-control">
+          </div>
+          <div class="field half">
+            <label for="summaryDescription">summaryDescription</label>
+            <input formControlName="summaryDescription" type="text" id="summaryDescription" class="form-control">
+          </div>
+          <ul class="actions">
+            <li><input type="submit" value="Add Document Type" class="special" /></li>
+          </ul>
         </form>
       </p-panel>
     </div>
@@ -31,19 +31,30 @@
     <div class="col-md-6">
       <p-panel header="P-Panel">
         <form [formGroup]="myForm" (ngSubmit)="edit()">
-            <div class="field half first">
-                <label for="description">description</label>
-                <input formControlName="description" type="text" id="description" class="form-control">
-            </div>
-            <div class="field half">
-                <label for="summaryDescription">summaryDescription</label>
-                <input formControlName="summaryDescription" type="text" id="summaryDescription" class="form-control">
-            </div>
-            <ul class="actions">
-                <li><input type="submit" value="Edit Document Type" class="special" /></li>
-            </ul>
+          <div class="field half first">
+            <label for="description">description</label>
+            <input formControlName="description" type="text" id="description" class="form-control">
+          </div>
+          <div class="field half">
+            <label for="summaryDescription">summaryDescription</label>
+            <input formControlName="summaryDescription" type="text" id="summaryDescription" class="form-control">
+          </div>
+          <ul class="actions">
+            <li><input type="submit" value="Edit Document Type" class="special" /></li>
+          </ul>
         </form>
       </p-panel>
+    </div>
+
+    <div class="col-md-6">
+      <p-fileUpload name="uploadedFile" url="http://localhost:8080/rest/documentType/upload" multiple="true" accept="image/*" maxFileSize="1000000">
+        <template let-file pTemplate type="file">
+          <div>Custom UI to display a file</div>
+        </template>
+        <template pTemplate type="content">
+          <div>Custom UI to manage uploaded files</div>
+        </template>
+      </p-fileUpload>
     </div>
 
   </div>
