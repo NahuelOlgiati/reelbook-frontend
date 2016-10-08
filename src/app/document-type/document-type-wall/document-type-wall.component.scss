@@ -29,7 +29,6 @@
         left: 0;
         top: auto;
         bottom: 0;
-        padding: 0.1em;
         background: _palette(highlight);
         color: #3c4a50;
     }
@@ -123,19 +122,17 @@
     background: #337ab7;
     display: inline-flex;
     white-space: nowrap;
-    height: 60px;
     transition: height 1s;
     position: relative;
     overflow: hidden;
     overflow-x: auto;
 
     &.active {
-        height: 250px;
+        height: 150px;
         .selection-item {
             display: inline-table;
-            height: 250px;
-            width: 250px;
-            background-color: #ccc;
+            height: 150px;
+            width: 150px;
             position: relative;
             overflow: auto;
         }
