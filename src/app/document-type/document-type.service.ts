@@ -31,7 +31,7 @@ export class DocumentTypeService {
   }
 
   autocomplete(description: String): Observable<DocumentType> {
-    return this.http.get('http://localhost:8080/rest/documentType/autocomplete:' + description)
+    return this.http.get('http://localhost:8080/rest/documentType/autocomplete:' + description + '?firstResult=0&maxResults=8')
       .map((response: Response) => response.json())
       .map((response: ModelResponse<DocumentType>) => response.model);
   }
