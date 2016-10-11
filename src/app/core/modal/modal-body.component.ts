@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, Type } from '@angular/core';
-import { ModalComponent } from './modal.component';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'rb-modal-body',

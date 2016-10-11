@@ -38,8 +38,26 @@ export class DocumentTypeWallComponent implements OnInit {
   }
 
   getSelectedDocumentTypes(): DocumentType[] {
-    if (this.documentTypes != undefined) 
-    return this.documentTypes.filter(
-      (value: DocumentType, index: number, array: DocumentType[]) => (this.selectedDocumentTypes.indexOf(value.id) >= 0));
+    if (this.documentTypes != undefined)
+      return this.documentTypes.filter(
+        (value: DocumentType, index: number, array: DocumentType[]) => (this.selectedDocumentTypes.indexOf(value.id) >= 0));
   }
+
+  onAutocompletFilter(documentTypes: DocumentType[]) {
+    console.log(this.selectedDocumentTypes);
+    
+    if (documentTypes != undefined)
+      documentTypes.forEach(ace => {
+        let existIn = false;
+        this.selectedDocumentTypes.forEach(se => {
+          if (ace.id == se) existIn = true;
+        });
+
+        if(!existIn)
+          this.selectedDocumentTypes.push(ace.id);
+      });
+
+      console.log(this.selectedDocumentTypes);
+  }
+  
 }

@@ -4,6 +4,15 @@
         <div class="col-md-3">.col-md-3</div>
         <div class="col-md-9">
 
+            <rb-document-type-tag-search (autocompleteSelected)="onAutocompletFilter($event)"></rb-document-type-tag-search>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">.col-md-3</div>
+        <div class="col-md-9">
+
             <div class="col-md-3 col-sm-4 wall-col wall-hover" *ngFor="let documentType of documentTypes">
                 <div class="wall-selection" [ngClass]="{'active': isActive(documentType) }" (click)="onActive(documentType)">
                     <img class="img-responsive" src="http://kyototraditions.com/images/large/11046c%20shoki.jpg" draggable="false">

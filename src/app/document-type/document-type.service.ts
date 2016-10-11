@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Headers, Http, Response, RequestOptions} from "@angular/http";
 import { DocumentType } from '../shared/model/document-type';
 import { ModelResponse } from '../shared/model/model-response';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -29,9 +30,15 @@ export class DocumentTypeService {
       );
   }
 
+  autocomplete(description: String): Observable<DocumentType> {
+    return this.http.get('http://localhost:8080/rest/documentType/autocomplete:' + description)
+      .map((response: Response) => response.json())
+      .map((response: ModelResponse<DocumentType>) => response.model);
+  }
+
   createDocumentType(documentType: DocumentType) {
     return this.http.post('http://localhost:8080/rest/documentType', JSON.stringify(documentType), this.options)
-      .map((response: ModelResponse<DocumentType>) => response.json())
+      .map((response: Response) => response.json())
       .subscribe((res: ModelResponse<DocumentType>) => {
         this.documentTypes.push(res.model);
         this.documentTypesChanged.emit(this.documentTypes);
@@ -41,7 +48,7 @@ export class DocumentTypeService {
 
   editDocumentType(documentType: DocumentType) {
     return this.http.put('http://localhost:8080/rest/documentType', JSON.stringify(documentType), this.options)
-      .map((response: ModelResponse<DocumentType>) => response.json())
+      .map((response: Response) => response.json())
       .subscribe((res: ModelResponse<DocumentType>) => {
         this.documentTypes = this.documentTypes.filter((t, n, arr) => t.id !== res.model.id);
         this.documentTypes.push(res.model);
@@ -52,7 +59,7 @@ export class DocumentTypeService {
 
   removeDocumentType(documentType: DocumentType) {
     return this.http.delete('http://localhost:8080/rest/documentType/' + documentType.id, this.options)
-      .map((response: ModelResponse<DocumentType>) => response.json())
+      .map((response: Response) => response.json())
       .subscribe((res: ModelResponse<DocumentType>) => {
         this.documentTypes = this.documentTypes.filter((t, n, arr) => t.id !== res.model.id);
         this.documentTypesChanged.emit(this.documentTypes);
