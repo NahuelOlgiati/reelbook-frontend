@@ -1,71 +1,52 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions} from "@angular/http";
 import { Artist } from '../shared/model/artist';
 import { ModelResponse } from '../shared/model/model-response';
+import { PagedModelResponse } from '../shared/model/paged-model-response';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ArtistService {
 
-  private BASE_URL = 'http://localhost:8080/rest/';
+  private BASE_URL = 'http://localhost:8080/rest';
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private options = new RequestOptions({ headers: this.headers });
 
-  private artists: Artist[] = [];
-  public artistsChanged = new EventEmitter<Artist[]>();
-
   constructor(private http: Http) { }
 
-  getArtists(): Artist[] {
-    return this.artists;
+  get(modelID: number): Observable<Artist> {
+    return this.http.get(this.BASE_URL + '/artist/get:' + modelID)
+      .map((response: Response) => response.json());
   }
 
-  fetchData() {
-    return this.http.get(this.BASE_URL + 'artist')
+  getList(): Observable<Artist[]> {
+    return this.http.get(this.BASE_URL + '/artist')
       .map((response: Response) => response.json())
-      .subscribe((data: Artist[]) => {
-        this.artists = data;
-        this.artistsChanged.emit(this.artists);
-      }
-      );
+      .map((res: ModelResponse<Artist[]>) => res.model);
   }
 
-  autocomplete(description: String): Observable<Artist> {
-    return this.http.get(this.BASE_URL + 'artist/autocomplete:' + description + '?firstResult=0&maxResults=8')
-      .map((response: Response) => response.json())
-      .map((response: ModelResponse<Artist>) => response.model);
+  getPagedList(description: String, firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
+    return this.http.get(this.BASE_URL + '/artist/pagedlist:' + description + '?firstResult=' + firstResult + '&maxResults=' + maxResults)
+      .map((response: Response) => response.json());
   }
 
-  createDocumentType(artist: Artist): Observable<void> {
-    return this.http.post(this.BASE_URL + 'artist', JSON.stringify(artist), this.options)
+  create(artist: Artist): Observable<Artist> {
+    return this.http.post(this.BASE_URL + '/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => response.json())
-      .map((res: ModelResponse<Artist>) => {
-        this.artists.push(res.model);
-        this.artistsChanged.emit(this.artists);
-      }
-      );
+      .map((res: ModelResponse<Artist>) => res.model);
   }
 
-  editDocumentType(artist: Artist): Observable<void> {
-    return this.http.put(this.BASE_URL + 'artist', JSON.stringify(artist), this.options)
+  update(artist: Artist): Observable<Artist> {
+    return this.http.put(this.BASE_URL + '/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => response.json())
-      .map((res: ModelResponse<Artist>) => {
-        this.artists = this.artists.filter((t, n, arr) => t.id !== res.model.id);
-        this.artists.push(res.model);
-        this.artistsChanged.emit(this.artists);
-      }
-      );
+      .map((res: ModelResponse<Artist>) => res.model);
   }
 
-  removeDocumentType(artist: Artist): Observable<void> {
-    return this.http.delete(this.BASE_URL + 'artist/' + artist.id, this.options)
+  delete(artist: Artist): Observable<Artist> {
+    return this.http.delete(this.BASE_URL + '/artist/' + artist.id, this.options)
       .map((response: Response) => response.json())
-      .map((res: ModelResponse<Artist>) => {
-        this.artists = this.artists.filter((t, n, arr) => t.id !== res.model.id);
-        this.artistsChanged.emit(this.artists);
-      }
-      );
+      .map((res: ModelResponse<Artist>) => res.model);
   }
 
 }

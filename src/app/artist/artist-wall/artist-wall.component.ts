@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Artist } from '../../shared/model/artist';
 import { ArtistService } from '../artist.service';
+import { ArtistManager } from '../artist.manager';
 import { GrowlMessageService } from '../../service/growl-message.service';
 
 @Component({
@@ -12,52 +13,37 @@ import { GrowlMessageService } from '../../service/growl-message.service';
 export class ArtistWallComponent implements OnInit {
 
   artists: Artist[];
-  selectedArtists: number[] = [];
-
+  artistsSelection: number[] = [];
   deploySelection: boolean = false;
 
-  constructor(private artistService: ArtistService) { }
+  constructor(private artistService: ArtistService, private artistManager: ArtistManager) { }
 
   ngOnInit() {
-    this.artistService.fetchData();
-    this.artistService.artistsChanged.subscribe(
-      (artists: Artist[]) => this.artists = artists
-    );
+    this.artistManager.artistsChanged.subscribe((artists: Artist[]) => {
+      this.artists = artists;
+    });
+    this.artistManager.artistsSelectionChanged.subscribe((selection: number[]) => {
+      this.artistsSelection = selection;
+    });
+    this.artistService.getList().subscribe((artists: Artist[]) => {
+      this.artistManager.setList(artists);
+      this.artistManager.artistsChanged.emit(artists);
+    });
   }
 
-  onActive(artist: Artist) {
+  onSelect(artist: Artist) {
     if (this.isActive(artist)) {
-      this.selectedArtists.splice(this.selectedArtists.indexOf(artist.id), 1);
+      this.artistManager.removeFromSelection(artist);
     } else {
-      this.selectedArtists.push(artist.id);
+      this.artistManager.addToSelection(artist);
     }
   }
 
   isActive(artist: Artist): Boolean {
-    return this.selectedArtists.indexOf(artist.id) >= 0;
+    return this.artistManager.isOnSelection(artist);
   }
 
-  getSelectedModels(): Artist[] {
-    if (this.artists != undefined)
-      return this.artists.filter(
-        (value: Artist, index: number, array: Artist[]) => (this.selectedArtists.indexOf(value.id) >= 0));
+  getModelSelection(): Artist[] {
+    return this.artistManager.getModelSelection();
   }
-
-  onAutocompletFilter(artists: Artist[]) {
-    console.log(this.selectedArtists);
-
-    if (artists != undefined)
-      artists.forEach(ace => {
-        let existIn = false;
-        this.selectedArtists.forEach(se => {
-          if (ace.id == se) existIn = true;
-        });
-
-        if (!existIn)
-          this.selectedArtists.push(ace.id);
-      });
-
-    console.log(this.selectedArtists);
-  }
-
 }

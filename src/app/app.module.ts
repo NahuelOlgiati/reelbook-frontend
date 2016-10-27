@@ -24,6 +24,7 @@ import { GrowlMessageService } from './service/growl-message.service';
 import { AuthService } from "./core/auth/auth.service";
 import { DocumentTypeService } from './document-type/document-type.service';
 import { ArtistService } from './artist/artist.service';
+import { ArtistManager } from './artist/artist.manager';
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -49,7 +50,8 @@ import { ArtistModule } from './artist/artist.module';
         AuthService,
         GrowlMessageService,
         DocumentTypeService,
-        ArtistService
+        ArtistService,
+        ArtistManager
     ],
     bootstrap: [AppComponent]
 })

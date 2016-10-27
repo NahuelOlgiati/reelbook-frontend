@@ -1,6 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { ArtistService } from '../artist.service';
+import { ArtistManager } from '../artist.manager';
 import { Artist } from '../../shared/model/artist';
+import { PagedModelResponse } from '../../shared/model/paged-model-response';
 
 @Component({
   selector: 'rb-artist-tag-search',
@@ -9,17 +11,28 @@ import { Artist } from '../../shared/model/artist';
 export class ArtistTagSearchComponent {
 
   text: string;
+  rowCount: number;
   artists: Artist[];
-  @Output() autocompleteSelected = new EventEmitter<Artist[]>();
 
-  constructor(private artistService: ArtistService) {
+  constructor(private artistService: ArtistService, private artistManager: ArtistManager) {
   }
 
   search(event) {
-    this.artistService.autocomplete(event.query).map(
-      (res: any) => {
+    this.artistService.getPagedList(event.query, 0, 8)
+      .map((res: PagedModelResponse<Artist>) => {
+        this.rowCount = res.rowCount;
         this.artists = res.queryList;
-        this.autocompleteSelected.emit(this.artists);
-      }).subscribe();
+      })
+      .subscribe();
+  }
+
+  onAutocompletSelect(artist: Artist) {
+    if (artist != undefined)
+      this.artistManager.addToSelection(artist);
+  }
+
+  onAutocompletUnselect(artist: Artist) {
+    if (artist != undefined)
+      this.artistManager.removeFromSelection(artist);
   }
 }
