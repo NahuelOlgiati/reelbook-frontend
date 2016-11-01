@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Artist } from '../../shared/model/artist';
+import { PagedModelResponse } from '../../shared/model/paged-model-response';
 import { ArtistService } from '../artist.service';
 import { ArtistManager } from '../artist.manager';
 import { GrowlMessageService } from '../../service/growl-message.service';
@@ -15,6 +16,7 @@ export class ArtistWallComponent implements OnInit {
   artists: Artist[];
   artistsSelection: number[] = [];
   deploySelection: boolean = false;
+  rowCount: number = 0;
 
   constructor(private artistService: ArtistService, private artistManager: ArtistManager) { }
 
@@ -25,10 +27,13 @@ export class ArtistWallComponent implements OnInit {
     this.artistManager.artistsSelectionChanged.subscribe((selection: number[]) => {
       this.artistsSelection = selection;
     });
-    this.artistService.getList().subscribe((artists: Artist[]) => {
-      this.artistManager.setList(artists);
-      this.artistManager.artistsChanged.emit(artists);
-    });
+    this.artistService.getPagedList(' ', 0, 8)
+      .map((res: PagedModelResponse<Artist>) => {
+        this.rowCount = res.rowCount;
+        this.artistManager.setList(res.queryList);
+        this.artistManager.artistsChanged.emit(res.queryList);
+      })
+      .subscribe();
   }
 
   onSelect(artist: Artist) {
