@@ -6,7 +6,7 @@
 
             <rb-artist-tag-search></rb-artist-tag-search>
 
-            <p-paginator rows="8" [totalRecords]="rowCount" [rowsPerPageOptions]="[8,16,24]"></p-paginator>
+            <p-paginator rows="8" [totalRecords]="rowCount" [rowsPerPageOptions]="[8,16,24]" (onPageChange)="paginate($event)"></p-paginator>
 
         </div>
     </div>

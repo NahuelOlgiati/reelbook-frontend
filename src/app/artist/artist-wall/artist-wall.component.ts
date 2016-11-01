@@ -51,4 +51,19 @@ export class ArtistWallComponent implements OnInit {
   getModelSelection(): Artist[] {
     return this.artistManager.getModelSelection();
   }
+
+  paginate(event) {
+    console.log(event);
+    this.artistService.getPagedList(' ', (event.rows * event.page), event.rows)
+      .map((res: PagedModelResponse<Artist>) => {
+        this.rowCount = res.rowCount;
+        this.artistManager.setList(res.queryList);
+        this.artistManager.artistsChanged.emit(res.queryList);
+      })
+      .subscribe();
+    //event.first = Index of the first record
+    //event.rows = Number of rows to display in new page
+    //event.page = Index of the new page
+    //event.pageCount = Total number of pages
+  }
 }

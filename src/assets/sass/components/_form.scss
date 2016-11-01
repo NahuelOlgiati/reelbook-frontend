@@ -62,12 +62,13 @@ label {
 	text-transform: uppercase;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="tel"],
-select,
-textarea {
+// Must not affect primeng .ui-widget
+input[type="text"]:not(.ui-widget),
+input[type="password"]:not(.ui-widget),
+input[type="email"]:not(.ui-widget),
+input[type="tel"]:not(.ui-widget),
+select:not(.ui-widget),
+textarea:not(.ui-widget) {
 	@include vendor('appearance', 'none');
 	background: _palette(border-bg);
 	border: none;
