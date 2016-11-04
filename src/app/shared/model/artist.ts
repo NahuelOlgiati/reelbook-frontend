@@ -1,8 +1,11 @@
 import { BaseModel } from './base-model';
+import { File } from './file';
 
 export class Artist extends BaseModel {
 
-    constructor(id: number, public description: string, public summaryDescription: string) {
+    public file: File;
+
+    constructor(id: number, public description: string) {
         super(id);
     }
 

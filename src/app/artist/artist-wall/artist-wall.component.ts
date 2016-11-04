@@ -5,6 +5,7 @@ import { PagedModelResponse } from '../../shared/model/paged-model-response';
 import { ArtistService } from '../artist.service';
 import { ArtistManager } from '../artist.manager';
 import { GrowlMessageService } from '../../service/growl-message.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'rb-artist-wall',
@@ -18,7 +19,7 @@ export class ArtistWallComponent implements OnInit {
   deploySelection: boolean = false;
   rowCount: number = 0;
 
-  constructor(private artistService: ArtistService, private artistManager: ArtistManager) { }
+  constructor(private artistService: ArtistService, private artistManager: ArtistManager, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.artistManager.artistsChanged.subscribe((artists: Artist[]) => {
@@ -65,5 +66,11 @@ export class ArtistWallComponent implements OnInit {
     //event.rows = Number of rows to display in new page
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
+  }
+
+  imgBase64(caca:any) {
+    console.log('HOLA');
+    
+    this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
   }
 }

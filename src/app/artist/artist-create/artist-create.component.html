@@ -1,0 +1,29 @@
+<section id="signup" class="major">
+    <div class="inner">
+        <header class="major">
+            <h2>Please sign up to use all features</h2>
+        </header>
+        <form [formGroup]="myForm" (ngSubmit)="onSignup()">
+            <div class="field">
+                <label for="description">Description</label>
+                <input formControlName="description" type="text" id="description" #description class="form-control">
+            </div>
+            <div class="field">
+                <p-fileUpload name="uploadedFile" url="http://localhost:8080/rest/artist/submit" multiple="true" accept="image/*" maxFileSize="1000000"
+                    (onUpload)="onUpload($event)" (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
+                    <!--
+                    <template pTemplate type="content">
+                        <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let file of uploadedFiles">{{file}}-{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </template>
+                    -->
+                </p-fileUpload>
+            </div>
+
+            <ul class="actions">
+                <input type="button" value="Upload" class="special" (click)="upload()" />
+            </ul>
+        </form>
+    </div>
+</section>
