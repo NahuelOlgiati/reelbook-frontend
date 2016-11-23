@@ -68,9 +68,7 @@ export class ArtistWallComponent implements OnInit {
     //event.pageCount = Total number of pages
   }
 
-  imgBase64(caca:any) {
-    console.log('HOLA');
-    
-    this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
+  imgBase64(caca:any) {   
+    return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
   }
 }
