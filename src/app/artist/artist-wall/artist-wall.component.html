@@ -18,9 +18,8 @@
             <div class="col-md-3 col-sm-4 wall-col wall-hover" *ngFor="let artist of artists">
                 <div class="wall-selection" [ngClass]="{'active': isActive(artist) }" (click)="onSelect(artist)">
                     <img class="img-responsive" [src]="imgBase64(artist.file.content)" draggable="false">
-                    <!--https://67.media.tumblr.com/0077d03c2806b7749b84968544290f65/tumblr_nm3a9vrHa41tv4cyio1_400.gif-->
                     <div class="overlay">
-                        <h5>Juan Alberto Badia</h5>
+                        <h5>{{artist.description}}</h5>
                     </div>
                 </div>
             </div>
@@ -29,7 +28,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3"><test-app></test-app></div>
+        <div class="col-md-3">.col-md3</div>
         <div class="col-md-9">
 
             <div class="selection" [ngClass]="{'active': deploySelection }">
@@ -37,14 +36,18 @@
                     <span class="glyphicon glyphicon-th-large"></span>
                 </div>
 
-                <div class="selection-item wall-col" *ngFor="let documentType of getModelSelection()">
-                    <img class="img-responsive" src="http://www.onmarkproductions.com/assets/images/shoki-kyoto-natl-museum-muromachi-era-by-sesson-TN.jpg"
-                        draggable="false">
+                <div class="selection-item wall-col" *ngFor="let artist of getModelSelection()">
+                    <img class="img-responsive" [src]="imgBase64(artist.file.content)" draggable="false">
                 </div>
             </div>
 
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <crop-test></crop-test>
+        </div>
+    </div>
 
 </div>

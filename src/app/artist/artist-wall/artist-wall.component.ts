@@ -62,10 +62,6 @@ export class ArtistWallComponent implements OnInit {
         this.artistManager.artistsChanged.emit(res.queryList);
       })
       .subscribe();
-    //event.first = Index of the first record
-    //event.rows = Number of rows to display in new page
-    //event.page = Index of the new page
-    //event.pageCount = Total number of pages
   }
 
   imgBase64(caca:any) {   
