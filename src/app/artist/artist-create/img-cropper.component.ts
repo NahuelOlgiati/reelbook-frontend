@@ -4,20 +4,15 @@ import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper'
 @Component({
     selector: 'rb-img-cropper',
     template: `
-        <div class="row">
-        <div class="col-md-9">
-            <h3>source</h3>
-            <img-cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+        <div class="file-upload">
+            <label for="custom-input" class="special">Select Image</label>
+            <input id="custom-input" type="file" style="visibility:hidden;" (change)="fileChangeListener($event)">
         </div>
-        <h3>result</h3>
-        <div class="col-md-3">
-            <span *ngIf="data1.image" >
-                <img [src]="data1.image"
-                    [width]="cropperSettings1.croppedWidth"
-                    [height]="cropperSettings1.croppedHeight">
-            </span>
-        </div>
-        </div> 
+        <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        <br>
+        <span class="result rounded" *ngIf="data.image" >
+            <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+        </span>
     `
 })
 export class ImgCropper {
@@ -25,36 +20,49 @@ export class ImgCropper {
     @ViewChild('cropper')
     public cropper: ImageCropperComponent;
 
-    public data1: any;
-    public cropperSettings1: CropperSettings;
+    public data: any;
+    public cropperSettings: CropperSettings;
 
     constructor() {
-        this.cropperSettings1 = new CropperSettings();
-        this.cropperSettings1.width = 200;
-        this.cropperSettings1.height = 200;
+        this.cropperSettings = new CropperSettings();
+        this.cropperSettings.noFileInput = true;
 
-        this.cropperSettings1.croppedWidth = 200;
-        this.cropperSettings1.croppedHeight = 200;
+        this.cropperSettings.width = 200;
+        this.cropperSettings.height = 200;
 
-        this.cropperSettings1.canvasWidth = 500;
-        this.cropperSettings1.canvasHeight = 300;
+        this.cropperSettings.croppedWidth = 200;
+        this.cropperSettings.croppedHeight = 200;
 
-        this.cropperSettings1.minWidth = 100;
-        this.cropperSettings1.minHeight = 100;
+        this.cropperSettings.canvasWidth = 500;
+        this.cropperSettings.canvasHeight = 300;
 
-        this.cropperSettings1.rounded = false;
-        this.cropperSettings1.responsive = true;
+        this.cropperSettings.minWidth = 100;
+        this.cropperSettings.minHeight = 100;
 
-        this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
-        this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
+        this.cropperSettings.rounded = false;
+        this.cropperSettings.responsive = true;
 
-        this.cropperSettings1.keepAspect = true;
-        this.cropperSettings1.preserveSize = false;
+        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
 
-        this.data1 = {};
+        this.cropperSettings.keepAspect = true;
+        this.cropperSettings.preserveSize = false;
+
+        this.data = {};
     }
 
-    public cropped(bounds: Bounds) {
-        console.log(bounds);
+    fileChangeListener($event) {
+        var image: any = new Image();
+        var file: File = $event.target.files[0];
+        var myReader: FileReader = new FileReader();
+        var that = this;
+        myReader.onloadend = function (loadEvent: any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
+
+        };
+
+        myReader.readAsDataURL(file);
     }
+
 }

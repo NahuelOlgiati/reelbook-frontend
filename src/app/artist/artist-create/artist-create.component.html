@@ -9,23 +9,12 @@
                 <input formControlName="description" type="text" id="description" #description class="form-control">
             </div>
             <div class="field">
+                <rb-img-cropper></rb-img-cropper>
+            </div>
+            <div class="field">
                 <p-fileUpload name="uploadedFile" url="http://localhost:8080/rest/artist/submit" multiple="false" accept="image/*" maxFileSize="1000000"
                     (onUpload)="onUpload($event)" (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
-                    <!--
-                    <template pTemplate type="content">
-                        <ul *ngIf="uploadedFiles.length">
-                            <li *ngFor="let file of uploadedFiles">{{file}}-{{file.name}} - {{file.size}} bytes</li>
-                        </ul>
-                    </template>
-                    -->
-
                 </p-fileUpload>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <rb-img-cropper></rb-img-cropper>
-                </div>
             </div>
 
             <ul class="actions">
