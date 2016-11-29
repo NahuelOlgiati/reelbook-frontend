@@ -11,6 +11,7 @@ import { FacebookSigninComponent } from "./auth/facebook-signin.component";
 import { SignupComponent } from "./auth/signup.component";
 import { LogoutComponent } from "./auth/logout.component";
 import { ErrorPageComponent } from "./error-page/error-page.component";
+import { AvatarComponent } from "./avatar/avatar.component";
 
 @NgModule({
     declarations: [
@@ -18,9 +19,10 @@ import { ErrorPageComponent } from "./error-page/error-page.component";
         FacebookSigninComponent,
         SignupComponent,
         LogoutComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+        AvatarComponent
     ],
     imports: [CommonModule, HttpModule, FormsModule, ReactiveFormsModule, ModalModule, GrowlModule],
-    exports: [LogoutComponent, ModalModule, SigninComponent]
+    exports: [LogoutComponent, ModalModule, SigninComponent, AvatarComponent]
 })
 export class CoreModule { }

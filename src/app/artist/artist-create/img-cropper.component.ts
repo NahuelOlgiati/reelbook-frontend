@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 
 @Component({
-    selector: 'crop-test',
+    selector: 'rb-img-cropper',
     template: `
         <div class="row">
         <div class="col-md-9">
@@ -20,7 +20,7 @@ import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper'
         </div> 
     `
 })
-export class TestComponent {
+export class ImgCropper {
 
     @ViewChild('cropper')
     public cropper: ImageCropperComponent;

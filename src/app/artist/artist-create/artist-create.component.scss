@@ -1,0 +1,44 @@
+@import '../../../assets/sass/libs/index';
+
+#artist-create {
+	@include page;
+	border-bottom: solid 1px _palette(border);
+	overflow-x: hidden;
+
+	@include inner;
+	> .inner {
+		padding: 0 !important;
+
+		> :nth-child(2n - 1) {
+			@include padding(4em, 0, (0, 3em, 0, 0));
+		}
+	}
+
+	&.major {
+		height: 175vh;
+		min-height: 30em;
+		max-height: 50em;
+
+		&.alt {
+			opacity: 0.75;
+		}
+	}
+
+	@include breakpoint(medium) {
+		> .inner {
+			display: block;
+
+			> :nth-child(2n - 1) {
+				@include padding(4em, 0, (0, 0, 0, 0));
+			}
+		}
+	}
+
+	@include breakpoint(small) {
+		> .inner {
+			> :nth-child(2n - 1) {
+				@include padding(3em, 0, (0, 0, 0, 0));
+			}
+		}
+	}
+}		
