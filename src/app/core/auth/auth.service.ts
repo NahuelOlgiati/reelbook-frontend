@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Response, Headers } from "@angular/http";
+import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from 'rxjs/Observable';
 import { Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
@@ -10,6 +10,10 @@ import { User } from "../../shared/model/user";
 @Injectable()
 export class AuthService {
 
+  private BASE_URL = 'http://localhost:8080/rest';
+  private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+  private options = new RequestOptions({ headers: this.headers });
+
   // for change the navbar state between online and offline
   private authenticate = new Subject<boolean>();
   authenticateState$ = this.authenticate.asObservable();
@@ -19,11 +23,7 @@ export class AuthService {
   signupUser(user: User) {
     console.log('Entrando Serv signupUser');
     const body = 'email=' + user.email + '&username=' + user.username + '&password=' + user.password;
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post('http://localhost:8080/rest/authentication/signup', body, {
-      headers: headers
-    })
+    return this.http.post(this.BASE_URL + '/authentication/signup', body, this.headers)
       .map((res: Response) => res.json())
       .catch(error => {
         console.log('Falló signupUser Mapeo');
@@ -35,11 +35,7 @@ export class AuthService {
   signinUser(user: User) {
     console.log('Entrando Serv signinUser');
     const body = 'username=' + user.username + '&password=' + user.password;
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post('http://localhost:8080/rest/authentication/signin', body, {
-      headers: headers
-    })
+    return this.http.post(this.BASE_URL + '/authentication/signin', body, this.headers)
       .map(res => res.json())
       .catch(error => {
         console.log('Falló signinUser Mapeo');

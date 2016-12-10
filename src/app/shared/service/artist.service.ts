@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions} from "@angular/http";
-import { Artist } from '../shared/model/artist';
-import { ModelResponse } from '../shared/model/model-response';
-import { PagedModelResponse } from '../shared/model/paged-model-response';
+import { Artist } from '../model/artist';
+import { ModelResponse } from '../model/core/model-response';
+import { PagedModelResponse } from '../model/core/paged-model-response';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 

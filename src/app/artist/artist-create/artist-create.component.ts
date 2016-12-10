@@ -1,12 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Headers, Http, Response, RequestOptions} from "@angular/http";
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Artist } from '../../shared/model/artist';
-import { PagedModelResponse } from '../../shared/model/paged-model-response';
-import { ArtistService } from '../artist.service';
-import { ArtistManager } from '../artist.manager';
-import { GrowlMessageService } from '../../service/growl-message.service';
-import { AuthService } from "../../core/auth/auth.service";
 
 @Component({
     selector: 'rb-artist-create',
@@ -20,7 +14,7 @@ export class ArtistCreateComponent implements OnInit {
     myForm: FormGroup;
     uploadedFiles: any[] = [];
 
-    constructor(private fb: FormBuilder, private authService: AuthService, private growlMessageService: GrowlMessageService) { }
+    constructor(private fb: FormBuilder) { }
 
     ngOnInit(): any {
         this.myForm = this.fb.group({

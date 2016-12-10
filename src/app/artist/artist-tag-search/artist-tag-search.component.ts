@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ArtistService } from '../artist.service';
-import { ArtistManager } from '../artist.manager';
+import { ArtistService } from '../../shared/service/artist.service';
+import { ArtistManager } from '../../shared/manager/artist.manager';
 import { Artist } from '../../shared/model/artist';
-import { PagedModelResponse } from '../../shared/model/paged-model-response';
+import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
 
 @Component({
   selector: 'rb-artist-tag-search',

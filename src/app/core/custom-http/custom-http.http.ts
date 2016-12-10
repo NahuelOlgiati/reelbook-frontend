@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, ConnectionBackend, Request, RequestOptions, RequestOptionsArgs, RequestMethod, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
-import { GrowlMessageService } from '../../service/growl-message.service';
+import { GrowlMessageService } from '../../shared/service/growl-message.service';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()

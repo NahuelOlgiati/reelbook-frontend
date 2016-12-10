@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Artist } from '../../shared/model/artist';
-import { PagedModelResponse } from '../../shared/model/paged-model-response';
-import { ArtistService } from '../artist.service';
-import { ArtistManager } from '../artist.manager';
-import { GrowlMessageService } from '../../service/growl-message.service';
+import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
+import { ArtistService } from '../../shared/service/artist.service';
+import { ArtistManager } from '../../shared/manager/artist.manager';
+import { GrowlMessageService } from '../../shared/service/growl-message.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({

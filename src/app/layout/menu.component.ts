@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { AuthService } from "../core/auth/auth.service";
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
     selector: 'rb-menu',
@@ -9,12 +10,20 @@ import { AuthService } from "../core/auth/auth.service";
 })
 export class MenuComponent {
 
-    constructor(private authService: AuthService) { }
+    cities: SelectItem[];
+    selectedCity: string;
+
+    constructor(private authService: AuthService) {
+        this.cities = [];
+        this.cities.push({ label: 'Artista', value: 'ARTIST' });
+        this.cities.push({ label: 'Productora', value: 'PRODUCER' });
+        this.selectedCity = 'ARTIST';
+    }
 
     isAuth() {
         return this.authService.isAuthenticated();
     }
-    
+
     public avatarDataSquare: any = {
         size: 40,
         background: '#F39C12', // by default it will produce dynamic colors

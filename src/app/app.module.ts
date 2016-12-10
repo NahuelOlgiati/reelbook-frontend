@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule  } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // TODO Must Remove
 
 // 3er Party
 import { GrowlModule } from 'primeng/components/growl/growl';
+import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
 
 // Components
-import { AppComponent }   from './app.component';
+import { AppComponent } from './app.component';
 import { HeaderComponent } from "./layout/header.component";
 import { MenuComponent } from "./layout/menu.component";
 import { FooterComponent } from "./layout/footer.component";
@@ -20,11 +21,13 @@ import { CustomHttpProvider } from "./core/custom-http/custom-http.provider";
 import { AuthGuard } from "./core/auth/auth.guard";
 
 // Services
-import { GrowlMessageService } from './service/growl-message.service';
+import { GrowlMessageService } from './shared/service/growl-message.service';
 import { AuthService } from "./core/auth/auth.service";
 import { DocumentTypeService } from './document-type/document-type.service';
-import { ArtistService } from './artist/artist.service';
-import { ArtistManager } from './artist/artist.manager';
+import { ArtistService } from './shared/service/artist.service';
+import { ArtistManager } from './shared/manager/artist.manager';
+import { UserService } from './shared/service/user.service';
+import { UserManager } from './shared/manager/user.manager';
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -43,7 +46,9 @@ import { ArtistModule } from './artist/artist.module';
         ProtectedComponent,
         ModalDemoComponent
     ],
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRouterModule, GrowlModule, CoreModule, HomeModule, DocumentTypeModule, ArtistModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule,
+        GrowlModule, SelectButtonModule,
+        AppRouterModule, CoreModule, HomeModule, DocumentTypeModule, ArtistModule],
     providers: [
         CustomHttpProvider,
         AuthGuard,
@@ -51,7 +56,9 @@ import { ArtistModule } from './artist/artist.module';
         GrowlMessageService,
         DocumentTypeService,
         ArtistService,
-        ArtistManager
+        ArtistManager,
+        UserService,
+        UserManager
     ],
     bootstrap: [AppComponent]
 })

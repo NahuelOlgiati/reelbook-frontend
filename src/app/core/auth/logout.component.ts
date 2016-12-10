@@ -1,5 +1,5 @@
 import { Component} from "@angular/core";
-import { GrowlMessageService } from '../../service/growl-message.service';
+import { GrowlMessageService } from '../../shared/service/growl-message.service';
 import { AuthService } from "./auth.service";
 
 @Component({
