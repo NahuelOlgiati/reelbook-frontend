@@ -15,14 +15,14 @@ import { ProtectedComponent } from "./protected/protected.component";
 import { ModalDemoComponent } from "./protected/modal-demo/modal-demo.component";
 
 // Provider
-import { CustomHttpProvider } from "./core/custom-http/custom-http.provider";
+import { CustomHttpProvider } from "./shared/service/core/custom-http.provider";
 
 // Guard
-import { AuthGuard } from "./core/auth/auth.guard";
+import { AuthGuard } from "./shared/service/core/auth.guard";
 
 // Services
-import { GrowlMessageService } from './shared/service/growl-message.service';
-import { AuthService } from "./core/auth/auth.service";
+import { GrowlMessageService } from './shared/service/core/growl-message.service';
+import { AuthService } from "./shared/service/core/auth.service";
 import { DocumentTypeService } from './document-type/document-type.service';
 import { ArtistService } from './shared/service/artist.service';
 import { ArtistManager } from './shared/manager/artist.manager';

@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 import 'rxjs/Rx';
 
-import { User } from "../../shared/model/user";
+import { User } from "../../model/user";
 
 @Injectable()
 export class AuthService {

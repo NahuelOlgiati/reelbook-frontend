@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { AuthService } from "../core/auth/auth.service";
+import { AuthService } from "../shared/service/core/auth.service";
 import { SelectItem } from 'primeng/primeng';
 
 @Component({

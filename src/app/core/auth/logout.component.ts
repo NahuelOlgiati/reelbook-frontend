@@ -1,6 +1,6 @@
 import { Component} from "@angular/core";
-import { GrowlMessageService } from '../../shared/service/growl-message.service';
-import { AuthService } from "./auth.service";
+import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
+import { AuthService } from "../../shared/service/core/auth.service";
 
 @Component({
     selector: 'rb-logout',

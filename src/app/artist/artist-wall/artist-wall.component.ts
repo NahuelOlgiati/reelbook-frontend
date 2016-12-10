@@ -4,8 +4,7 @@ import { Artist } from '../../shared/model/artist';
 import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
 import { ArtistService } from '../../shared/service/artist.service';
 import { ArtistManager } from '../../shared/manager/artist.manager';
-import { GrowlMessageService } from '../../shared/service/growl-message.service';
-import {DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'rb-artist-wall',
@@ -64,7 +63,7 @@ export class ArtistWallComponent implements OnInit {
       .subscribe();
   }
 
-  imgBase64(caca:any) {   
+  imgBase64(caca: any) {
     return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
   }
 }

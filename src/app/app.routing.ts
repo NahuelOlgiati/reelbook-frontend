@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 
-import { AuthGuard } from "./core/auth/auth.guard";
+import { AuthGuard } from "./shared/service/core/auth.guard";
 import { SignupComponent } from "./core/auth/signup.component";
 import { ErrorPageComponent } from "./core/error-page/error-page.component";
 import { HomeComponent } from "./home/home.component";

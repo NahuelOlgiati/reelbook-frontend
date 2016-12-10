@@ -1,7 +1,7 @@
-import { Component, OnInit , ViewEncapsulation} from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
-import { GrowlMessageService } from '../../shared/service/growl-message.service';
-import { AuthService } from "./auth.service";
+import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
+import { AuthService } from "../../shared/service/core/auth.service";
 
 @Component({
     templateUrl: './signup.component.html',

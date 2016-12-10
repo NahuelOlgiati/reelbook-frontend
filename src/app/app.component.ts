@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Message } from 'primeng/primeng';
 
-import { GrowlMessageService } from "./shared/service/growl-message.service";
+import { GrowlMessageService } from "./shared/service/core/growl-message.service";
 
 @Component({
   selector: 'rb-root',
