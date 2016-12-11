@@ -23,9 +23,10 @@ import { AuthGuard } from "./shared/service/core/auth.guard";
 // Services
 import { GrowlMessageService } from './shared/service/core/growl-message.service';
 import { AuthService } from "./shared/service/core/auth.service";
+import { SessionService } from "./shared/service/core/session.service";
 import { DocumentTypeService } from './document-type/document-type.service';
 import { ArtistService } from './shared/service/artist.service';
-import { ArtistManager } from './shared/manager/artist.manager';
+import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
 import { UserService } from './shared/service/user.service';
 import { UserManager } from './shared/manager/user.manager';
 
@@ -53,10 +54,11 @@ import { ArtistModule } from './artist/artist.module';
         CustomHttpProvider,
         AuthGuard,
         AuthService,
+        SessionService,
         GrowlMessageService,
         DocumentTypeService,
         ArtistService,
-        ArtistManager,
+        ArtistWallManager,
         UserService,
         UserManager
     ],

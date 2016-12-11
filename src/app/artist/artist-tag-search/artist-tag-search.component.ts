@@ -1,38 +1,41 @@
 import { Component } from '@angular/core';
-import { ArtistService } from '../../shared/service/artist.service';
-import { ArtistManager } from '../../shared/manager/artist.manager';
+import { ArtistWallManager } from '../artist-wall/artist-wall.manager';
 import { Artist } from '../../shared/model/artist';
 import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
 
 @Component({
-  selector: 'rb-artist-tag-search',
-  templateUrl: 'artist-tag-search.component.html'
+    selector: 'rb-artist-tag-search',
+    templateUrl: 'artist-tag-search.component.html'
 })
 export class ArtistTagSearchComponent {
 
-  text: string;
-  rowCount: number;
-  artists: Artist[];
+    selection: Artist[];
+    artists: Artist[];
 
-  constructor(private artistService: ArtistService, private artistManager: ArtistManager) {
-  }
+    constructor(private artistWallManager: ArtistWallManager) {
+    }
 
-  search(event) {
-    this.artistService.getPagedList(event.query, 0, 8)
-      .map((res: PagedModelResponse<Artist>) => {
-        this.rowCount = res.rowCount;
-        this.artists = res.queryList;
-      })
-      .subscribe();
-  }
+    search(event) {
+        this.artistWallManager.getPagedList(event.query, 0, 8)
+            .map((res: PagedModelResponse<Artist>) => {
+                this.artists = res.queryList;
+            })
+            .subscribe();
+    }
 
-  onAutocompletSelect(artist: Artist) {
-    if (artist != undefined)
-      this.artistManager.addToSelection(artist);
-  }
-
-  onAutocompletUnselect(artist: Artist) {
-    if (artist != undefined)
-      this.artistManager.removeFromSelection(artist);
-  }
+    tagFilter(){
+      var artistDescriptions: string[] = [];
+      for (var _i = 0; _i < this.selection.length; _i++) {
+          var artist = this.selection[_i];
+          artistDescriptions.push(artist.description);
+      }
+      this.artistWallManager.getPagedlistWithTags(artistDescriptions, 0, 8)
+            .map((res: PagedModelResponse<Artist>) => {
+                this.artists = res.queryList;
+                this.artistWallManager.setList(this.artists);
+                this.artistWallManager.setRowCount(res.rowCount);
+                this.artistWallManager.artistsChanged.emit(true);
+            })
+            .subscribe();
+    }
 }

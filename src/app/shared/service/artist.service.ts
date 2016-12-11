@@ -31,6 +31,16 @@ export class ArtistService {
       .map((response: Response) => response.json());
   }
 
+  getPagedlistWithTags(tags: String[], firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
+    var tagsParameter = '';
+    for (var _i = 0; _i < tags.length; _i++) {
+        var tag = tags[_i];
+        tagsParameter = tagsParameter + '&tag=' + tag; 
+    }
+    return this.http.get(this.BASE_URL + '/artist/withtags?firstResult=' + firstResult + '&maxResults=' + maxResults + tagsParameter)
+      .map((response: Response) => response.json());
+  }
+
   create(artist: Artist): Observable<Artist> {
     return this.http.post(this.BASE_URL + '/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => response.json())

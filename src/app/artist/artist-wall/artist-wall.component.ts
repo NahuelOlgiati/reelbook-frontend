@@ -2,68 +2,55 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Artist } from '../../shared/model/artist';
 import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
-import { ArtistService } from '../../shared/service/artist.service';
-import { ArtistManager } from '../../shared/manager/artist.manager';
+import { ArtistWallManager } from './artist-wall.manager';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'rb-artist-wall',
-  templateUrl: 'artist-wall.component.html',
-  styleUrls: ['./artist-wall.component.scss']
+    selector: 'rb-artist-wall',
+    templateUrl: 'artist-wall.component.html',
+    styleUrls: ['./artist-wall.component.scss']
 })
 export class ArtistWallComponent implements OnInit {
 
-  artists: Artist[];
-  artistsSelection: number[] = [];
-  deploySelection: boolean = false;
-  rowCount: number = 0;
+    artists: Artist[];
+    artistsSelection: number[] = [];
+    deploySelection: boolean = false;
+    rowCount: number = 0;
 
-  constructor(private artistService: ArtistService, private artistManager: ArtistManager, private sanitizer: DomSanitizer) { }
+    constructor(private artistWallManager: ArtistWallManager, private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
-    this.artistManager.artistsChanged.subscribe((artists: Artist[]) => {
-      this.artists = artists;
-    });
-    this.artistManager.artistsSelectionChanged.subscribe((selection: number[]) => {
-      this.artistsSelection = selection;
-    });
-    this.artistService.getPagedList(' ', 0, 8)
-      .map((res: PagedModelResponse<Artist>) => {
-        this.rowCount = res.rowCount;
-        this.artistManager.setList(res.queryList);
-        this.artistManager.artistsChanged.emit(res.queryList);
-      })
-      .subscribe();
-  }
-
-  onSelect(artist: Artist) {
-    if (this.isActive(artist)) {
-      this.artistManager.removeFromSelection(artist);
-    } else {
-      this.artistManager.addToSelection(artist);
+    ngOnInit() {
+        this.artistWallManager.artistsChanged.subscribe((artists: Artist[]) => {
+            this.artists = this.artistWallManager.getList();
+            this.rowCount = this.artistWallManager.getRowCount();
+        });
+        this.artistWallManager.artistsSelectionChanged.subscribe((selection: number[]) => {
+            this.artistsSelection = selection;
+        });
+        this.artistWallManager.fetch(' ', 0, 8);
     }
-  }
 
-  isActive(artist: Artist): Boolean {
-    return this.artistManager.isOnSelection(artist);
-  }
+    onSelect(artist: Artist) {
+        if (this.isActive(artist)) {
+            this.artistWallManager.removeFromSelection(artist);
+        } else {
+            this.artistWallManager.addToSelection(artist);
+        }
+    }
 
-  getModelSelection(): Artist[] {
-    return this.artistManager.getModelSelection();
-  }
+    isActive(artist: Artist): Boolean {
+        return this.artistWallManager.isOnSelection(artist);
+    }
 
-  paginate(event) {
-    console.log(event);
-    this.artistService.getPagedList(' ', (event.rows * event.page), event.rows)
-      .map((res: PagedModelResponse<Artist>) => {
-        this.rowCount = res.rowCount;
-        this.artistManager.setList(res.queryList);
-        this.artistManager.artistsChanged.emit(res.queryList);
-      })
-      .subscribe();
-  }
+    getModelSelection(): Artist[] {
+        return this.artistWallManager.getModelSelection();
+    }
 
-  imgBase64(caca: any) {
-    return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
-  }
+    paginate(event) {
+        this.artistWallManager.fetch(' ', (event.rows * event.page), event.rows);
+    }
+
+    imgBase64(caca: any) {
+        return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
+    }
 }
