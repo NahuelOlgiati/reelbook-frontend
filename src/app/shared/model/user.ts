@@ -4,7 +4,7 @@ export class User extends BaseModel {
 
     public confirmPassword: string;
 
-    constructor(id: number, public email: string, public username: string, public password: string) {
+    constructor(id: number, public email: string, public userName: string, public password: string) {
         super(id);
     }
 

@@ -24,11 +24,11 @@ import { AuthGuard } from "./shared/service/core/auth.guard";
 import { GrowlMessageService } from './shared/service/core/growl-message.service';
 import { AuthService } from "./shared/service/core/auth.service";
 import { SessionService } from "./shared/service/core/session.service";
+import { SessionManager } from "./shared/manager/core/session.manager";
 import { DocumentTypeService } from './document-type/document-type.service';
 import { ArtistService } from './shared/service/artist.service';
 import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
 import { UserService } from './shared/service/user.service';
-import { UserManager } from './shared/manager/user.manager';
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -55,12 +55,12 @@ import { ArtistModule } from './artist/artist.module';
         AuthGuard,
         AuthService,
         SessionService,
+        SessionManager,
         GrowlMessageService,
         DocumentTypeService,
         ArtistService,
         ArtistWallManager,
-        UserService,
-        UserManager
+        UserService
     ],
     bootstrap: [AppComponent]
 })

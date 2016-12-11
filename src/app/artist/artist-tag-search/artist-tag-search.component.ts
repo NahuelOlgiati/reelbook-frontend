@@ -23,19 +23,21 @@ export class ArtistTagSearchComponent {
             .subscribe();
     }
 
-    tagFilter(){
-      var artistDescriptions: string[] = [];
-      for (var _i = 0; _i < this.selection.length; _i++) {
-          var artist = this.selection[_i];
-          artistDescriptions.push(artist.description);
-      }
-      this.artistWallManager.getPagedlistWithTags(artistDescriptions, 0, 8)
-            .map((res: PagedModelResponse<Artist>) => {
-                this.artists = res.queryList;
-                this.artistWallManager.setList(this.artists);
-                this.artistWallManager.setRowCount(res.rowCount);
-                this.artistWallManager.artistsChanged.emit(true);
-            })
-            .subscribe();
+    tagFilter() {
+        if (this.selection) {
+            var artistDescriptions: string[] = [];
+            for (var _i = 0; _i < this.selection.length; _i++) {
+                var artist = this.selection[_i];
+                artistDescriptions.push(artist.description);
+            }
+            this.artistWallManager.getPagedlistWithTags(artistDescriptions, 0, 8)
+                .map((res: PagedModelResponse<Artist>) => {
+                    this.artists = res.queryList;
+                    this.artistWallManager.setList(this.artists);
+                    this.artistWallManager.setRowCount(res.rowCount);
+                    this.artistWallManager.artistsChanged.emit(true);
+                })
+                .subscribe();
+        }
     }
 }

@@ -1,5 +1,7 @@
-import { Component, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { AuthService } from "../shared/service/core/auth.service";
+import { SessionManager } from "../shared/manager/core/session.manager";
+import { User } from '../shared/model/user';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
@@ -8,16 +10,24 @@ import { SelectItem } from 'primeng/primeng';
     styleUrls: ['./menu.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
 
     cities: SelectItem[];
     selectedCity: string;
+    userName : string;
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private sessionManager: SessionManager) {
         this.cities = [];
         this.cities.push({ label: 'Artista', value: 'ARTIST' });
         this.cities.push({ label: 'Productora', value: 'PRODUCER' });
         this.selectedCity = 'ARTIST';
+        this.userName = this.sessionManager.getUserName();
+    }
+
+    ngOnInit() {
+        this.sessionManager.userChanged.subscribe((user: User) => {
+            this.userName = this.sessionManager.getUserName();
+        });
     }
 
     isAuth() {

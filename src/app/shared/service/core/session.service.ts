@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions } from "@angular/http";
-import { User } from '../../../shared/model/user';
+import { User } from '../../model/user';
+import { ModelResponse } from '../../model/core/model-response';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
@@ -8,14 +9,14 @@ import 'rxjs/add/operator/map';
 export class SessionService {
 
   private BASE_URL = 'http://localhost:8080/rest';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
 
-  getUser(): Observable<User> {
+  getUser(): Observable<ModelResponse<User>> {
     const body = 'token=' + localStorage.getItem('token');
-    return this.http.post(this.BASE_URL + '/session/user', body, this.headers)
+    return this.http.post(this.BASE_URL + '/session/user', body, this.options)
       .map((response: Response) => response.json());
   }
 }

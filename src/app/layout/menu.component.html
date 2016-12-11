@@ -4,6 +4,7 @@
     <li><a [routerLink]="['protected']">Protected</a></li>
 
     <rb-signin *ngIf="!isAuth()"></rb-signin>
+    {{userName}}
     <rb-avatar *ngIf="isAuth()" [avatardata]="avatarDataSquare"></rb-avatar>
     <p-selectButton [options]="cities" [(ngModel)]="selectedCity"></p-selectButton>
 

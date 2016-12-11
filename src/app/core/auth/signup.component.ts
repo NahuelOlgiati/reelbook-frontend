@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
                 Validators.required,
                 this.isEmail
             ])],
-            username: ['', Validators.required],
+            userName: ['', Validators.required],
             password: ['', Validators.required],
             confirmPassword: ['', Validators.compose([
                 Validators.required,
