@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from 'rxjs/Observable';
 import { Router } from "@angular/router";
-import { Subject } from "rxjs/Subject";
 import 'rxjs/Rx';
 import { User } from "../../model/user";
 
@@ -12,9 +11,6 @@ export class AuthService {
     private BASE_URL = 'http://localhost:8080/rest';
     private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     private options = new RequestOptions({ headers: this.headers });
-
-    private authenticate = new Subject<boolean>();
-    authenticateState$ = this.authenticate.asObservable();
 
     constructor(private http: Http, private router: Router) { }
 
@@ -37,25 +33,5 @@ export class AuthService {
                 console.log('Falló signinUser Mapeo');
                 return Observable.throw(error.json());
             });
-    }
-
-    logout(): void {
-        localStorage.removeItem('token');
-        this.authenticate.next(false);
-    }
-
-    saveToken(token: string): void {
-        localStorage.setItem('token', token);
-        this.authenticate.next(true);
-    }
-
-    isAuthenticated(): boolean {
-        let isAuth: boolean;
-        if (localStorage.getItem('token')) {
-            isAuth = true;
-        } else {
-            isAuth = false;
-        }
-        return isAuth;
     }
 }

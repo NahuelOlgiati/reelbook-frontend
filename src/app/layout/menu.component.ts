@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { AuthService } from "../shared/service/core/auth.service";
 import { SessionManager } from "../shared/manager/core/session.manager";
 import { User } from '../shared/model/user';
 import { SelectItem } from 'primeng/primeng';
@@ -16,7 +15,7 @@ export class MenuComponent implements OnInit{
     selectedCity: string;
     userName : string;
 
-    constructor(private authService: AuthService, private sessionManager: SessionManager) {
+    constructor(private sessionManager: SessionManager) {
         this.cities = [];
         this.cities.push({ label: 'Artista', value: 'ARTIST' });
         this.cities.push({ label: 'Productora', value: 'PRODUCER' });
@@ -31,7 +30,7 @@ export class MenuComponent implements OnInit{
     }
 
     isAuth() {
-        return this.authService.isAuthenticated();
+        return this.sessionManager.isAuthenticated();
     }
 
     public avatarDataSquare: any = {

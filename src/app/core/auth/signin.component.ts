@@ -20,8 +20,7 @@ export class SigninComponent implements OnInit {
         this.authService.signinUser(this.myForm.value)
             .subscribe((res: ModelResponse<string>) => {
                 if (res.success) {
-                    this.authService.saveToken(res.model);
-                    this.sessionManager.fetch();
+                    this.sessionManager.authenticate(res.model);
                     this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
                 }
             })

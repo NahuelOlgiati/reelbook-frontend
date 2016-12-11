@@ -11,15 +11,42 @@ export class SessionManager {
 
   private user: User;
   public userChanged = new EventEmitter<User>();
+  public tokenChanged = new EventEmitter<string>();
 
   constructor(private sessionService: SessionService) { }
 
-  fetch(): void {
+  authenticate(token: string): void {
+    this.saveToken(token);
+    this.fetchUser();
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+    this.tokenChanged.emit(localStorage.getItem('token'))
+  }
+
+  fetchUser(): void {
     this.sessionService.getUser()
       .map((res: ModelResponse<User>) => {
         this.setUser(res.model);
       }
       ).subscribe();
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.setUser(undefined);
+    this.tokenChanged.emit(localStorage.getItem('token'))
+  }
+
+  isAuthenticated(): boolean {
+    let isAuth: boolean;
+    if (localStorage.getItem('token')) {
+      isAuth = true;
+    } else {
+      isAuth = false;
+    }
+    return isAuth;
   }
 
   getUser(): User {
@@ -32,9 +59,9 @@ export class SessionManager {
   }
 
   getUserName(): string {
-    if(this.user){
+    if (this.user) {
       return this.user.userName;
-    }else {
+    } else {
       return '';
     }
   }

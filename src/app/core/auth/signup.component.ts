@@ -21,7 +21,6 @@ export class SignupComponent implements OnInit {
             .subscribe(
             res => {
                 if (res.success) {
-                    this.authService.saveToken(res.body);
                     this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
                 } else {
                     this.growlMessageService.notifyError([{ severity: 'error', summary: 'ErrorInfo Message', detail: 'Signin Unsuccessful' }]);
