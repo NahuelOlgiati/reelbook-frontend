@@ -5,29 +5,29 @@ import { ModelResponse } from '../model/core/model-response';
 import { PagedModelResponse } from '../model/core/paged-model-response';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ArtistService {
 
-  private BASE_URL = 'http://localhost:8080/rest';
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
 
   get(modelID: number): Observable<Artist> {
-    return this.http.get(this.BASE_URL + '/artist/get:' + modelID)
+    return this.http.get(environment.baseUrl + '/artist/get:' + modelID)
       .map((response: Response) => response.json());
   }
 
   getList(): Observable<Artist[]> {
-    return this.http.get(this.BASE_URL + '/artist')
+    return this.http.get(environment.baseUrl + '/artist')
       .map((response: Response) => response.json())
       .map((res: ModelResponse<Artist[]>) => res.model);
   }
 
   getPagedList(description: String, firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
-    return this.http.get(this.BASE_URL + '/artist/pagedlist:' + description + '?firstResult=' + firstResult + '&maxResults=' + maxResults)
+    return this.http.get(environment.baseUrl + '/artist/pagedlist:' + description + '?firstResult=' + firstResult + '&maxResults=' + maxResults)
       .map((response: Response) => response.json());
   }
 
@@ -37,24 +37,24 @@ export class ArtistService {
         var tag = tags[_i];
         tagsParameter = tagsParameter + '&tag=' + tag; 
     }
-    return this.http.get(this.BASE_URL + '/artist/withtags?firstResult=' + firstResult + '&maxResults=' + maxResults + tagsParameter)
+    return this.http.get(environment.baseUrl + '/artist/withtags?firstResult=' + firstResult + '&maxResults=' + maxResults + tagsParameter)
       .map((response: Response) => response.json());
   }
 
   create(artist: Artist): Observable<Artist> {
-    return this.http.post(this.BASE_URL + '/artist', JSON.stringify(artist), this.options)
+    return this.http.post(environment.baseUrl + '/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => response.json())
       .map((res: ModelResponse<Artist>) => res.model);
   }
 
   update(artist: Artist): Observable<Artist> {
-    return this.http.put(this.BASE_URL + '/artist', JSON.stringify(artist), this.options)
+    return this.http.put(environment.baseUrl + '/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => response.json())
       .map((res: ModelResponse<Artist>) => res.model);
   }
 
   delete(artist: Artist): Observable<Artist> {
-    return this.http.delete(this.BASE_URL + '/artist/' + artist.id, this.options)
+    return this.http.delete(environment.baseUrl + '/artist/' + artist.id, this.options)
       .map((response: Response) => response.json())
       .map((res: ModelResponse<Artist>) => res.model);
   }

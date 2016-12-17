@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { SessionManager } from "../shared/manager/core/session.manager";
 import { User } from '../shared/model/user';
 import { SelectItem } from 'primeng/primeng';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'rb-menu',
@@ -14,6 +15,7 @@ export class MenuComponent implements OnInit{
     cities: SelectItem[];
     selectedCity: string;
     userName : string;
+    environmentName = environment.envName;
 
     constructor(private sessionManager: SessionManager) {
         this.cities = [];

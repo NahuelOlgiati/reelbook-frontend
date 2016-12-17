@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from "@angular/router";
 import 'rxjs/Rx';
 import { User } from "../../model/user";
+import { environment } from "../../../../environments/environment";
 
 @Injectable()
 export class AuthService {
 
-    private BASE_URL = 'http://localhost:8080/rest';
     private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     private options = new RequestOptions({ headers: this.headers });
 
@@ -16,7 +16,7 @@ export class AuthService {
 
     signupUser(user: User) {
         const body = 'email=' + user.email + '&userName=' + user.userName + '&password=' + user.password;
-        return this.http.post(this.BASE_URL + '/authentication/signup', body, this.options)
+        return this.http.post(environment.baseUrl + '/authentication/signup', body, this.options)
             .map((res: Response) => res.json())
             .catch(error => {
                 console.log('Falló signupUser Mapeo');
@@ -27,7 +27,7 @@ export class AuthService {
 
     signinUser(user: User) {
         const body = 'userName=' + user.userName + '&password=' + user.password;
-        return this.http.post(this.BASE_URL + '/authentication/signin', body, this.options)
+        return this.http.post(environment.baseUrl + '/authentication/signin', body, this.options)
             .map(res => res.json())
             .catch(error => {
                 console.log('Falló signinUser Mapeo');
