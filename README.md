@@ -24,7 +24,7 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Deploying to Github Pages
 
-Run `ng github-pages:deploy` to deploy to Github Pages.
+Run `ng github-pages:deploy --environment=heroku` to deploy to Github Pages.
 
 ## Further help
 
