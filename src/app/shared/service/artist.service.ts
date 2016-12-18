@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions} from "@angular/http";
+import { Headers, Http, Response, RequestOptions } from "@angular/http";
 import { Artist } from '../model/artist';
 import { ModelResponse } from '../model/core/model-response';
 import { PagedModelResponse } from '../model/core/paged-model-response';
@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class ArtistService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
@@ -34,8 +34,8 @@ export class ArtistService {
   getPagedlistWithTags(tags: String[], firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
     var tagsParameter = '';
     for (var _i = 0; _i < tags.length; _i++) {
-        var tag = tags[_i];
-        tagsParameter = tagsParameter + '&tag=' + tag; 
+      var tag = tags[_i];
+      tagsParameter = tagsParameter + '&tag=' + tag;
     }
     return this.http.get(environment.baseUrl + '/artist/withtags?firstResult=' + firstResult + '&maxResults=' + maxResults + tagsParameter)
       .map((response: Response) => response.json());

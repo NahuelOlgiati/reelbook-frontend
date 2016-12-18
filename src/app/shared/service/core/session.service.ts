@@ -9,7 +9,7 @@ import { environment } from "../../../../environments/environment";
 @Injectable()
 export class SessionService {
 
-  private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+  private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }

@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Headers, Http, Response, RequestOptions} from "@angular/http";
+import { Headers, Http, Response, RequestOptions } from "@angular/http";
 import { DocumentType } from '../shared/model/document-type';
 import { ModelResponse } from '../shared/model/core/model-response';
 import { Observable } from 'rxjs/Rx';
@@ -11,7 +11,7 @@ export class DocumentTypeService {
   public documentTypesChanged = new EventEmitter<DocumentType[]>();
   private documentTypes: DocumentType[] = [];
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }

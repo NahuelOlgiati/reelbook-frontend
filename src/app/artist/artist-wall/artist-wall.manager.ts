@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from "@angular/http";
 import { Artist } from '../../shared/model/artist';
 import { ModelResponse } from '../../shared/model/core/model-response';
 import { Observable } from 'rxjs/Rx';

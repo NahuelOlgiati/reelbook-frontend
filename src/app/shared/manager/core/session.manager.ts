@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from "@angular/http";
 import { User } from '../../model/user';
 import { ModelResponse } from '../../model/core/model-response';
 import { SessionService } from '../../service/core/session.service';

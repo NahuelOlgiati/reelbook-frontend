@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Headers, Http, Response, RequestOptions} from "@angular/http";
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
