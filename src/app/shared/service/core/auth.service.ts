@@ -9,7 +9,7 @@ import { environment } from "../../../../environments/environment";
 @Injectable()
 export class AuthService {
 
-    private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*' });
+    private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     private options = new RequestOptions({ headers: this.headers });
 
     constructor(private http: Http, private router: Router) { }

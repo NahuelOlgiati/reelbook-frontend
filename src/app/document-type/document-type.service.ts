@@ -11,7 +11,7 @@ export class DocumentTypeService {
   public documentTypesChanged = new EventEmitter<DocumentType[]>();
   private documentTypes: DocumentType[] = [];
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+  private headers = new Headers({ 'Content-Type': 'application/json' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
