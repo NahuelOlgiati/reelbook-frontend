@@ -1,0 +1,40 @@
+.modal {
+
+    @include close(3em,3em);
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .modal-header {
+        background-color: _palette(bg-alt);
+    }
+
+    .modal-body {
+        background-color: _palette(bg);
+    }
+
+    .modal-footer {
+        background-color: _palette(bg-alt);
+    }
+
+    &.modal-center {
+        text-align: center;
+        padding: 0!important;
+
+        &:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px;
+        }
+    }
+
+    form {
+        margin: 0 !important;
+    }
+    
+}
