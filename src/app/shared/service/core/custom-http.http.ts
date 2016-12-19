@@ -94,7 +94,6 @@ export class CustomHttp extends Http {
   private _beforeCall(url: string, options?: RequestOptionsArgs): void {
     console.log('Before the request...');
     options.headers.set('Authorization', 'Basic ' + localStorage.getItem('token'));
-    options.headers.set('Access-Control-Allow-Origin', '*');
   }
 
   private _afterCall(url: string, options?: RequestOptionsArgs) {
