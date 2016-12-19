@@ -1,0 +1,8 @@
+{
+    "/rest/*": {
+        "target": "https://reelbook-backend.herokuapp.com",
+        "changeOrigin": true,
+        "secure": true,
+        "logLevel": "debug"
+    }
+}

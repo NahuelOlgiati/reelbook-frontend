@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from "@angular/router";
 import 'rxjs/Rx';
 import { User } from "../../model/user";
-import { environment } from "../../../../environments/environment";
 
 @Injectable()
 export class AuthService {
@@ -16,7 +15,7 @@ export class AuthService {
 
     signupUser(user: User) {
         const body = 'email=' + user.email + '&userName=' + user.userName + '&password=' + user.password;
-        return this.http.post(environment.baseUrl + '/authentication/signup', body, this.options)
+        return this.http.post('/rest/authentication/signup', body, this.options)
             .map((res: Response) => res.json())
             .catch(error => {
                 console.log('Falló signupUser Mapeo');
@@ -27,7 +26,7 @@ export class AuthService {
 
     signinUser(user: User) {
         const body = 'userName=' + user.userName + '&password=' + user.password;
-        return this.http.post(environment.baseUrl + '/authentication/signin', body, this.options)
+        return this.http.post('/rest/authentication/signin', body, this.options)
             .map(res => res.json())
             .catch(error => {
                 console.log('Falló signinUser Mapeo');
