@@ -4,7 +4,7 @@ import { ModalComponent } from '../../core/modal/modal.component';
 
 @Component({
     selector: 'rb-modal-demo',
-    templateUrl: 'modal-demo.component.html',
+    templateUrl: './modal-demo.component.html',
     styleUrls:['./modal-demo.component.scss']
 })
 export class ModalDemoComponent {

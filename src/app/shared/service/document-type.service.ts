@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Headers, Http, Response, RequestOptions } from "@angular/http";
-import { DocumentType } from '../shared/model/document-type';
-import { ModelResponse } from '../shared/model/core/model-response';
+import { DocumentType } from '../model/document-type';
+import { ModelResponse } from '../model/core/model-response';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
@@ -21,50 +21,50 @@ export class DocumentTypeService {
   }
 
   fetchData() {
-    return this.http.get('http://localhost:8080/rest/documentType')
+    this.http.get('/rest/documentType')
       .map((response: Response) => response.json())
-      .subscribe((data: DocumentType[]) => {
+      .map((data: DocumentType[]) => {
         this.documentTypes = data;
         this.documentTypesChanged.emit(this.documentTypes);
       }
-      );
+      ).subscribe();
   }
 
   autocomplete(description: String): Observable<DocumentType> {
-    return this.http.get('http://localhost:8080/rest/documentType/autocomplete:' + description + '?firstResult=0&maxResults=8')
+    return this.http.get('/rest/documentType/autocomplete:' + description + '?firstResult=0&maxResults=8')
       .map((response: Response) => response.json())
       .map((response: ModelResponse<DocumentType>) => response.model);
   }
 
   createDocumentType(documentType: DocumentType) {
-    return this.http.post('http://localhost:8080/rest/documentType', JSON.stringify(documentType), this.options)
+    this.http.post('/rest/documentType', JSON.stringify(documentType), this.options)
       .map((response: Response) => response.json())
-      .subscribe((res: ModelResponse<DocumentType>) => {
+      .map((res: ModelResponse<DocumentType>) => {
         this.documentTypes.push(res.model);
         this.documentTypesChanged.emit(this.documentTypes);
       }
-      );
+      ).subscribe();
   }
 
   editDocumentType(documentType: DocumentType) {
-    return this.http.put('http://localhost:8080/rest/documentType', JSON.stringify(documentType), this.options)
+    this.http.put('/rest/documentType', JSON.stringify(documentType), this.options)
       .map((response: Response) => response.json())
-      .subscribe((res: ModelResponse<DocumentType>) => {
+      .map((res: ModelResponse<DocumentType>) => {
         this.documentTypes = this.documentTypes.filter((t, n, arr) => t.id !== res.model.id);
         this.documentTypes.push(res.model);
         this.documentTypesChanged.emit(this.documentTypes);
       }
-      );
+      ).subscribe();
   }
 
   removeDocumentType(documentType: DocumentType) {
-    return this.http.delete('http://localhost:8080/rest/documentType/' + documentType.id, this.options)
+    this.http.delete('/rest/documentType/' + documentType.id, this.options)
       .map((response: Response) => response.json())
-      .subscribe((res: ModelResponse<DocumentType>) => {
+      .map((res: ModelResponse<DocumentType>) => {
         this.documentTypes = this.documentTypes.filter((t, n, arr) => t.id !== res.model.id);
         this.documentTypesChanged.emit(this.documentTypes);
       }
-      );
+      ).subscribe();
   }
 
 }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DocumentType } from '../../shared/model/document-type';
-import { DocumentTypeService } from '../document-type.service';
+import { DocumentTypeService } from '../../shared/service/document-type.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 
 @Component({
   selector: 'rb-document-type-list',
-  templateUrl: 'document-type-list.component.html'
+  templateUrl: './document-type-list.component.html'
 })
 export class DocumentTypeListComponent implements OnInit {
 

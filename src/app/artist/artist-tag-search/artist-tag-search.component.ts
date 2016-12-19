@@ -5,7 +5,7 @@ import { PagedModelResponse } from '../../shared/model/core/paged-model-response
 
 @Component({
     selector: 'rb-artist-tag-search',
-    templateUrl: 'artist-tag-search.component.html'
+    templateUrl: './artist-tag-search.component.html'
 })
 export class ArtistTagSearchComponent {
 

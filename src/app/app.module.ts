@@ -25,7 +25,7 @@ import { GrowlMessageService } from './shared/service/core/growl-message.service
 import { AuthService } from "./shared/service/core/auth.service";
 import { SessionService } from "./shared/service/core/session.service";
 import { SessionManager } from "./shared/manager/core/session.manager";
-import { DocumentTypeService } from './document-type/document-type.service';
+import { DocumentTypeService } from './shared/service/document-type.service';
 import { ArtistService } from './shared/service/artist.service';
 import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
 import { UserService } from './shared/service/user.service';

@@ -1,3 +1,4 @@
+import { ModuleWithProviders } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { AuthGuard } from "./shared/service/core/auth.guard";
@@ -15,4 +16,4 @@ const APP_ROUTES: Routes = [
     { path: 'artist-create', component: ArtistCreateComponent, canActivate: [AuthGuard] },
     { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }];
 
-export const AppRouterModule = RouterModule.forRoot(APP_ROUTES);
+export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

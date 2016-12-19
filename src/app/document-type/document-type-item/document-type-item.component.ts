@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentType } from '../../shared/model/document-type';
-
-import { DocumentTypeService } from '../document-type.service';
+import { DocumentTypeService } from '../../shared/service/document-type.service';
 
 @Component({
   selector: 'rb-document-type-item',
-  templateUrl: 'document-type-item.component.html'
+  templateUrl: './document-type-item.component.html'
 })
 export class DocumentTypeItemComponent implements OnInit {
 

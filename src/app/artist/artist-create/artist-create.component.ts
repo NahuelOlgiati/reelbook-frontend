@@ -3,7 +3,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms"
 
 @Component({
     selector: 'rb-artist-create',
-    templateUrl: 'artist-create.component.html',
+    templateUrl: './artist-create.component.html',
     styleUrls: ['./artist-create.component.scss']
 })
 export class ArtistCreateComponent implements OnInit {

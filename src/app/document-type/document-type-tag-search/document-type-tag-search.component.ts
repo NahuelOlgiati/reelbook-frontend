@@ -1,9 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { DocumentTypeService } from '../document-type.service';
+import { DocumentTypeService } from '../../shared/service/document-type.service';
 
 @Component({
   selector: 'rb-document-type-tag-search',
-  templateUrl: 'document-type-tag-search.component.html'
+  templateUrl: './document-type-tag-search.component.html'
 })
 export class DocumentTypeTagSearchComponent {
 

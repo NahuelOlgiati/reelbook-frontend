@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Artist } from '../../shared/model/artist';
 import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
 import { ArtistWallManager } from './artist-wall.manager';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'rb-artist-wall',
-    templateUrl: 'artist-wall.component.html',
+    templateUrl: './artist-wall.component.html',
     styleUrls: ['./artist-wall.component.scss']
 })
 export class ArtistWallComponent implements OnInit {
@@ -50,7 +50,7 @@ export class ArtistWallComponent implements OnInit {
         this.artistWallManager.fetch(' ', (event.rows * event.page), event.rows);
     }
 
-    imgBase64(caca: any) {
+    imgBase64(caca: any): SafeUrl{
         return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
     }
 }
