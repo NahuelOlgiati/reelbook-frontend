@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 
 @Component({
     selector: 'rb-artist-create',
@@ -9,7 +10,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms"
 export class ArtistCreateComponent implements OnInit {
 
     @ViewChild('fileUpload')
-    fileUpload: any;
+    fileUpload: RbFileUpload;
     myForm: FormGroup;
     uploadedFiles: any[] = [];
 
@@ -28,6 +29,8 @@ export class ArtistCreateComponent implements OnInit {
     }
 
     onBeforeUpload(event) {
+        console.log(event);
+        event.xhr.open('POST', this.fileUpload.url, true);
         event.xhr.setRequestHeader('Accept', 'text/html');
         event.formData.append('description', this.myForm.controls['description'].value);
     }

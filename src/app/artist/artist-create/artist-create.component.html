@@ -12,9 +12,9 @@
                 <rb-img-cropper></rb-img-cropper>
             </div>
             <div class="field">
-                <p-fileUpload name="uploadedFile" url="http://localhost:8080/rest/artist/submit" multiple="false" accept="image/*" maxFileSize="1000000"
+                <rb-fileUpload name="uploadedFile" url="/rest/artist/submit" multiple="false" accept="image/*" maxFileSize="1000000"
                     (onUpload)="onUpload($event)" (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
-                </p-fileUpload>
+                </rb-fileUpload>
             </div>
 
             <ul class="actions">

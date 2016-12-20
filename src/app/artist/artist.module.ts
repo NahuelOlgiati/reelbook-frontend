@@ -12,14 +12,17 @@ import { ImgCropper } from './artist-create/img-cropper.component';
 import { ArtistTagSearchComponent } from './artist-tag-search/artist-tag-search.component';
 import { ArtistCreateComponent } from './artist-create/artist-create.component';
 
+import { RbFileUpload } from '../third-party/primeng/fileupload.component';
+
 @NgModule({
     declarations: [
         ArtistWallComponent,
         ImgCropper,
         ArtistTagSearchComponent,
-        ArtistCreateComponent
+        ArtistCreateComponent,
+        RbFileUpload
     ],
     imports: [CommonModule, FormsModule, ReactiveFormsModule, ImageCropperModule, AutoCompleteModule, PaginatorModule, FileUploadModule],
-    exports: [ArtistWallComponent, ImgCropper, ArtistTagSearchComponent, ArtistCreateComponent]
+    exports: [ArtistWallComponent, ImgCropper, ArtistTagSearchComponent, ArtistCreateComponent, RbFileUpload]
 })
 export class ArtistModule { }
