@@ -1,4 +1,9 @@
-import { Component, OnInit, AfterContentInit, Input, Output, EventEmitter, QueryList, ContentChildren } from '@angular/core';
+import { Component, NgModule, OnInit, AfterContentInit, Input, Output, EventEmitter, QueryList, ContentChildren } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { SharedModule } from 'primeng/components/common/shared';
+import { ButtonModule } from 'primeng/components/button/button';
+import { MessagesModule } from 'primeng/components/messages/messages';
+import { ProgressBarModule } from 'primeng/components/progressbar/progressbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUpload } from 'primeng/components/fileupload/fileupload';
 import { PrimeTemplate } from 'primeng/components/common/shared';
@@ -96,3 +101,10 @@ export class RbFileUpload extends FileUpload implements OnInit, AfterContentInit
         super.ngAfterContentInit();
     }
 }
+
+@NgModule({
+    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
+    exports: [RbFileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
+    declarations: [RbFileUpload]
+})
+export class RbFileUploadModule { }

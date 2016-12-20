@@ -14,6 +14,8 @@ export class ArtistCreateComponent implements OnInit {
     myForm: FormGroup;
     uploadedFiles: any[] = [];
 
+    blockedDocument: boolean = true;
+
     constructor(private fb: FormBuilder) { }
 
     ngOnInit(): any {
