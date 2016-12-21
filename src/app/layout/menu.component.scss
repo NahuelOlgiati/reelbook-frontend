@@ -101,9 +101,6 @@ body.is-ie {
 }
 
 body.is-menu-visible {
-	#wrapper {
-		@include vendor('filter', 'blur(0.5em)');
-	}
 
 	#menu {
 		@include vendor('pointer-events', 'auto');

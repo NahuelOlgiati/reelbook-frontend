@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit, AfterContentInit, Input, Output, EventEmitter, QueryList, ContentChildren } from '@angular/core';
+import { Component, NgModule, OnInit, AfterContentInit, Input, Output, EventEmitter, QueryList, ContentChildren, ElementRef } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from 'primeng/components/common/shared';
 import { ButtonModule } from 'primeng/components/button/button';
@@ -7,6 +7,7 @@ import { ProgressBarModule } from 'primeng/components/progressbar/progressbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUpload } from 'primeng/components/fileupload/fileupload';
 import { PrimeTemplate } from 'primeng/components/common/shared';
+import { BlockableUI } from 'primeng/components/common/api';
 
 @Component({
     selector: 'rb-fileUpload',
@@ -44,7 +45,7 @@ import { PrimeTemplate } from 'primeng/components/common/shared';
         </div>
     `
 })
-export class RbFileUpload extends FileUpload implements OnInit, AfterContentInit {
+export class RbFileUpload extends FileUpload implements OnInit, AfterContentInit, BlockableUI {
     @Input() name: string;
 
     @Input() url: string;
@@ -89,7 +90,7 @@ export class RbFileUpload extends FileUpload implements OnInit, AfterContentInit
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    constructor(private sanitizer2: DomSanitizer) {
+    constructor(private sanitizer2: DomSanitizer,private el: ElementRef) {
         super(sanitizer2);
     }
 
@@ -99,6 +100,10 @@ export class RbFileUpload extends FileUpload implements OnInit, AfterContentInit
 
     ngAfterContentInit(): void {
         super.ngAfterContentInit();
+    }
+
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 }
 

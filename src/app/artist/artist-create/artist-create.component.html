@@ -1,6 +1,6 @@
-<rb-blockui [blocked]="blockedDocument" [target]="artistCreate"></rb-blockui>
-<!--<p-blockUI [blocked]="blockedDocument" [target]="artistCreate"></p-blockUI>-->
-<section #artistCreate id="artist-create" class="major" >
+<rb-blockUI [blocked]="blockedDocument" #blockUI></rb-blockUI>
+<!--<rb-blockUI [blocked]="blockedDocument" [target]="fileUpload" #blockUI></rb-blockUI>-->
+<section id="artist-create" class="major">
     <div class="inner">
         <header class="major">
             <h2>Please sign up to use all features</h2>
@@ -18,7 +18,6 @@
                     (onUpload)="onUpload($event)" (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
                 </rb-fileUpload>
             </div>
-
             <ul class="actions">
                 <input type="button" value="Upload" class="special" (click)="upload()" />
             </ul>

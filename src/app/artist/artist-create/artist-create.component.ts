@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { RbBlockUI } from '../../third-party/primeng/blockui.component';
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 
 @Component({
@@ -7,8 +8,10 @@ import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
     templateUrl: './artist-create.component.html',
     styleUrls: ['./artist-create.component.scss']
 })
-export class ArtistCreateComponent implements OnInit {
+export class ArtistCreateComponent implements OnInit, AfterViewInit {
 
+    @ViewChild('blockUI')
+    blockUI: RbBlockUI;
     @ViewChild('fileUpload')
     fileUpload: RbFileUpload;
     myForm: FormGroup;
@@ -22,6 +25,10 @@ export class ArtistCreateComponent implements OnInit {
         this.myForm = this.fb.group({
             description: ['', Validators.required]
         });
+    }
+
+    ngAfterViewInit(): void {
+        this.blockUI.block();
     }
 
     onUpload(event) {

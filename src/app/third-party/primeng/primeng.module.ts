@@ -5,15 +5,15 @@ import { FileUploadModule } from 'primeng/components/fileupload/fileupload';
 import { BlockUIModule } from 'primeng/components/blockui/blockui';
 
 import { RbFileUpload } from './fileupload.component';
-import { RbBlockui } from './blockui.component';
+import { RbBlockUI } from './blockui.component';
 
 @NgModule({
     declarations: [
         RbFileUpload,
-        RbBlockui
+        RbBlockUI
     ],
     imports: [CommonModule, FileUploadModule, BlockUIModule],
-    exports: [RbFileUpload, RbBlockui],
+    exports: [RbFileUpload, RbBlockUI],
     providers: [DomHandler]
 })
 export class RbPrimengModule { }

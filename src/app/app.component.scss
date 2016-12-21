@@ -1,0 +1,7 @@
+@import '../assets/sass/libs/index';
+
+#wrapper {
+    &.blur{
+        @include vendor('filter', 'blur(0.5em)');
+    }
+}

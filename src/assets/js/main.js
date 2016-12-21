@@ -273,6 +273,7 @@
 
 				if ($menu._lock())
 					$body.addClass('is-menu-visible');
+					$wrapper.addClass('blur');
 
 			};
 
@@ -280,6 +281,7 @@
 
 				if ($menu._lock())
 					$body.removeClass('is-menu-visible');
+					$wrapper.removeClass('blur');
 
 			};
 
@@ -287,6 +289,7 @@
 
 				if ($menu._lock())
 					$body.toggleClass('is-menu-visible');
+					$wrapper.toggleClass('blur');
 
 			};
 
