@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Artist } from '../../shared/model/artist';
 import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
+import { RbBlockUI } from '../../third-party/primeng/blockui.component';
 import { ArtistWallManager } from './artist-wall.manager';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -12,6 +13,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class ArtistWallComponent implements OnInit {
 
+    @ViewChild('blockUI')
+    blockUI: RbBlockUI;
     artists: Artist[];
     artistsSelection: number[] = [];
     deploySelection: boolean = false;
@@ -27,7 +30,12 @@ export class ArtistWallComponent implements OnInit {
         this.artistWallManager.artistsSelectionChanged.subscribe((selection: number[]) => {
             this.artistsSelection = selection;
         });
-        this.artistWallManager.fetch(' ', 0, 8);
+        this.artistWallManager.fetch(' ', 0, 8).subscribe();
+    }
+
+    ngAfterViewInit(): void {
+        //this.blockUI._blocked =true;
+        //this.blockUI.block();
     }
 
     onSelect(artist: Artist) {
@@ -47,10 +55,16 @@ export class ArtistWallComponent implements OnInit {
     }
 
     paginate(event) {
-        this.artistWallManager.fetch(' ', (event.rows * event.page), event.rows);
+        this.blockUI._blocked = true;
+        this.blockUI.block();
+        this.artistWallManager.fetch(' ', (event.rows * event.page), event.rows)
+            .subscribe(() => {
+                this.blockUI._blocked = false;
+                this.blockUI.unblock();
+            });
     }
 
-    imgBase64(caca: any): SafeUrl{
+    imgBase64(caca: any): SafeUrl {
         return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
     }
 }

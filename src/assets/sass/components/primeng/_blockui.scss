@@ -1,93 +1,59 @@
-.ui-blockui {
-    position: absolute;
+.spinner-container {
+	  -webkit-animation: rotate 2s linear infinite;
+	  animation: rotate 2s linear infinite;
+	  z-index: 2;
+    width:65px; height:65px;
+    margin: auto;
+    display:block;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
+    text-align: center;
+    position: absolute;
 }
 
-.ui-blockui-document {
-    position: fixed;
+.spinner-container .path {
+  stroke-dasharray: 1,150; /* 1%, 101% circumference */
+  stroke-dashoffset: 0;
+  stroke: rgba(27, 154, 89, 0.7);
+  stroke-linecap: round;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+  animation: dash 1.5s ease-in-out infinite;
 }
 
-$max: 12;
-$angle: 360/$max;
-$size: 120px;
-$fill: dodgerblue;
-
-.loading-wrapper {
-  width: $size*4;
-  height: $size*2.3;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  text-align: center;
-  }
-
-svg {
-  height: $size;
-  width: $size;
-  margin: 0 2em 2em;
-  overflow: visible;
-  }
-  
-.g-circles {
-  transform: scale(.9) translate(7px, 7px);
-  }
-
-@function transform($item: 1){
-  $base: rotate(#{-$angle*$item}deg) translate(5px, 5px);
-  @return $base;
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes rotate{
+  100% { -webkit-transform: rotate(360deg); }
 }
 
-.g--circle {
-  transform-origin: $size/2 $size/2;
-  
-  fill: $fill;
-  animation: opacity 1.2s linear infinite;
-  
-  @for $item from 1 through $max {
-    &:nth-child(#{$max}n + #{$item}){
-      animation-delay: -#{$item/10}s;
-      transform: transform($item) scale(.9);
-    }
-  }
-}
-
-.g-circles .g--circle {
-  fill-opacity: 1;
-  animation-name: opacity, colors;
-  }
-
-
-@keyframes opacity {
-  3% {
-    fill-opacity: 1;
-  }
-  75% {
-    fill-opacity: 0;
-  }
-  
-}
-
-@keyframes colors {
+@keyframes dash {
   0% {
-    fill: yellowgreen;
-    }
-  10% {
-    fill: gold;
-    }
-  75% {
-    fill: crimson;
+    stroke-dasharray: 1,150;  /* 1%, 101% circumference */
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90,150; /* 70%, 101% circumference */
+    stroke-dashoffset: -35;   /* 25% circumference */
+  }
+  100% {
+    stroke-dasharray: 90,150; /* 70%, 101% circumference */
+    stroke-dashoffset: -124;  /* -99% circumference */
   }
 }
-
-@keyframes transform {
-  10% {
-    transform-origin: 70px 70px;
-    transform: scale(.75);
-    }
+@-webkit-keyframes dash {
+  0% {
+    stroke-dasharray: 1,150;  /* 1%, 101% circumference */
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90,150; /* 70%, 101% circumference */
+    stroke-dashoffset: -35;   /* 25% circumference */
+  }
+  100% {
+    stroke-dasharray: 90,150; /* 70%, 101% circumference */
+    stroke-dashoffset: -124;  /* -99% circumference */
+  }
 }

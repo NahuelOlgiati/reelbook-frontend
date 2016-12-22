@@ -19,14 +19,13 @@ export class ArtistWallManager {
 
     constructor(private artistService: ArtistService) { }
 
-    fetch(description: String, firstResult: number, maxResults: number): void {
-        this.artistService.getPagedList(description, firstResult, maxResults)
+    fetch(description: String, firstResult: number, maxResults: number): Observable<void> {
+        return this.artistService.getPagedList(description, firstResult, maxResults)
             .map((res: PagedModelResponse<Artist>) => {
                 this.rowCount = res.rowCount;
                 this.artists = res.queryList;
                 this.artistsChanged.emit(true);
-            })
-            .subscribe();
+            });
     }
 
     getPagedList(description: String, firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {

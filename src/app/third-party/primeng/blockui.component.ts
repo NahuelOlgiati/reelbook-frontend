@@ -1,4 +1,4 @@
-import { Component, NgModule, OnDestroy, AfterViewInit, Input, Output, ViewEncapsulation, EventEmitter, QueryList, ContentChildren, ElementRef, Renderer} from '@angular/core';
+import { Component, NgModule, OnDestroy, AfterViewInit, Input, Output, ViewEncapsulation, EventEmitter, QueryList, ContentChildren, ElementRef, Renderer } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { DomSanitizer } from '@angular/platform-browser';
 import { BlockUI } from 'primeng/components/blockui/blockui';
@@ -9,53 +9,9 @@ import { DomHandler } from 'primeng/components/dom/domhandler';
     selector: 'rb-blockUI',
     template: `
 <div class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
-    <div class="loading-wrapper">
-
-        <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <symbol id="s--circle">
-            <circle r="10" cx="20" cy="20"></circle>
-        </symbol>
-        <g class="g-circles g-circles">
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-            <g class="g--circle">
-            <use xlink:href="#s--circle" class="u--circle" />
-            </g>
-        </g>
-        </svg>
-
-    </div>
+    <svg class="spinner-container" viewBox="0 0 44 44">
+        <circle class="path" cx="22" cy="22" r="20" fill="none" stroke-width="4"></circle>
+    </svg>
 </div>
     `
 })
@@ -90,17 +46,22 @@ export class RbBlockUI extends BlockUI implements AfterViewInit, OnDestroy {
     }
 
     block() {
-        if(this.target) {
-            this.target.getBlockableElement().appendChild(this._mask);
-            this.target.getBlockableElement().style.position = 'relative';
+        if (this.target) {
+            if (this.target.getBlockableElement) {
+                this.target.getBlockableElement().appendChild(this._mask);
+                this.target.getBlockableElement().style.position = 'relative';
+            } else if (this.target instanceof HTMLElement) {
+                let element = <HTMLElement>this.target;
+                element.appendChild(this._mask);
+                element.style.position = 'relative';
+            } else {
+                throw 'Invalid Target for BlockUI';
+            }
         }
         else {
-            let wrapper = document.body.children[0].children[0];
-            wrapper.className = 'blur';
-            this._mask.children[0].style.position = 'absolute';
             document.body.appendChild(this._mask);
         }
-        
+
         this._mask.style.zIndex = String(++DomHandler.zindex);
     }
 

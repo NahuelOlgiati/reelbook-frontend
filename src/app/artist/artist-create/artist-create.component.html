@@ -1,5 +1,3 @@
-<rb-blockUI [blocked]="blockedDocument" #blockUI></rb-blockUI>
-<!--<rb-blockUI [blocked]="blockedDocument" [target]="fileUpload" #blockUI></rb-blockUI>-->
 <section id="artist-create" class="major">
     <div class="inner">
         <header class="major">
@@ -14,8 +12,8 @@
                 <rb-img-cropper></rb-img-cropper>
             </div>
             <div class="field">
-                <rb-fileUpload name="uploadedFile" url="/rest/artist/submit" multiple="false" accept="image/*" maxFileSize="1000000"
-                    (onUpload)="onUpload($event)" (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
+                <rb-fileUpload name="uploadedFile" url="/rest/artist/submit" multiple="false" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"
+                    (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
                 </rb-fileUpload>
             </div>
             <ul class="actions">

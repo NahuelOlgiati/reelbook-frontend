@@ -1,8 +1,9 @@
+<rb-blockUI [target]="searchCol" #blockUI></rb-blockUI>
 <div class="container wall-container">
 
     <div class="row">
         <div class="col-md-3">.col-md-3</div>
-        <div class="col-md-9">
+        <div class="col-md-9" #searchCol>
 
             <rb-artist-tag-search></rb-artist-tag-search>
 
@@ -14,7 +15,6 @@
     <div class="row">
         <div class="col-md-3">.col-md-3</div>
         <div class="col-md-9">
-
             <div class="col-md-3 col-sm-4 wall-col wall-hover" *ngFor="let artist of artists">
                 <div class="wall-selection" [ngClass]="{'active': isActive(artist) }" (click)="onSelect(artist)">
                     <img class="img-responsive" [src]="imgBase64(artist.file.content)" draggable="false">
