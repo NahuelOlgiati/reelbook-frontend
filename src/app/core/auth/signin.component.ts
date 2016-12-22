@@ -18,18 +18,18 @@ export class SigninComponent implements OnInit {
 
     onSignin() {
         this.authService.signinUser(this.myForm.value)
-            .subscribe((res: ModelResponse<string>) => {
+            .map((res: ModelResponse<string>) => {
                 if (res.success) {
                     this.sessionManager.authenticate(res.model);
                     this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
                 }
-            })
+            }).subscribe();
     }
 
     ngOnInit(): any {
         this.myForm = this.fb.group({
             userName: ['', Validators.required],
-            password: ['', Validators.required],
+            password: ['', Validators.required]
         });
     }
 }

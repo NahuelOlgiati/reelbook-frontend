@@ -30,12 +30,15 @@ export class ArtistWallComponent implements OnInit {
         this.artistWallManager.artistsSelectionChanged.subscribe((selection: number[]) => {
             this.artistsSelection = selection;
         });
-        this.artistWallManager.fetch(' ', 0, 8).subscribe();
     }
 
     ngAfterViewInit(): void {
-        //this.blockUI._blocked =true;
-        //this.blockUI.block();
+        this.blockUI._blocked = true;
+        this.blockUI.block();
+        this.artistWallManager.fetch(' ', 0, 8).subscribe(() => {
+            this.blockUI._blocked = false;
+            this.blockUI.unblock();
+        });
     }
 
     onSelect(artist: Artist) {

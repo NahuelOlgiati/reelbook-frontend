@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from 'rxjs/Observable';
 import { Router } from "@angular/router";
-import 'rxjs/Rx';
 import { User } from "../../model/user";
+import { ModelResponse } from "../../model/core/model-response";
+import 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
@@ -13,24 +14,16 @@ export class AuthService {
 
     constructor(private http: Http, private router: Router) { }
 
-    signupUser(user: User) {
-        const body = 'email=' + user.email + '&userName=' + user.userName + '&password=' + user.password;
+    signupUser(user: User): Observable<ModelResponse<User>> {
+        const body = 'email=' + user.email + '&userName=' + user.userName + '&firstName=' + user.firstName + '&lastName=' + user.lastName + '&password=' + user.password;
         return this.http.post('/rest/authentication/signup', body, this.options)
-            .map((res: Response) => res.json())
-            .catch(error => {
-                console.log('Falló signupUser Mapeo');
-                console.log(error);
-                return Observable.throw(error.json());
-            });
+            .map((res: ModelResponse<User>) => {console.log(res);
+             return res.json()});
     }
 
-    signinUser(user: User) {
+    signinUser(user: User): Observable<ModelResponse<string>> {
         const body = 'userName=' + user.userName + '&password=' + user.password;
         return this.http.post('/rest/authentication/signin', body, this.options)
-            .map(res => res.json())
-            .catch(error => {
-                console.log('Falló signinUser Mapeo');
-                return Observable.throw(error.json());
-            });
+            .map((res: ModelResponse<string>) => res.json());
     }
 }

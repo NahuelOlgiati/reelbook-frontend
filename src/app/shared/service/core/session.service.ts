@@ -16,6 +16,6 @@ export class SessionService {
   getUser(): Observable<ModelResponse<User>> {
     const body = 'token=' + localStorage.getItem('token');
     return this.http.post('/rest/session/user', body, this.options)
-      .map((response: Response) => response.json());
+      .map((res: ModelResponse<User>) => res.json());
   }
 }

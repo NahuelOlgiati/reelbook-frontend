@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 import { AuthService } from "../../shared/service/core/auth.service";
+import { ModelResponse } from "../../shared/model/core/model-response";
+import { User } from "../../shared/model/user";
 
 @Component({
     templateUrl: './signup.component.html',
@@ -14,35 +16,15 @@ export class SignupComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private authService: AuthService, private growlMessageService: GrowlMessageService) { }
 
-    // signin the new user if signup successfully
-    signin() {
-        console.log('Entrando Signup signin');
-        this.authService.signinUser(this.myForm.value)
-            .subscribe(
-            res => {
-                if (res.success) {
-                    this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
-                } else {
-                    this.growlMessageService.notifyError([{ severity: 'error', summary: 'ErrorInfo Message', detail: 'Signin Unsuccessful' }]);
-                }
-            }
-            )
-    }
-
-    // create the new user
     onSignup() {
-        console.log('Entrando Signup onSignup');
         this.authService.signupUser(this.myForm.value)
-            .subscribe(
-            res => {
-                console.log('Signup Finish: ' + res.success);
+            .map((res: ModelResponse<User>) => {
                 if (res.success) {
-                    this.signin();
+                    this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signup Sucess' }]);
                 } else {
                     this.growlMessageService.notifyError([{ severity: 'error', summary: 'ErrorInfo Message', detail: 'Signup Unsuccessful' }]);
                 }
-            }
-            )
+            }).subscribe()
     }
 
     ngOnInit(): any {
@@ -52,6 +34,8 @@ export class SignupComponent implements OnInit {
                 this.isEmail
             ])],
             userName: ['', Validators.required],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
             password: ['', Validators.required],
             confirmPassword: ['', Validators.compose([
                 Validators.required,
