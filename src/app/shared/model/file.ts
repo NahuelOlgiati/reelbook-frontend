@@ -2,11 +2,11 @@ import { BaseModel } from './core/base-model';
 
 export class File extends BaseModel {
 
-    constructor(id: number, public fileName: string, public content: string) {
-        super(id);
+    constructor(public fileID: number, public fileName: string, public content: string) {
+        super(fileID);
     }
 
-    valueOf(): Object {
-        return this.id;
+    valueOf(): number {
+        return this.fileID;
     }
 }

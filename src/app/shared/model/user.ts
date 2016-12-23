@@ -4,11 +4,11 @@ export class User extends BaseModel {
 
     public confirmPassword: string;
 
-    constructor(id: number, public email: string, public userName: string, public firstName: string, public lastName: string, public password: string) {
-        super(id);
+    constructor(public userID: number, public email: string, public userName: string, public firstName: string, public lastName: string, public password: string) {
+        super(userID);
     }
 
-    valueOf(): Object {
-        return this.id;
+    valueOf(): number {
+        return this.userID;
     }
 }

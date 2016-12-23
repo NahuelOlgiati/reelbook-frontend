@@ -2,11 +2,11 @@ import { BaseModel } from './core/base-model';
 
 export class DocumentType extends BaseModel {
     
-    constructor(id: number, public description: string, public summaryDescription: string) {
-        super(id);
+    constructor(public documentTypeID: number, public description: string, public summaryDescription: string) {
+        super(documentTypeID);
     }
 
-    valueOf(): Object {
-        return this.id;
+    valueOf(): number {
+        return this.documentTypeID;
     }
 }

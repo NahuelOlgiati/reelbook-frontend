@@ -5,11 +5,11 @@ export class Artist extends BaseModel {
 
     public file: File;
 
-    constructor(id: number, public description: string) {
-        super(id);
+    constructor(public artistID: number, public description: string) {
+        super(artistID);
     }
 
-    valueOf(): Object {
-        return this.id;
+    valueOf(): number {
+        return this.artistID;
     }
 }

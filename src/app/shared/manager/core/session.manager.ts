@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { User } from '../../model/user';
 import { ModelResponse } from '../../model/core/model-response';
+import { User } from '../../model/user';
+import { Session } from '../../model/session';
 import { SessionService } from '../../service/core/session.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -10,18 +11,14 @@ export class SessionManager {
 
   private user: User;
   public userChanged = new EventEmitter<User>();
-  public tokenChanged = new EventEmitter<string>();
+  public sessionChanged = new EventEmitter<Session>();
 
   constructor(private sessionService: SessionService) { }
 
-  authenticate(token: string): void {
-    this.saveToken(token);
-    this.fetchUser();
-  }
-
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
-    this.tokenChanged.emit(localStorage.getItem('token'))
+  authenticate(session: Session): void {
+    localStorage.setItem('token', session.token);
+    this.setUser(session.user);
+    this.sessionChanged.emit(session);
   }
 
   fetchUser(): void {
@@ -35,7 +32,7 @@ export class SessionManager {
   logout(): void {
     localStorage.removeItem('token');
     this.setUser(undefined);
-    this.tokenChanged.emit(localStorage.getItem('token'))
+    this.sessionChanged.emit(undefined);
   }
 
   isAuthenticated(): boolean {

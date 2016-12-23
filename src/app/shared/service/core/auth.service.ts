@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from "@angular/router";
 import { User } from "../../model/user";
 import { ModelResponse } from "../../model/core/model-response";
+import { Session } from "../../model/session";
 import 'rxjs/Rx';
 
 @Injectable()
@@ -21,9 +22,9 @@ export class AuthService {
              return res.json()});
     }
 
-    signinUser(user: User): Observable<ModelResponse<string>> {
+    signinUser(user: User): Observable<ModelResponse<Session>> {
         const body = 'userName=' + user.userName + '&password=' + user.password;
         return this.http.post('/rest/authentication/signin', body, this.options)
-            .map((res: ModelResponse<string>) => res.json());
+            .map((res: ModelResponse<Session>) => res.json());
     }
 }

@@ -22,7 +22,6 @@ export class MenuComponent implements OnInit{
         this.cities.push({ label: 'Artista', value: 'ARTIST' });
         this.cities.push({ label: 'Productora', value: 'PRODUCER' });
         this.selectedCity = 'ARTIST';
-        this.userName = this.sessionManager.getUserName();
     }
 
     ngOnInit() {
