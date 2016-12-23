@@ -60,6 +60,10 @@ h1, h2, h3, h4, h5, h6 {
 		color: inherit;
 		border-bottom: 0;
 	}
+
+	&.box-title {
+		margin: initial;
+	}
 }
 
 h1 {

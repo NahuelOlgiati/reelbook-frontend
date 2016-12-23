@@ -8,17 +8,20 @@
                 <label for="description">Description</label>
                 <input formControlName="description" type="text" id="description" #description class="form-control">
             </div>
-            <div class="field">
-                <rb-img-cropper></rb-img-cropper>
+            <h3 class="box-title">Imagen de Perfil</h3>
+            <div class="field box">
+                <rb-profile-image></rb-profile-image>
+                <!--<rb-img-cropper></rb-img-cropper>-->
             </div>
-            <div class="field">
+            <h3 class="box-title">Material Audiovisual</h3>
+            <div class="field box">
                 <rb-fileUpload name="uploadedFile" url="/rest/artist/submit" multiple="false" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"
                     (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
                 </rb-fileUpload>
+                <ul class="actions">
+                    <input type="button" value="Upload" class="special" (click)="upload()" />
+                </ul>
             </div>
-            <ul class="actions">
-                <input type="button" value="Upload" class="special" (click)="upload()" />
-            </ul>
         </form>
     </div>
 </section>
