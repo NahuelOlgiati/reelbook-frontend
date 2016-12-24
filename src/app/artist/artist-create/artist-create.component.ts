@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
+import { ArtistService } from '../../shared/service/artist.service';
+import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
+import { ModelResponse } from '../../shared/model/core/model-response';
+import { Artist } from '../../shared/model/artist';
 
 @Component({
     selector: 'rb-artist-create',
@@ -14,12 +18,23 @@ export class ArtistCreateComponent implements OnInit {
     myForm: FormGroup;
     uploadedFiles: any[] = [];
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: FormBuilder, private artistService: ArtistService, private growlMessageService: GrowlMessageService) { }
 
     ngOnInit(): any {
         this.myForm = this.fb.group({
             description: ['', Validators.required]
         });
+    }
+
+    onArtisCreate() {
+        this.artistService.create(this.myForm.value)
+            .map((res: ModelResponse<Artist>) => {
+                if (res.success) {
+                    this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User creation Sucess' }]);
+                } else {
+                    this.growlMessageService.notifyError([{ severity: 'error', summary: 'ErrorInfo Message', detail: 'User creation Unsuccessful' }]);
+                }
+            }).subscribe()
     }
 
     onUpload(event) {

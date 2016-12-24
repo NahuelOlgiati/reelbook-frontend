@@ -1,13 +1,19 @@
 <section id="artist-create" class="major">
     <div class="inner">
         <header class="major">
-            <h2>Please sign up to use all features</h2>
+            <h2>Artist Creation</h2>
         </header>
-        <form [formGroup]="myForm" (ngSubmit)="onSignup()">
+        <form [formGroup]="myForm" (ngSubmit)="onArtisCreate()">
             <div class="field">
                 <label for="description">Description</label>
-                <input formControlName="description" type="text" id="description" #description class="form-control">
+                <input formControlName="description" type="text" id="description" class="form-control">
             </div>
+            <ul class="actions">
+                <input type="submit" [disabled]="!myForm.valid" value="Create Artist" class="special" />
+            </ul>
+            <p></p>
+            <p>TODO Must Move To Audiovisual Content</p>
+            <p></p>
             <h3 class="box-title">Imagen de Perfil</h3>
             <div class="field box">
                 <rb-profile-image></rb-profile-image>

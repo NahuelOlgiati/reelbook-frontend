@@ -5,6 +5,7 @@ import { Session } from '../../model/session';
 import { SessionService } from '../../service/core/session.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class SessionManager {
@@ -23,6 +24,14 @@ export class SessionManager {
 
   fetchUser(): void {
     this.sessionService.getUser()
+      .map((res: ModelResponse<User>) => {
+        this.setUser(res.model);
+      }
+      ).subscribe();
+  }
+
+  refreshUser(): void {
+    this.sessionService.refreshUser()
       .map((res: ModelResponse<User>) => {
         this.setUser(res.model);
       }

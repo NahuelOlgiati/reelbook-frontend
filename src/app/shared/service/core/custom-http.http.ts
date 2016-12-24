@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, ConnectionBackend, Request, RequestOptions, RequestOptionsArgs, RequestMethod, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
+import { ResponseHeader } from '../../model/core/response-header';
 import { GrowlMessageService } from './growl-message.service';
 import { Observable } from 'rxjs/Rx';
 
@@ -9,8 +10,8 @@ export class CustomHttp extends Http {
 
   constructor(backend: ConnectionBackend,
     defaultOptions: RequestOptions,
-    private growlMessageService: GrowlMessageService,
-    private router: Router) {
+    private router: Router,
+    private growlMessageService: GrowlMessageService) {
     super(backend, defaultOptions);
   }
 
@@ -60,20 +61,21 @@ export class CustomHttp extends Http {
   }
 
   private _handle(observable: Observable<Response>, url: string, options?: RequestOptionsArgs): Observable<any> {
-    return observable.catch((err: any): any => {
-      console.log(err);
-      if (err.status === 400 || err.status === 401 || err.status === 422) {
-        console.log("Notifying...");
-        console.log(err.json());
-        this.growlMessageService.notifyError(err.json());
-        return Observable.empty();
-      }
-      else {
-        console.log("Redirecting...");
-        this.router.navigate(['/error-page']);
-        return Observable.empty();
-      }
-    })
+    return observable
+      .catch((err: any): any => {
+        console.log(err);
+        if (err.status === 400 || err.status === 401 || err.status === 422) {
+          console.log("Notifying...");
+          console.log(err.json());
+          this.growlMessageService.notifyError(err.json());
+          return Observable.empty();
+        }
+        else {
+          console.log("Redirecting...");
+          this.router.navigate(['/error-page']);
+          return Observable.empty();
+        }
+      })
       .retryWhen(error => error.delay(500))
       .timeout(200000, new Error('delay exceeded'))
       .finally(() => {

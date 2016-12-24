@@ -18,8 +18,7 @@ export class AuthService {
     signupUser(user: User): Observable<ModelResponse<User>> {
         const body = 'email=' + user.email + '&userName=' + user.userName + '&firstName=' + user.firstName + '&lastName=' + user.lastName + '&password=' + user.password;
         return this.http.post('/rest/authentication/signup', body, this.options)
-            .map((res: ModelResponse<User>) => {console.log(res);
-             return res.json()});
+            .map((res: ModelResponse<User>) => res.json());
     }
 
     signinUser(user: User): Observable<ModelResponse<Session>> {
