@@ -17,7 +17,7 @@
         <div class="col-md-9">
             <div class="col-md-3 col-sm-4 wall-col wall-hover" *ngFor="let artist of artists">
                 <div class="wall-selection" [ngClass]="{'active': isActive(artist) }" (click)="onSelect(artist)">
-                    <img class="img-responsive" [src]="imgBase64(artist.file.content)" draggable="false">
+                    <img class="img-responsive" *ngIf="artist.file" [src]="imgBase64(artist.file.content)" draggable="false">
                     <div class="overlay">
                         <h5>{{artist.description}}</h5>
                     </div>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="selection-item wall-col" *ngFor="let artist of getModelSelection()">
-                    <img class="img-responsive" [src]="imgBase64(artist.file.content)" draggable="false">
+                    <img class="img-responsive" *ngIf="artist.file" [src]="imgBase64(artist.file.content)" draggable="false">
                 </div>
             </div>
 

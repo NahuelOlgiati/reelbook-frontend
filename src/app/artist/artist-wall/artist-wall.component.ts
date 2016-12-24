@@ -11,7 +11,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
     templateUrl: './artist-wall.component.html',
     styleUrls: ['./artist-wall.component.scss']
 })
-export class ArtistWallComponent implements OnInit {
+export class ArtistWallComponent implements OnInit, AfterViewInit {
 
     @ViewChild('blockUI')
     blockUI: RbBlockUI;

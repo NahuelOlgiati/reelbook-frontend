@@ -1,5 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ChangeDetectionStrategy, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'rb-avatar',
@@ -16,7 +15,7 @@ import { Router } from '@angular/router';
                 [style.text-align] ="props.textalign"
                 style="cursor: pointer; display: inline-block" >
 
-                <a (click)="onClick()">
+                <a (click)="onClick.emit()">
                     <div [style.color]='fontColor'>{{props.letter}}</div>
                 </a>
 
@@ -26,8 +25,10 @@ import { Router } from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class AvatarComponent implements OnInit, OnChanges {
+export class AvatarComponent implements OnInit, OnChanges 
+{
     @Input('avatardata') avatarData: any;
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     letterSrc: string;
     background: string = 'red';
     fontSize: number = 49;
@@ -39,9 +40,10 @@ export class AvatarComponent implements OnInit, OnChanges {
     props: Object = null;
     private _el: HTMLElement;
 
-    constructor(el: ElementRef, private router: Router) {
+    constructor(el: ElementRef) {
         this._el = el.nativeElement;
     }
+
     test() {
         this.generateLetter();
     }
@@ -96,6 +98,7 @@ export class AvatarComponent implements OnInit, OnChanges {
         }
         return color;
     }
+
     colorize(str) {
         for (var i = 0, hash = 0; i < str.length; hash = str.charCodeAt(i++) + ((hash << 5) - hash));
         var color = Math.floor(Math.abs((Math.sin(hash) * 10000) % 1 * 16777216)).toString(16);
@@ -105,11 +108,8 @@ export class AvatarComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.generateLetter();
     }
+
     ngOnChanges(...args: any[]) {
         this.generateLetter();
-    }
-
-    onClick() {
-        this.router.navigate(['/artist-create']);
     }
 }

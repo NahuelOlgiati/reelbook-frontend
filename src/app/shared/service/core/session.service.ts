@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions } from "@angular/http";
+import { Session } from '../../model/session';
 import { User } from '../../model/user';
 import { ModelResponse } from '../../model/core/model-response';
 import { Observable } from 'rxjs/Rx';
@@ -12,6 +13,11 @@ export class SessionService {
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
+
+  getSession(): Observable<ModelResponse<Session>> {
+    return this.http.get('/rest/session')
+      .map((res: ModelResponse<Session>) => res.json());
+  }
 
   getUser(): Observable<ModelResponse<User>> {
     const body = 'token=' + localStorage.getItem('token');

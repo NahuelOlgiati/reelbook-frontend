@@ -10,14 +10,16 @@ import { ProfileImageModule } from '../shared/component/profile-image.component'
 import { ArtistWallComponent } from './artist-wall/artist-wall.component';
 import { ArtistTagSearchComponent } from './artist-tag-search/artist-tag-search.component';
 import { ArtistCreateComponent } from './artist-create/artist-create.component';
+import { ArtistUpdateComponent } from './artist-update/artist-update.component';
 
 @NgModule({
     declarations: [
         ArtistWallComponent,
         ArtistTagSearchComponent,
-        ArtistCreateComponent
+        ArtistCreateComponent,
+        ArtistUpdateComponent
     ],
     imports: [CommonModule, FormsModule, ReactiveFormsModule, ProfileImageModule, AutoCompleteModule, PaginatorModule, RbPrimengModule],
-    exports: [ArtistWallComponent, ArtistTagSearchComponent, ArtistCreateComponent]
+    exports: [ArtistWallComponent, ArtistTagSearchComponent, ArtistCreateComponent, ArtistUpdateComponent]
 })
 export class ArtistModule { }

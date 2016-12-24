@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // TODO Must 
 
 // 3er Party
 import { GrowlModule } from 'primeng/components/growl/growl';
-import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
 
 // Components
 import { AppComponent } from './app.component';
@@ -48,7 +47,7 @@ import { ArtistModule } from './artist/artist.module';
         ModalDemoComponent
     ],
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,
-        GrowlModule, SelectButtonModule,
+        GrowlModule,
         AppRouterModule, CoreModule, HomeModule, DocumentTypeModule, ArtistModule],
     providers: [
         CustomHttpProvider,

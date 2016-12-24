@@ -1,0 +1,17 @@
+<section id="artist-update" class="major">
+    <div class="inner">
+        <header class="major">
+            <h2>Artist Update</h2>
+        </header>
+        <form [formGroup]="myForm" (ngSubmit)="onArtisUpdate()">
+            <input formControlName="artistID" type="hidden" id="artistID" class="form-control">
+            <div class="field">
+                <label for="description">Description</label>
+                <input formControlName="description" type="text" id="description" class="form-control">
+            </div>
+            <ul class="actions">
+                <input type="submit" [disabled]="!myForm.valid" value="Update Artist" class="special" />
+            </ul>
+        </form>
+    </div>
+</section>
