@@ -35,6 +35,7 @@ import { AppRouterModule } from "./app.routing";
 import { HomeModule } from "./home/home.module";
 import { DocumentTypeModule } from './document-type/document-type.module';
 import { ArtistModule } from './artist/artist.module';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { ArtistModule } from './artist/artist.module';
     ],
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,
         GrowlModule,
-        AppRouterModule, CoreModule, HomeModule, DocumentTypeModule, ArtistModule],
+        AppRouterModule, CoreModule, HomeModule, DocumentTypeModule, ArtistModule, UserModule],
     providers: [
         CustomHttpProvider,
         AuthGuard,

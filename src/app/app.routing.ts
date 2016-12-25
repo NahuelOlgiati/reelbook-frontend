@@ -8,6 +8,7 @@ import { HomeComponent } from "./home/home.component";
 import { ProtectedComponent } from "./protected/protected.component";
 import { ArtistCreateComponent } from "./artist/artist-create/artist-create.component";
 import { ArtistUpdateComponent } from "./artist/artist-update/artist-update.component";
+import { UserUpdateComponent } from "./user/user-update/user-update.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const APP_ROUTES: Routes = [
     { path: 'error-page', component: ErrorPageComponent },
     { path: 'artist-create', component: ArtistCreateComponent, canActivate: [AuthGuard] },
     { path: 'artist-update/:id', component: ArtistUpdateComponent, canActivate: [AuthGuard] },
+    { path: 'user-update/:id', component: UserUpdateComponent, canActivate: [AuthGuard] },
     { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }];
 
 export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

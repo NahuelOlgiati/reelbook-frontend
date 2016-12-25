@@ -1,0 +1,30 @@
+<section id="user-update" class="major">
+    <div class="inner">
+        <header class="major">
+            <h2>User Update</h2>
+        </header>
+        <form [formGroup]="myForm" (ngSubmit)="onUserUpdate()">
+            <input formControlName="userID" type="hidden" id="userID" class="form-control">
+            <div class="field">
+                <label for="email">E-Mail</label>
+                <input formControlName="email" type="email" id="email" #email class="form-control">
+                <span *ngIf="!email.pristine && email.errors != null && email.errors['noEmail']">Invalid mail address</span>
+            </div>
+            <div class="field">
+                <label for="userName">User name</label>
+                <input formControlName="userName" type="text" id="userName" class="form-control">
+            </div>
+            <div class="field">
+                <label for="firstName">First name</label>
+                <input formControlName="firstName" type="text" id="firstName" class="form-control">
+            </div>
+            <div class="field">
+                <label for="lastName">Last name</label>
+                <input formControlName="lastName" type="text" id="lastName" class="form-control">
+            </div>
+            <ul class="actions">
+                <input type="submit" [disabled]="!myForm.valid" value="Update User" class="special" />
+            </ul>
+        </form>
+    </div>
+</section>
