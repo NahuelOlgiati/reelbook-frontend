@@ -1,18 +1,18 @@
-<section id="user-update" class="major">
+<section id="audiovisual" class="major">
     <div class="inner">
         <header class="major">
-            <h2>User Update</h2>
+            <h2>AudiovisualContent</h2>
         </header>
-        <form [formGroup]="myForm" (ngSubmit)="onUserUpdate()">
-            <input formControlName="userID" type="hidden" id="userID" class="form-control">
+        <form [formGroup]="myForm" (ngSubmit)="onAudiovisualContent()">
+            <input formControlName="ID" type="hidden" id="ID" class="form-control">
             <div class="field">
                 <label for="email">E-Mail</label>
                 <input formControlName="email" type="email" id="email" #email class="form-control">
                 <span *ngIf="!email.pristine && email.errors != null && email.errors['noEmail']">Invalid mail address</span>
             </div>
             <div class="field">
-                <label for="userName">User name</label>
-                <input formControlName="userName" type="text" id="userName" class="form-control">
+                <label for="Name">User name</label>
+                <input formControlName="Name" type="text" id="Name" class="form-control">
             </div>
             <div class="field">
                 <label for="firstName">First name</label>
@@ -23,10 +23,8 @@
                 <input formControlName="lastName" type="text" id="lastName" class="form-control">
             </div>
             <ul class="actions">
-                <input type="submit" [disabled]="!myForm.valid" value="Update User" class="special" />
+                <input type="submit" [disabled]="!myForm.valid" value="AudiovisualContent" class="special" />
             </ul>
         </form>
     </div>
 </section>
-HOLA
-<rb-audiovisual-update></rb-audiovisual-update>

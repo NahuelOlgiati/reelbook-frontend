@@ -28,6 +28,7 @@ import { DocumentTypeService } from './shared/service/document-type.service';
 import { ArtistService } from './shared/service/artist.service';
 import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
 import { UserService } from './shared/service/user.service';
+import { AudioVisualService } from './shared/service/audiovisual.service';
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -60,7 +61,8 @@ import { UserModule } from './user/user.module';
         DocumentTypeService,
         ArtistService,
         ArtistWallManager,
-        UserService
+        UserService,
+        AudioVisualService
     ],
     bootstrap: [AppComponent]
 })
