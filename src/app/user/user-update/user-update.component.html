@@ -30,3 +30,12 @@
 </section>
 HOLA
 <rb-audiovisual-update></rb-audiovisual-update>
+CHAU
+<div class="field box">
+    <rb-fileUpload name="uploadedFile" url="/rest/audiovisual/submit" multiple="false" accept="*/*" maxFileSize="10000000" (onUpload)="onUpload($event)"
+        (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
+    </rb-fileUpload>
+    <ul class="actions">
+        <input type="button" value="Upload" class="special" (click)="upload()" />
+    </ul>
+</div>

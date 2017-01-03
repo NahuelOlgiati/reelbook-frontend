@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from "@angular/http";
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 import { UserService } from '../../shared/service/user.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 import { ModelResponse } from '../../shared/model/core/model-response';
@@ -13,6 +14,9 @@ import { User } from '../../shared/model/user';
     styleUrls: ['./user-update.component.scss']
 })
 export class UserUpdateComponent implements OnInit {
+
+    @ViewChild('fileUpload')
+    fileUpload: RbFileUpload;
 
     myForm: FormGroup;
     description: string;
@@ -61,5 +65,22 @@ export class UserUpdateComponent implements OnInit {
                     this.growlMessageService.notifyError([{ severity: 'error', summary: 'ErrorInfo Message', detail: 'User Update Unsuccessful' }]);
                 }
             }).subscribe()
+    }
+
+    onUpload(event) {
+        for (let file of event.files) {
+            //this.uploadedFiles.push(file);
+        }
+    }
+
+    onBeforeUpload(event) {
+        console.log(event);
+        event.xhr.open('POST', this.fileUpload.url, true);
+        event.xhr.setRequestHeader('Accept', 'text/html');
+        event.formData.append('token', localStorage.getItem('token'));
+    }
+
+    upload() {
+        this.fileUpload.upload();
     }
 }

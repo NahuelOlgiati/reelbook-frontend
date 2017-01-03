@@ -21,7 +21,7 @@ export class UserAudiovisualUpdateComponent implements OnInit {
 
     ngOnInit(): any {
         this.myForm = this.fb.group({
-            ID: ['', Validators.required],
+            audioVisualID: ['', Validators.required],
             email: ['', Validators.compose([
                 Validators.required,
                 this.isEmail
@@ -31,19 +31,20 @@ export class UserAudiovisualUpdateComponent implements OnInit {
             lastName: ['', Validators.required]
         });
         let ID = this.activatedRoute.snapshot.params['id'];
+        /*
         this.audioVisualService.get(ID)
             .map((res: ModelResponse<AudioVisual>) => res.model)
             .subscribe((audioVisual: AudioVisual) => {
                 this.myForm.setValue(
                     {
-                        ID: audioVisual.audioVisualID,
+                        audioVisualID: audioVisual.audioVisualID,
                         email: audioVisual.email,
                         Name: audioVisual.audioVisualName,
                         firstName: audioVisual.firstName,
                         lastName: audioVisual.lastName
                     });
             });
-
+            */
     }
 
     isEmail(control: FormControl): { [s: string]: boolean } {
