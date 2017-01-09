@@ -7,6 +7,7 @@ import { UserService } from '../../shared/service/user.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 import { ModelResponse } from '../../shared/model/core/model-response';
 import { User } from '../../shared/model/user';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'rb-user-update',
@@ -21,7 +22,7 @@ export class UserUpdateComponent implements OnInit {
     myForm: FormGroup;
     description: string;
 
-    constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private userService: UserService, private growlMessageService: GrowlMessageService) { }
+    constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private userService: UserService, private domSanitizer: DomSanitizer, private growlMessageService: GrowlMessageService) { }
 
     ngOnInit(): any {
         this.myForm = this.fb.group({
@@ -47,7 +48,7 @@ export class UserUpdateComponent implements OnInit {
                         lastName: user.lastName
                     });
             });
-
+        this.getStream();
     }
 
     isEmail(control: FormControl): { [s: string]: boolean } {
@@ -82,5 +83,20 @@ export class UserUpdateComponent implements OnInit {
 
     upload() {
         this.fileUpload.upload();
+    }
+
+    x: any;
+
+    getStream() {
+        this.userService.stream()
+            .subscribe(
+            (x: any) => {
+            this.x = x; console.log(x);
+            }
+            );
+    }
+
+    sani(): SafeUrl {
+        return this.domSanitizer.bypassSecurityTrustUrl('data:video/mp4;' + this.x);
     }
 }

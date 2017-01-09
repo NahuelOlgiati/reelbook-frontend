@@ -73,6 +73,7 @@ export class RbBlockUI extends BlockUI implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [RbBlockUI],
-    declarations: [RbBlockUI]
+    declarations: [RbBlockUI],
+    providers: [DomHandler]
 })
 export class RbBlockUIModule { }

@@ -44,4 +44,8 @@ export class UserService {
         return this.http.get('/rest/user/pagedlist:' + description + '?firstResult=' + firstResult + '&maxResults=' + maxResults)
             .map((response: Response) => response.json());
     }
+
+    stream(): Observable<any> {
+        return this.http.get('/rest/user/stream');
+    }
 }
