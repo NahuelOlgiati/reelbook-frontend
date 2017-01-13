@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <video controls></video>
+  <script>
+      var video = document.querySelector('video');
+
+      var assetURL = 'frag_bunny.mp4';
+      // Need to be specific for Blink regarding codecs
+      // ./mp4info frag_bunny.mp4 | grep Codec
+      var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+
+/*
+        bool.ogg = elem.canPlayType('video/ogg; codecs="theora"').replace(/^no$/, '');
+
+        // Without QuickTime, this value will be `undefined`. github.com/Modernizr/Modernizr/issues/546
+        bool.h264 = elem.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/, '');
+
+        bool.webm = elem.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/, '');
+
+        bool.vp9 = elem.canPlayType('video/webm; codecs="vp9"').replace(/^no$/, '');
+
+bool.hls = elem.canPlayType('application/x-mpegURL; codecs="avc1.42E01E"').replace(/^no$/, '');
+*/
+      if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
+        var mediaSource = new MediaSource;
+        //console.log(mediaSource.readyState); // closed
+        video.src = URL.createObjectURL(mediaSource);
+        mediaSource.addEventListener('sourceopen', sourceOpen);
+      } else {
+        console.error('Unsupported MIME type or codec: ', mimeCodec);
+      }
+
+      function sourceOpen (_) {
+        //console.log(this.readyState); // open
+        var mediaSource = this;
+        var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+        fetchAB(assetURL, function (buf) {
+          sourceBuffer.addEventListener('updateend', function (_) {
+            mediaSource.endOfStream();
+            video.play();
+            //console.log(mediaSource.readyState); // ended
+          });
+
+        if (queue.length > 0 && !buffer.updating) {
+	    	       	      buffer.appendBuffer(queue.shift());
+	    	       	    }
+          sourceBuffer.appendBuffer(buf);
+        });
+      };
+
+      function fetchAB (url, cb) {
+        console.log(url);
+        var xhr = new XMLHttpRequest;
+        xhr.open('get', url);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function () {
+          cb(xhr.response);
+        };
+        xhr.send();
+      };
+
+       	    var queue = [];
+            var buffer;
+
+function fetchABC (url, cb) {
+	        var webSocket = new WebSocket('ws://localhost:8080/stream');
+            webSocket.binaryType = 'arraybuffer';
+
+            webSocket.onmessage = function(event){
+            	if (event.data instanceof ArrayBuffer) {
+            		console.log('video chunk arrived');
+            		try {
+                  	    if (buffer.updating || queue.length > 0) {
+                   	      queue.push(event.data);
+                   	    } else {
+                   	      buffer.appendBuffer(event.data);
+                   	    }
+                    } catch (e) {
+                        console.log(e);
+                    }                       		
+                } else {
+                    writeResponse(event.data);
+                }
+            };
+            };
+
+            	        function writeResponse(json){
+	            var response = JSON.parse(json);
+	            var output;
+	            switch (response.type){
+	                case "text":
+	                    output = response.data;
+	                    break;
+		            case "image":
+		                output = "<img src=\'" + response.data + "\'/>"
+		                break;
+	            }
+		        var messages = document.getElementById("messages");
+	            messages.innerHTML += "<br/>>" + output;
+	            messages.scrollTop = messages.scrollHeight; 	
+	        }
+
+    </script>
+</body>
+
+</html>
