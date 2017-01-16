@@ -111,13 +111,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
     crossorigin="anonymous"></script>
   <script type="text/javascript">
-	        var video = document.querySelector('video');
+      var video = document.querySelector('video');
 
-       	    var queue = [];
-            var buffer;
+      var queue = [];
+      var buffer;
 
-            var mediaSource;
-            window.MediaSource = window.MediaSource || window.WebKitMediaSource;
+      var mediaSource;
+      window.MediaSource = window.MediaSource || window.WebKitMediaSource;
 			if (!!!window.MediaSource) {
 				alert('MediaSource API is not available');
 			} else {
@@ -136,25 +136,24 @@
 	            video.src = window.URL.createObjectURL(mediaSource);
 			} 			            
             
-	        var webSocket = new WebSocket('ws://localhost:8080/stream');
-            webSocket.binaryType = 'arraybuffer';
-
-            webSocket.onmessage = function(event){
-            	if (event.data instanceof ArrayBuffer) {
-            		console.log('video chunk arrived');
-            		try {
-                  	    if (buffer.updating || queue.length > 0) {
-                   	      queue.push(event.data);
-                   	    } else {
-                   	      buffer.appendBuffer(event.data);
-                   	    }
-                    } catch (e) {
-                        console.log(e);
-                    }                       		
-                } else {
-                    writeResponse(event.data);
-                }
-            };
+      var webSocket = new WebSocket('ws://localhost:8080/echo');
+      webSocket.binaryType = 'arraybuffer';
+      webSocket.onmessage = function(event){
+        if (event.data instanceof ArrayBuffer) {
+          console.log('video chunk arrived');
+          try {
+                  if (buffer.updating || queue.length > 0) {
+                    queue.push(event.data);
+                  } else {
+                    buffer.appendBuffer(event.data);
+                  }
+              } catch (e) {
+                  console.log(e);
+              }                       		
+          } else {
+              writeResponse(event.data);
+          }
+        };
 
 	        var messages = document.getElementById("messages");
 	        var reader;

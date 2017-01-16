@@ -1,0 +1,112 @@
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+</head>
+
+<body>
+
+  <video id="video" controls preload="auto" width="640" height="264" data-setup='{"controls":true}'>
+    <source type='video/mp4' />
+  </video>
+
+  <meta charset="utf-8">
+  <title>Web Socket JavaScript Stream Client</title>
+  <script language="javascript" type="text/javascript">
+   
+    var video = document.getElementById ("video");
+    var wsUri = "ws://localhost:8080/stream";
+    var mediaSource;
+    var websocket;
+    var queue = [];
+    var buffer;
+
+    function init() {
+        output = document.getElementById("output");
+        window.MediaSource = window.MediaSource || window.WebKitMediaSource;
+        if (!!!window.MediaSource) {
+          console.log('MediaSource API is not available');
+        } else {
+          mediaSource = new MediaSource();
+          mediaSource.addEventListener('sourceopen', sourceOpen, false);
+          video.src = window.URL.createObjectURL(mediaSource);
+
+          websocket = new WebSocket(wsUri);
+          webSocket.binaryType = 'arraybuffer';
+          /*
+          websocket.onopen = function (evt) {
+              onOpen(evt)
+          };
+          */
+          websocket.onmessage = function (evt) {
+              onMessage(evt)
+          };
+          websocket.onerror = function (evt) {
+              onError(evt)
+          };
+        }
+    }
+    function sourceOpen (_) {
+        video.play();
+        buffer = mediaSource.addSourceBuffer('video/mp4;codecs="avc1.64001f,mp4a.40.2"');
+        buffer.addEventListener('update', function() { 
+          if (queue.length > 0 && !buffer.updating) {
+            buffer.appendBuffer(queue.shift());
+          }
+        });
+    }
+
+    function onOpen(evt) {
+        writeToScreen("CONNECTED");
+    }
+    function onMessage(evt) {
+        video.src = window.URL.createObjectURL(evt.data);
+        if (evt.data instanceof ArrayBuffer) {
+          console.log('video chunk arrived');
+          try {
+                if (buffer.updating || queue.length > 0) {
+                  queue.push(evt.data);
+                } else {
+                  buffer.appendBuffer(evt.data);
+                }
+              } catch (e) {
+                  console.log(e);
+              }                       		
+          } else {
+              writeToScreen("Not ArrayBuffer");
+          }
+    }
+    function onError(evt) {
+        writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    }
+    function sendMessage(dataType, dataValue){
+        var json = JSON.stringify({
+            "type":dataType,
+            "data":dataValue
+        });
+        webSocket.send(json);
+    }
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        //alert(output);
+        output.appendChild(pre);
+    }
+    window.addEventListener("load", init, false);
+</script>
+
+  <h2 style="text-align: center;">WebSocket Echo Client</h2>
+
+  <br></br>
+
+  <div style="text-align: center;">
+    <form action="">
+      <input onclick="sendMessage('text', null)" value="Press me" type="button">
+      <input id="textID" name="message" value="Hello WebSocket!" type="text"><br>
+    </form>
+  </div>
+  <div id="output"></div>
+</body>
+
+</html>

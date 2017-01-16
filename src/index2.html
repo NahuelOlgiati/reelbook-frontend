@@ -26,6 +26,7 @@
     }
     function send_echo() {
         websocket = new WebSocket(wsUri);
+        console.log('1');
         websocket.onopen = function (evt) {
             onOpen(evt)
         };
@@ -37,6 +38,7 @@
         };
     }
     function onOpen(evt) {
+        console.log('2');
         writeToScreen("CONNECTED");
         doSend(textID.value);
     }
@@ -50,6 +52,7 @@
     function doSend(message) {
         writeToScreen("SENT: " + message);
         websocket.send(message);
+        console.log('3');
     }
     function writeToScreen(message) {
         var pre = document.createElement("p");

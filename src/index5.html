@@ -10,24 +10,21 @@
   <script>
       var video = document.querySelector('video');
 
-      //var assetURL = 'frag_bunny.mp4';
-      var assetURL = '/test.mp4';
-
+      var assetURL = 'frag_bunny.mp4';
       // Need to be specific for Blink regarding codecs
       // ./mp4info frag_bunny.mp4 | grep Codec
       var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+      var totalSegments = 5;
+      var segmentLength = 0;
+      var segmentDuration = 0;
+      var bytesFetched = 0;
+      var requestedSegments = [];
 
-console.log('CanPLAY');
-console.log(video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"'));
-console.log(video.canPlayType('video/mp4; codecs="avc1.58A01E, mp4a.40.2"'));
-console.log(video.canPlayType('video/mp4; codecs="avc1.4D401E, mp4a.40.2"'));
-console.log(video.canPlayType('video/mp4; codecs="avc1.64001E, mp4a.40.2"'));
-console.log(video.canPlayType('video/mp4; codecs="mp4v.20.8, mp4a.40.2"'));
-console.log(video.canPlayType('video/mp4; codecs="mp4v.20.240, mp4a.40.2"'));
-console.log('Fin CanPLAY');
+      for (var i = 0; i < totalSegments; ++i) requestedSegments[i] = false;
 
+      var mediaSource = null;
       if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
-        var mediaSource = new MediaSource;
+        mediaSource = new MediaSource;
         //console.log(mediaSource.readyState); // closed
         video.src = URL.createObjectURL(mediaSource);
         mediaSource.addEventListener('sourceopen', sourceOpen);
@@ -35,76 +32,95 @@ console.log('Fin CanPLAY');
         console.error('Unsupported MIME type or codec: ', mimeCodec);
       }
 
+      var sourceBuffer = null;
       function sourceOpen (_) {
-        //console.log(this.readyState); // open
-        var mediaSource = this;
-        var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
-        fetchAB(assetURL, function (buf) {
-          sourceBuffer.addEventListener('updateend', function (_) {
-            mediaSource.endOfStream();
+        sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+        getFileLength(assetURL, function (fileLength) {
+          console.log((fileLength / 1024 / 1024).toFixed(2), 'MB');
+          //totalLength = fileLength;
+          segmentLength = Math.round(fileLength / totalSegments);
+          //console.log(totalLength, segmentLength);
+          fetchRange(assetURL, 0, segmentLength, appendSegment);
+          requestedSegments[0] = true;
+          video.addEventListener('timeupdate', checkBuffer);
+          video.addEventListener('canplay', function () {
+            segmentDuration = video.duration / totalSegments;
             video.play();
-            //console.log(mediaSource.readyState); // ended
           });
-
-        if (queue.length > 0 && !buffer.updating) {
-	    	       	      buffer.appendBuffer(queue.shift());
-	    	       	    }
-          sourceBuffer.appendBuffer(buf);
+          video.addEventListener('seeking', seek);
         });
       };
 
-      function fetchAB (url, cb) {
-        console.log(url);
+      function getFileLength (url, cb) {
+        var xhr = new XMLHttpRequest;
+        xhr.open('head', url);
+        xhr.onload = function () {
+            cb(xhr.getResponseHeader('content-length'));
+          };
+        xhr.send();
+      };
+
+      function fetchRange (url, start, end, cb) {
         var xhr = new XMLHttpRequest;
         xhr.open('get', url);
         xhr.responseType = 'arraybuffer';
+        xhr.setRequestHeader('Range', 'bytes=' + start + '-' + end);
         xhr.onload = function () {
+          console.log('fetched bytes: ', start, end);
+          bytesFetched += end - start + 1;
           cb(xhr.response);
         };
         xhr.send();
       };
 
-       	    var queue = [];
-            var buffer;
+      function appendSegment (chunk) {
+        sourceBuffer.appendBuffer(chunk);
+      };
 
-function fetchABC (url, cb) {
-	        var webSocket = new WebSocket('ws://localhost:8080/stream');
-            webSocket.binaryType = 'arraybuffer';
+      function checkBuffer (_) {
+        var currentSegment = getCurrentSegment();
+        if (currentSegment === totalSegments && haveAllSegments()) {
+          console.log('last segment', mediaSource.readyState);
+          mediaSource.endOfStream();
+          video.removeEventListener('timeupdate', checkBuffer);
+        } else if (shouldFetchNextSegment(currentSegment)) {
+          requestedSegments[currentSegment] = true;
+          console.log('time to fetch next chunk', video.currentTime);
+          fetchRange(assetURL, bytesFetched, bytesFetched + segmentLength, appendSegment);
+        }
+        //console.log(video.currentTime, currentSegment, segmentDuration);
+      };
 
-            webSocket.onmessage = function(event){
-            	if (event.data instanceof ArrayBuffer) {
-            		console.log('video chunk arrived');
-            		try {
-                  	    if (buffer.updating || queue.length > 0) {
-                   	      queue.push(event.data);
-                   	    } else {
-                   	      buffer.appendBuffer(event.data);
-                   	    }
-                    } catch (e) {
-                        console.log(e);
-                    }                       		
-                } else {
-                    writeResponse(event.data);
-                }
-            };
-            };
+      function seek (e) {
+        console.log(e);
+        if (mediaSource.readyState === 'open') {
+          sourceBuffer.abort();
+          console.log(mediaSource.readyState);
+        } else {
+          console.log('seek but not open?');
+          console.log(mediaSource.readyState);
+        }
+      };
 
-            	        function writeResponse(json){
-	            var response = JSON.parse(json);
-	            var output;
-	            switch (response.type){
-	                case "text":
-	                    output = response.data;
-	                    break;
-		            case "image":
-		                output = "<img src=\'" + response.data + "\'/>"
-		                break;
-	            }
-		        var messages = document.getElementById("messages");
-	            messages.innerHTML += "<br/>>" + output;
-	            messages.scrollTop = messages.scrollHeight; 	
-	        }
+      function getCurrentSegment () {
+        return ((video.currentTime / segmentDuration) | 0) + 1;
+      };
 
+      function haveAllSegments () {
+        return requestedSegments.every(function (val) { return !!val; });
+      };
+
+      function shouldFetchNextSegment (currentSegment) {
+        console.log('shouldFetchNextSegment');
+        console.log(currentSegment);
+        console.log(video.currentTime);
+        console.log(segmentDuration);
+        console.log(currentSegment);
+        console.log(video.currentTime > segmentDuration * currentSegment * 0.8 &&
+            !requestedSegments[currentSegment]);
+        return video.currentTime > segmentDuration * currentSegment * 0.8 &&
+          !requestedSegments[currentSegment];
+      };
     </script>
 </body>
 
