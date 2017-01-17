@@ -12,7 +12,7 @@
     <video id="video" controls preload="auto" width="640" height="264" data-setup='{"controls":true}'>
         <source type='video/mp4' />
     </video>
-    <button type="button" class="btn btn-primary" style="margin-left: 10px;" onclick="sendText();">Send</button>
+    <button type="button" class="btn btn-primary" style="margin-left: 10px;" onclick="getFirstPage();">Send</button>
     <div id="messages" class="form-control"></div>
 
     <script type="text/javascript">
@@ -65,7 +65,6 @@
                 buffer.appendBuffer(queue.shift());
             }
         });
-        console.log('totalSegments:' + totalSegments);
     };
     function checkBuffer (_) {
         var currentSegment = getCurrentSegment();
@@ -75,8 +74,15 @@
           video.removeEventListener('timeupdate', checkBuffer);
         } else if (shouldFetchNextSegment(currentSegment)) {
           requestedSegments[currentSegment] = true;
+          /*
+          console.log('AHORAAAAAAAA');
+          console.log(requestedSegments);
+          console.log(currentSegment);
+          console.log(requestedSegments[currentSegment]);
+          console.log(bytesFetched);
           console.log('time to fetch next chunk', video.currentTime);
-          fetchRange(assetURL, bytesFetched, bytesFetched + segmentLength, appendSegment);
+          */
+          sendMessage("page", currentSegment);
         }
     };
     function seek (e) {
@@ -98,6 +104,7 @@
     };
 
     function shouldFetchNextSegment (currentSegment) {
+        /*
         console.log('shouldFetchNextSegment');
         console.log(currentSegment);
         console.log(video.currentTime);
@@ -105,6 +112,7 @@
         console.log(currentSegment);
         console.log(video.currentTime > segmentDuration * currentSegment * 0.8 &&
             !requestedSegments[currentSegment]);
+            */
         return video.currentTime > segmentDuration * currentSegment * 0.8 &&
             !requestedSegments[currentSegment];
     };
@@ -135,14 +143,16 @@
             var message = JSON.parse(event.data);
             if ('totalSegments' == message.key){
                 totalSegments = message.value;
+                console.log('totalSegments:' + totalSegments);
                 for (var i = 0; i < totalSegments; ++i) requestedSegments[i] = false;
+                requestedSegments[0] = true;
             }
             writeResponse(event.data);
         }
     }
 
-    function sendText(){
-        sendMessage("text", null);
+    function getFirstPage(){
+        sendMessage("page", 0);
     }
 
     function sendMessage(key, value){
