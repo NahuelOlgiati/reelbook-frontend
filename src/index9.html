@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stream-Up!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <video id="video" controls preload="auto" width="640" height="264" data-setup='{"controls":true}'>
+        <source type='video/mp4' />
+    </video>
+    <button type="button" class="btn btn-primary" style="margin-left: 10px;" onclick="getFirstPage();">Send</button>
+
+    <script type="text/javascript">
+    var video = document.querySelector('video');
+
+    var queue = [];
+    var buffer;
+
+    var totalSegments;
+    var segmentLength = 0;
+    var segmentDuration = 0;
+    var bytesFetched = 0;
+    var requestedSegments = [];
+
+    var mustSeek = false;
+
+    var mediaSource;
+    window.MediaSource = window.MediaSource || window.WebKitMediaSource;
+    if (!!!window.MediaSource) {
+    alert('MediaSource API is not available');
+    } else {
+        mediaSource = new MediaSource();
+        mediaSource.addEventListener('sourceopen', sourceOpen, false);
+
+        video.src = window.URL.createObjectURL(mediaSource);
+        video.addEventListener('timeupdate', checkBuffer);
+        video.addEventListener('canplay', canplay);
+        video.addEventListener('seeking', seek);
+
+        var webSocket = new WebSocket('ws://localhost:8080/stream');
+        webSocket.binaryType = 'arraybuffer';
+        webSocket.onmessage = function(event){
+            onMessage(event)
+        };
+        webSocket.onopen = function(event){
+            onOpen(event)
+        };
+        webSocket.onclose = function(event){
+            console.log('WS Connection closed');
+        };
+    }
+
+    function sourceOpen (_) {
+        buffer = mediaSource.addSourceBuffer('video/mp4;codecs="avc1.64001f,mp4a.40.2"');
+    };
+    function checkBuffer (e) {
+        var currentSegment = getCurrentSegment();
+        if (currentSegment === totalSegments && haveAllSegments()) {
+          console.log('last segment', mediaSource.readyState);
+          mediaSource.endOfStream();
+          video.removeEventListener('timeupdate', checkBuffer);
+        } else if (shouldFetchNextSegment(currentSegment)) {
+        
+            console.log('EEEE');
+            console.log(e.type);
+          if (e.type == 'seekCheckBuffer'){
+              console.log('CACACACACA');
+          }
+          console.log('shouldFetchNextSegment: ' + currentSegment);
+          requestedSegments[currentSegment] = true;
+          /*
+          console.log('AHORAAAAAAAA');
+          console.log(requestedSegments);
+          console.log(currentSegment);
+          console.log(requestedSegments[currentSegment]);
+          console.log(bytesFetched);
+          console.log('time to fetch next chunk', video.currentTime);
+          */
+          sendMessage("page", currentSegment);
+        }
+    };
+    function canplay(e) {
+        console.log('CanPlay');
+        segmentDuration = video.duration / totalSegments;
+        video.play();
+    };
+    function seek(e) {
+        console.log('Seek');
+        mustSeek = true;
+        //this.checkBuffer(new CustomEvent('seekCheckBuffer'));
+        //buffer.timestampOffset = e.timeStamp;
+        console.log(mediaSource.readyState);
+        if (mediaSource.readyState === 'open') {
+          buffer.abort();
+
+        } else {
+          console.log('seek but not open?');
+          console.log(mediaSource.readyState);
+        }
+    };
+    function getCurrentSegment() {
+        return ((video.currentTime / segmentDuration) | 0) + 1;
+    };
+
+    function haveAllSegments() {
+        return requestedSegments.every(function (val) { return !!val; });
+    };
+
+    function shouldFetchNextSegment(currentSegment) {
+        /*
+        console.log('shouldFetchNextSegment');
+        console.log(currentSegment);
+        console.log(video.currentTime);
+        console.log(segmentDuration);
+        console.log(currentSegment);
+        console.log(video.currentTime > segmentDuration * currentSegment * 0.8 &&
+            !requestedSegments[currentSegment]);
+            */
+        return video.currentTime > segmentDuration * currentSegment * 0.8 &&
+            !requestedSegments[currentSegment];
+    };
+
+    function onOpen(event) {
+        console.log('onOpen');
+    }
+    function onMessage(event) {
+        console.log('onMessage');
+        console.log(event);
+        if (event.data instanceof ArrayBuffer) {
+            console.log('video chunk arrived');
+            try {
+                if (buffer.updating || queue.length > 0) {
+                    queue.push(event.data);
+                } else {
+
+                    console.log('-------');
+                    console.log('buffer');
+                    console.log(buffer);
+                    console.log(buffer.buffered);
+                    console.log('data');
+                    console.log(event.data);
+                    console.log('----'+ mustSeek + '---');
+                    if (getCurrentSegment()>1){
+                        console.log('HOLIS');
+                    }
+
+                    if (mustSeek){
+                        console.log(segmentDuration);
+                        console.log(getCurrentSegment());
+                        console.log(segmentDuration * (getCurrentSegment() - 1) + 1);
+                        buffer.timestampOffset = segmentDuration * (getCurrentSegment() - 1) + 1;
+                    }
+                    buffer.appendBuffer(event.data);
+                }
+            } catch (e) {
+                console.log(e);
+            }                       		
+        } else {
+            console.log('Info arrived');
+            var message = JSON.parse(event.data);
+            if ('totalSegments' == message.key){
+                totalSegments = message.value;
+                console.log('totalSegments:' + totalSegments);
+                for (var i = 0; i < totalSegments; ++i) requestedSegments[i] = false;
+                requestedSegments[0] = true;
+            }
+        }
+    }
+
+    function getFirstPage(){
+        sendMessage("page", 0);
+    }
+
+    function sendMessage(key, value){
+        var json = JSON.stringify({
+            "key":key,
+            "value":value
+        });
+        webSocket.send(json);
+    }
+
+    function closeSocket(){
+        webSocket.close();
+    }
+        </script>
+</body>
+
+</html>
