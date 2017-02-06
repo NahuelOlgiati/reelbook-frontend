@@ -77,7 +77,7 @@ export class CustomHttp extends Http {
         }
       })
       .retryWhen(error => error.delay(500))
-      .timeout(200000, new Error('delay exceeded'))
+      .timeout(200000)
       .finally(() => {
         this._afterCall(url, options);
       });
