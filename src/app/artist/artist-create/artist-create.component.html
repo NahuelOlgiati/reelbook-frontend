@@ -9,7 +9,7 @@
                 <input formControlName="description" type="text" id="description" class="form-control">
             </div>
             <ul class="actions">
-                <input type="submit" [disabled]="!myForm.valid" value="Create Artist" class="special" />
+                <li><input type="submit" [disabled]="!myForm.valid" value="Create Artist" class="special" /></li>
             </ul>
             <p></p>
             <p>TODO Must Move To Audiovisual Content</p>
@@ -25,7 +25,7 @@
                     (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
                 </rb-fileUpload>
                 <ul class="actions">
-                    <input type="button" value="Upload" class="special" (click)="upload()" />
+                    <li><input type="button" value="Upload" class="special" (click)="upload()" /></li>
                 </ul>
             </div>
         </form>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from "@angular/http";
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { SessionManager } from '../manager/core/session.manager';
 import { Artist } from '../model/artist';
 import { ModelResponse } from '../model/core/model-response';
@@ -16,7 +16,7 @@ export class ArtistService {
 
   constructor(private http: Http, private sessionManager: SessionManager) { }
 
-  get(modelID: number): Observable<ModelResponse<Artist>> {
+  get(modelID: Number): Observable<ModelResponse<Artist>> {
     return this.http.get('/rest/artist/get:' + modelID)
       .map((response: Response) => response.json());
   }
@@ -27,7 +27,7 @@ export class ArtistService {
         if (response.headers.get(ResponseHeader.REFRESH_SESSION_USER)) {
           this.sessionManager.refreshUser();
         }
-        return response.json()
+        return response.json();
       });
   }
 
@@ -47,15 +47,15 @@ export class ArtistService {
       .map((res: ModelResponse<Artist[]>) => res.model);
   }
 
-  getPagedList(description: String, firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
+  getPagedList(description: String, firstResult: Number, maxResults: Number): Observable<PagedModelResponse<Artist>> {
     return this.http.get('/rest/artist/pagedlist:' + description + '?firstResult=' + firstResult + '&maxResults=' + maxResults)
       .map((response: Response) => response.json());
   }
 
-  getPagedlistWithTags(tags: String[], firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
-    var tagsParameter = '';
-    for (var _i = 0; _i < tags.length; _i++) {
-      var tag = tags[_i];
+  getPagedlistWithTags(tags: String[], firstResult: Number, maxResults: Number): Observable<PagedModelResponse<Artist>> {
+    let tagsParameter = '';
+    for (let _i = 0; _i < tags.length; _i++) {
+      const tag = tags[_i];
       tagsParameter = tagsParameter + '&tag=' + tag;
     }
     return this.http.get('/rest/artist/withtags?firstResult=' + firstResult + '&maxResults=' + maxResults + tagsParameter)

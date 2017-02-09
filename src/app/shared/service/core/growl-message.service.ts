@@ -1,4 +1,4 @@
-import { Observable, Observer} from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 import { Message } from 'primeng/primeng';
 
 export class GrowlMessageService {

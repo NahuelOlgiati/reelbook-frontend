@@ -3,7 +3,6 @@ import { ModelResponse } from '../../model/core/model-response';
 import { User } from '../../model/user';
 import { Session } from '../../model/session';
 import { SessionService } from '../../service/core/session.service';
-import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
@@ -21,15 +20,12 @@ export class SessionManager {
   authenticate(session: Session): void {
     localStorage.setItem('token', session.token);
     this.setUser(session.user);
-    this.setSession(session)
+    this.setSession(session);
   }
 
   fetchSession(): void {
     this.sessionService.getSession()
-      .map((res: ModelResponse<Session>) => {
-        this.setSession(res.model)
-      }
-      ).subscribe();
+      .map((res: ModelResponse<Session>) => this.setSession(res.model)).subscribe();
   }
 
   fetchUser(): void {
@@ -72,7 +68,7 @@ export class SessionManager {
     this.sessionChanged.emit(session);
     if (session) {
       this.userChanged.emit(session.user);
-    }else {
+    } else {
       this.userChanged.emit(undefined);
     }
   }

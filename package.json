@@ -28,7 +28,7 @@
     "font-awesome": "^4.5.0",
     "jquery": "1.12.4",
     "ng2-img-cropper": "^0.7.1",
-    "primeng": "1.1.4"
+    "primeng": "2.0.0"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0-beta.30",

@@ -8,23 +8,23 @@ import { ModalFooterComponent } from './modal-footer.component';
 import { ModalAutofocusDirective } from './modal-autofocus.directive';
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    declarations: [
-        ModalComponent,
-        ModalHeaderComponent,
-        ModalBodyComponent,
-        ModalFooterComponent,
-        ModalAutofocusDirective
-    ],
-    exports: [
-        ModalComponent,
-        ModalHeaderComponent,
-        ModalBodyComponent,
-        ModalFooterComponent,
-        ModalAutofocusDirective
-    ]
+  imports: [
+    CommonModule
+  ],
+  declarations: [
+    ModalComponent,
+    ModalHeaderComponent,
+    ModalBodyComponent,
+    ModalFooterComponent,
+    ModalAutofocusDirective
+  ],
+  exports: [
+    ModalComponent,
+    ModalHeaderComponent,
+    ModalBodyComponent,
+    ModalFooterComponent,
+    ModalAutofocusDirective
+  ]
 })
 export class ModalModule {
 }

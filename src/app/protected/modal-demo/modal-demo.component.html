@@ -36,7 +36,7 @@
 
     <rb-modal class="modal-center" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
         (onOpen)="opened()" [cssClass]="cssClass" #modal>
-        <rb-modal-header [show-close]="true">
+        <rb-modal-header [showClose]="true">
             <h4 class="modal-title">I'm a modal!</h4>
         </rb-modal-header>
         <rb-modal-body>
@@ -47,12 +47,12 @@
             </ul>
             <p *ngIf="selected">Selected: <b>{{ selected }}</b></p>
         </rb-modal-body>
-        <rb-modal-footer [show-default-buttons]="true"></rb-modal-footer>
+        <rb-modal-footer [showDefaultButtons]="true"></rb-modal-footer>
     </rb-modal>
 
     <rb-modal class="modal-center" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass"
         #navigateModal>
-        <rb-modal-header [show-close]="true">
+        <rb-modal-header [showClose]="true">
             <h4 class="modal-title">I'm a modal!</h4>
         </rb-modal-header>
         <rb-modal-body>
@@ -66,7 +66,7 @@
 
     <rb-modal class="modal-center" class="modal-center" style="z-index: 1049" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
         (onOpen)="opened()" [cssClass]="cssClass" #parentModal>
-        <rb-modal-header [show-close]="true">
+        <rb-modal-header [showClose]="true">
             <h4 class="modal-title">I'm a modal!</h4>
         </rb-modal-header>
         <rb-modal-body>
@@ -82,7 +82,7 @@
     <rb-modal class="modal-center" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
         (onOpen)="opened()" [cssClass]="cssClass" #validationModal>
         <form #modalForm="ngForm">
-            <rb-modal-header [show-close]="true">
+            <rb-modal-header [showClose]="true">
                 <h4 class="modal-title">I'm a modal!</h4>
             </rb-modal-header>
             <rb-modal-body>

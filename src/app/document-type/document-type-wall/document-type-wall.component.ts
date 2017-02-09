@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DocumentType } from '../../shared/model/document-type';
 import { DocumentTypeService } from '../../shared/service/document-type.service';
 
@@ -11,9 +10,9 @@ import { DocumentTypeService } from '../../shared/service/document-type.service'
 export class DocumentTypeWallComponent implements OnInit {
 
   documentTypes: DocumentType[];
-  selectedDocumentTypes: number[] = [];
+  selectedDocumentTypes: Number[] = [];
 
-  deploySelection: boolean = false;
+  deploySelection: Boolean = false;
 
   constructor(private documentTypeService: DocumentTypeService) { }
 
@@ -37,26 +36,26 @@ export class DocumentTypeWallComponent implements OnInit {
   }
 
   getSelectedDocumentTypes(): DocumentType[] {
-    if (this.documentTypes != undefined)
+    if (this.documentTypes)
       return this.documentTypes.filter(
         (value: DocumentType, index: number, array: DocumentType[]) => (this.selectedDocumentTypes.indexOf(value.id) >= 0));
   }
 
   onAutocompletFilter(documentTypes: DocumentType[]) {
     console.log(this.selectedDocumentTypes);
-    
-    if (documentTypes != undefined)
+
+    if (documentTypes)
       documentTypes.forEach(ace => {
         let existIn = false;
         this.selectedDocumentTypes.forEach(se => {
           if (ace.id == se) existIn = true;
         });
 
-        if(!existIn)
+        if (!existIn)
           this.selectedDocumentTypes.push(ace.id);
       });
 
-      console.log(this.selectedDocumentTypes);
+    console.log(this.selectedDocumentTypes);
   }
-  
+
 }

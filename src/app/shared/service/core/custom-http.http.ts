@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, ConnectionBackend, Request, RequestOptions, RequestOptionsArgs, RequestMethod, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
-import { ResponseHeader } from '../../model/core/response-header';
 import { GrowlMessageService } from './growl-message.service';
 import { Observable } from 'rxjs/Rx';
 
@@ -18,44 +17,43 @@ export class CustomHttp extends Http {
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     let req: Request;
     if (typeof url === 'string') {
-      let reqOpt = new RequestOptions(options);
+      const reqOpt = new RequestOptions(options);
       reqOpt.url = url;
       req = new Request(reqOpt);
-    }
-    else {
+    } else {
       req = url;
     }
-    let opt = this._buildRequestOptionsArgs(null, req.url, options, null);
+    const opt = this._buildRequestOptionsArgs(req.method, req.url, options, null);
     this._beforeCall(req.url, opt);
     return this._handle(super.request(url, opt), req.url, opt);
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opt = this._buildRequestOptionsArgs(RequestMethod.Get, url, options, null);
+    const opt = this._buildRequestOptionsArgs(RequestMethod.Get, url, options, null);
     this._beforeCall(url, opt);
     return this._handle(super.get(url, opt), url, opt);
   }
 
   post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-    let opt = this._buildRequestOptionsArgs(RequestMethod.Post, url, options, body);
+    const opt = this._buildRequestOptionsArgs(RequestMethod.Post, url, options, body);
     this._beforeCall(url, opt);
     return this._handle(super.post(url, body, opt), url, opt);
   }
 
   put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opt = this._buildRequestOptionsArgs(RequestMethod.Put, url, options, body);
+    const opt = this._buildRequestOptionsArgs(RequestMethod.Put, url, options, body);
     this._beforeCall(url, opt);
     return this._handle(super.put(url, body, opt), url, opt);
   }
 
   patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opt = this._buildRequestOptionsArgs(RequestMethod.Patch, url, options, body);
+    const opt = this._buildRequestOptionsArgs(RequestMethod.Patch, url, options, body);
     this._beforeCall(url, opt);
     return this._handle(super.patch(url, body, opt), url, opt);
   }
 
   delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opt = this._buildRequestOptionsArgs(RequestMethod.Delete, url, options, null);
+    const opt = this._buildRequestOptionsArgs(RequestMethod.Delete, url, options, null);
     this._beforeCall(url, opt);
     return this._handle(super.delete(url, opt), url, opt);
   }
@@ -65,13 +63,12 @@ export class CustomHttp extends Http {
       .catch((err: any): any => {
         console.log(err);
         if (err.status === 400 || err.status === 401 || err.status === 422) {
-          console.log("Notifying...");
+          console.log('Notifying...');
           console.log(err.json());
           this.growlMessageService.notifyError(err.json());
           return Observable.empty();
-        }
-        else {
-          console.log("Redirecting...");
+        } else {
+          console.log('Redirecting...');
           this.router.navigate(['/error-page']);
           return Observable.empty();
         }
@@ -100,6 +97,6 @@ export class CustomHttp extends Http {
 
   private _afterCall(url: string, options?: RequestOptionsArgs) {
     console.log('After the request...');
-    console.log("Request Url: " + url);
+    console.log('Request Url: ' + url);
   }
 }

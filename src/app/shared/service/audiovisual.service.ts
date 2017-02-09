@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from "@angular/http";
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { AudioVisual } from '../../shared/model/audiovisual';
 import { ModelResponse } from '../../shared/model/core/model-response';
 import { PagedModelResponse } from '../../shared/model/core/paged-model-response';

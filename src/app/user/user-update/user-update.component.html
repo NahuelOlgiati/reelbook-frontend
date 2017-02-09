@@ -23,7 +23,7 @@
                 <input formControlName="lastName" type="text" id="lastName" class="form-control">
             </div>
             <ul class="actions">
-                <input type="submit" [disabled]="!myForm.valid" value="Update User" class="special" />
+                <li><input type="submit" [disabled]="!myForm.valid" value="Update User" class="special" /></li>
             </ul>
         </form>
     </div>
@@ -36,7 +36,7 @@ CHAU
         (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
     </rb-fileUpload>
     <ul class="actions">
-        <input type="button" value="Upload" class="special" (click)="upload()" />
+        <li><input type="button" value="Upload" class="special" (click)="upload()" /></li>
     </ul>
 </div>
 TEST

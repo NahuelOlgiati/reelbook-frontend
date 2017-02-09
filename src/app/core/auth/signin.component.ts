@@ -1,36 +1,36 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { AuthService } from "../../shared/service/core/auth.service";
-import { SessionManager } from "../../shared/manager/core/session.manager";
-import { ModelResponse } from "../../shared/model/core/model-response";
-import { Session } from "../../shared/model/session";
+import { AuthService } from '../../shared/service/core/auth.service';
+import { SessionManager } from '../../shared/manager/core/session.manager';
+import { ModelResponse } from '../../shared/model/core/model-response';
+import { Session } from '../../shared/model/session';
 
 @Component({
-    selector: 'rb-signin',
-    templateUrl: './signin.component.html'
+  selector: 'rb-signin',
+  templateUrl: './signin.component.html'
 })
 export class SigninComponent implements OnInit {
-    myForm: FormGroup;
-    error = false;
-    errorMessage = '';
+  myForm: FormGroup;
+  error = false;
+  errorMessage = '';
 
-    constructor(private fb: FormBuilder, private authService: AuthService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) { }
 
-    onSignin() {
-        this.authService.signinUser(this.myForm.value)
-            .map((res: ModelResponse<Session>) => {
-                if (res.success) {
-                    this.sessionManager.authenticate(res.model);
-                    this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
-                }
-            }).subscribe();
-    }
+  onSignin() {
+    this.authService.signinUser(this.myForm.value)
+      .map((res: ModelResponse<Session>) => {
+        if (res.success) {
+          this.sessionManager.authenticate(res.model);
+          this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);
+        }
+      }).subscribe();
+  }
 
-    ngOnInit(): any {
-        this.myForm = this.fb.group({
-            userName: ['', Validators.required],
-            password: ['', Validators.required]
-        });
-    }
+  ngOnInit(): any {
+    this.myForm = this.fb.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AutoCompleteModule } from 'primeng/components/autocomplete/autocomplete';
@@ -15,13 +15,13 @@ import { ArtistCreateComponent } from './artist-create/artist-create.component';
 import { ArtistUpdateComponent } from './artist-update/artist-update.component';
 
 @NgModule({
-    declarations: [
-        ArtistWallComponent,
-        ArtistTagSearchComponent,
-        ArtistCreateComponent,
-        ArtistUpdateComponent
-    ],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, RbBlockUIModule, RbFileUploadModule, ProfileImageModule, AutoCompleteModule, PaginatorModule],
-    exports: [ArtistWallComponent, ArtistTagSearchComponent, ArtistCreateComponent, ArtistUpdateComponent]
+  declarations: [
+    ArtistWallComponent,
+    ArtistTagSearchComponent,
+    ArtistCreateComponent,
+    ArtistUpdateComponent
+  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RbBlockUIModule, RbFileUploadModule, ProfileImageModule, AutoCompleteModule, PaginatorModule],
+  exports: [ArtistWallComponent, ArtistTagSearchComponent, ArtistCreateComponent, ArtistUpdateComponent]
 })
 export class ArtistModule { }

@@ -3,13 +3,13 @@ import { File } from './file';
 
 export class Artist extends BaseModel {
 
-    public file: File;
+  public file: File;
 
-    constructor(public artistID: number, public description: string) {
-        super(artistID);
-    }
+  constructor(public artistID: number, public description: string) {
+    super(artistID);
+  }
 
-    valueOf(): number {
-        return this.artistID;
-    }
+  valueOf(): number {
+    return this.artistID;
+  }
 }

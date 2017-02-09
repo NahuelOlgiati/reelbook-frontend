@@ -1,10 +1,10 @@
 import { Component, NgModule, ViewChild, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from "@angular/common";
-import { ImageCropperModule, ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
+import { CommonModule } from '@angular/common';
+import { ImageCropperModule, ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 @Component({
-    selector: 'rb-profile-image',
-    template: `
+  selector: 'rb-profile-image',
+  template: `
 <div class="container">
   <div class="row" [ngStyle]="{display: selectionMode ? 'none' : 'block'}">
     <div class="col-md-3">
@@ -33,63 +33,63 @@ import { ImageCropperModule, ImageCropperComponent, CropperSettings, Bounds } fr
 })
 export class ProfileImageComponent {
 
-    @ViewChild('cropper')
-    public cropper: ImageCropperComponent;
+  @ViewChild('cropper')
+  public cropper: ImageCropperComponent;
 
-    @Output()
-    onImageChoosed: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onImageChoosed: EventEmitter<any> = new EventEmitter();
 
-    public data: any;
-    public cropperSettings: CropperSettings;
-    public selectionMode: Boolean = false;
+  public data: any;
+  public cropperSettings: CropperSettings;
+  public selectionMode: Boolean = false;
 
-    constructor() {
-        this.cropperSettings = new CropperSettings();
-        this.cropperSettings.noFileInput = true;
+  constructor() {
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.noFileInput = true;
 
-        this.cropperSettings.width = 200;
-        this.cropperSettings.height = 200;
+    this.cropperSettings.width = 200;
+    this.cropperSettings.height = 200;
 
-        this.cropperSettings.croppedWidth = 200;
-        this.cropperSettings.croppedHeight = 200;
+    this.cropperSettings.croppedWidth = 200;
+    this.cropperSettings.croppedHeight = 200;
 
-        this.cropperSettings.canvasWidth = 250;
-        this.cropperSettings.canvasHeight = 250;
+    this.cropperSettings.canvasWidth = 250;
+    this.cropperSettings.canvasHeight = 250;
 
-        this.cropperSettings.minWidth = 100;
-        this.cropperSettings.minHeight = 100;
+    this.cropperSettings.minWidth = 100;
+    this.cropperSettings.minHeight = 100;
 
-        this.cropperSettings.rounded = false;
-        this.cropperSettings.responsive = true;
+    this.cropperSettings.rounded = false;
+    this.cropperSettings.responsive = true;
 
-        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
-        this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
+    this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+    this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
 
-        this.cropperSettings.keepAspect = true;
-        this.cropperSettings.preserveSize = false;
+    this.cropperSettings.keepAspect = true;
+    this.cropperSettings.preserveSize = false;
 
-        this.data = {};
-    }
+    this.data = {};
+  }
 
-    fileChangeListener($event) {
-        this.selectionMode = true;
-        var image: any = new Image();
-        var file: File = $event.target.files[0];
-        var myReader: FileReader = new FileReader();
-        var that = this;
-        myReader.onloadend = function (loadEvent: any) {
-            image.src = loadEvent.target.result;
-            that.cropper.setImage(image);
-        };
-        myReader.readAsDataURL(file);
-        this.onImageChoosed.emit();
-    }
+  fileChangeListener($event) {
+    this.selectionMode = true;
+    const image: any = new Image();
+    const file: File = $event.target.files[0];
+    const myReader: FileReader = new FileReader();
+    const that = this;
+    myReader.onloadend = function(loadEvent: any) {
+      image.src = loadEvent.target.result;
+      that.cropper.setImage(image);
+    };
+    myReader.readAsDataURL(file);
+    this.onImageChoosed.emit();
+  }
 
 }
 
 @NgModule({
-    declarations: [ProfileImageComponent],
-    imports: [CommonModule, ImageCropperModule],
-    exports: [ProfileImageComponent]
+  declarations: [ProfileImageComponent],
+  imports: [CommonModule, ImageCropperModule],
+  exports: [ProfileImageComponent]
 })
 export class ProfileImageModule { }

@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from "@angular/http";
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { DocumentType } from '../model/document-type';
 import { ModelResponse } from '../model/core/model-response';
 import { Observable } from 'rxjs/Rx';

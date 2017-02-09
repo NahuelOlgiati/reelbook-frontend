@@ -1,56 +1,56 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from "../shared/manager/core/session.manager";
+import { SessionManager } from '../shared/manager/core/session.manager';
 import { User } from '../shared/model/user';
 import { Session } from '../shared/model/session';
 
 @Component({
-    selector: 'rb-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'rb-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MenuComponent implements OnInit, AfterViewInit {
 
-    sessionUser: User;
-    hasArtistProfile: boolean;
-    avatarDataSquare: any = {
-        size: 40,
-        background: '#F39C12', // by default it will produce dynamic colors
-        fontColor: '#FFFFFF',
-        border: "2px solid #d3d3d3",
-        isSquare: true
-    };
+  sessionUser: User;
+  hasArtistProfile: boolean;
+  avatarDataSquare: any = {
+    size: 40,
+    background: '#F39C12', // by default it will produce dynamic colors
+    fontColor: '#FFFFFF',
+    border: '2px solid #d3d3d3',
+    isSquare: true
+  };
 
-    constructor(private router: Router, private sessionManager: SessionManager) {
-        this.sessionManager.sessionChanged.subscribe((session: Session) => {
-            if (session) {
-                this.hasArtistProfile = Boolean(session.user.artistID);
-                this.avatarDataSquare.text = this.sessionManager.getFullName();
-            } else {
-                this.hasArtistProfile = undefined;
-            }
-        });
-    }
+  constructor(private router: Router, private sessionManager: SessionManager) {
+    this.sessionManager.sessionChanged.subscribe((session: Session) => {
+      if (session) {
+        this.hasArtistProfile = Boolean(session.user.artistID);
+        this.avatarDataSquare.text = this.sessionManager.getFullName();
+      } else {
+        this.hasArtistProfile = undefined;
+      }
+    });
+  }
 
-    ngOnInit() {
-        this.sessionUser = this.sessionManager.getUser();
-        if (this.sessionUser) {
-            this.avatarDataSquare.text = this.sessionManager.getFullName();
-        }
+  ngOnInit() {
+    this.sessionUser = this.sessionManager.getUser();
+    if (this.sessionUser) {
+      this.avatarDataSquare.text = this.sessionManager.getFullName();
     }
+  }
 
-    ngAfterViewInit(): void {
-        if (!this.sessionUser) {
-            this.sessionManager.fetchSession();
-        }
+  ngAfterViewInit(): void {
+    if (!this.sessionUser) {
+      this.sessionManager.fetchSession();
     }
+  }
 
-    isAuth() {
-        return this.sessionManager.isAuthenticated();
-    }
+  isAuth() {
+    return this.sessionManager.isAuthenticated();
+  }
 
-    onAvatarClick() {
-        this.router.navigate(['/artist-create']);
-    }
+  onAvatarClick() {
+    this.router.navigate(['/artist-create']);
+  }
 }

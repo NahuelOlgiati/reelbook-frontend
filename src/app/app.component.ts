@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Message } from 'primeng/primeng';
 
-import { GrowlMessageService } from "./shared/service/core/growl-message.service";
+import { GrowlMessageService } from './shared/service/core/growl-message.service';
 
 @Component({
   selector: 'rb-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.growlMessageService.onError((msgs: Message[]) => {
       this.msgs.splice(0, this.msgs.length);
-      for (var i = 0; i < msgs.length; i++) {
+      for (let i = 0; i < msgs.length; i++) {
         this.msgs.push(msgs[i]);
       }
     });
