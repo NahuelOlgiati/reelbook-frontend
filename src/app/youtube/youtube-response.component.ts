@@ -16,12 +16,16 @@ export class YoutubeResponseComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private youtubeService: YoutubeService) {
   }
 
+  onClick() {
+    this.youtubeService.getInfo().subscribe();
+  }
+
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const accessToken = params['code'];
       this.youtubeService.getAccessToken(accessToken, 'http://localhost:4200/youtube-response')
         .flatMap((response: any) => this.youtubeService.saveCredential(accessToken, response.refresh_token))
-        .map((response: any) => {console.log('entro'); console.log(response); })
+        .map((response: any) => { console.log('entro'); console.log(response); })
         .subscribe();
     });
   }

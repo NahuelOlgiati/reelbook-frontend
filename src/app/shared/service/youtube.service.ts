@@ -13,7 +13,7 @@ export class YoutubeService {
   private API_GOOGLE_CLIENT_ID = '822657132611-le5ivjjco3upqr3hbqstestj6q2ip2fs.apps.googleusercontent.com';
   private API_GOOGLE_CLIENT_SECRET = 'Q2osaQv70mZZpo5hFgL3wU1z';
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) { }
@@ -65,5 +65,9 @@ export class YoutubeService {
     return this.http.post('/rest/youtube/credential/save', body, this.options)
       .map((response: Response) => response.json())
       .map((res: ModelResponse<YoutubeCredential>) => res.model);
+  }
+
+  getInfo(): Observable<any> {
+    return this.http.get('/rest/youtube/channels');
   }
 }
