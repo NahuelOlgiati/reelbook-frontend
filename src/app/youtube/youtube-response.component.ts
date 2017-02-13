@@ -12,12 +12,17 @@ declare var window: any;
 export class YoutubeResponseComponent implements OnInit {
 
   public success: Boolean = false; // TODO
+  youtubeVideos: M.YoutubeVideo[];
 
   constructor(private activatedRoute: ActivatedRoute, private youtubeService: YoutubeService) {
   }
 
   onClick() {
-    this.youtubeService.getInfo().subscribe();
+    this.youtubeService.getUserVideos()
+      .map((res: M.PagedModelResponse<M.YoutubeVideo>) => {
+        this.youtubeVideos = res.queryList;
+      })
+      .subscribe();
   }
 
   ngOnInit() {

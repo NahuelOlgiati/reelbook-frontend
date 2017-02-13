@@ -65,7 +65,8 @@ export class YoutubeService {
       .map((res: M.ModelResponse<M.YoutubeCredential>) => res.model);
   }
 
-  getInfo(): Observable<any> {
-    return this.http.get('/rest/youtube/channels');
+  getUserVideos(): Observable<M.PagedModelResponse<M.YoutubeVideo>> {
+    return this.http.get('/rest/youtube/userVideos')
+      .map((response: Response) => response.json());
   }
 }

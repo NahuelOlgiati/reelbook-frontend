@@ -1,6 +1,4 @@
-<section
-	id="youtube-response"
-	class="major">
+<section id="youtube-response" class="major">
 	<div class="inner">
 		<header class="major">
 			<h2 *ngIf="success">SUCCESS</h2>
@@ -8,4 +6,16 @@
 			<button type="button" class="btn btn-default" (click)="onClick()">Get Info</button>
 		</header>
 	</div>
+
+	<div class="container wall-container">
+		<div class="row" *ngFor="let youtubeVideo of youtubeVideos">
+			<div class="col-md-3">
+				<img class="img-responsive" [src]="youtubeVideo.thumbnailURL" draggable="false">
+			</div>
+			<div class="col-md-9">
+				<h5>{{youtubeVideo.title}}</h5>
+			</div>
+		</div>
+	</div>
+
 </section>
