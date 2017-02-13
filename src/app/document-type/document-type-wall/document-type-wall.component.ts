@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentType } from '../../shared/model/document-type';
 import { DocumentTypeService } from '../../shared/service/document-type.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { DocumentTypeService } from '../../shared/service/document-type.service'
 })
 export class DocumentTypeWallComponent implements OnInit {
 
-  documentTypes: DocumentType[];
+  documentTypes: M.DocumentType[];
   selectedDocumentTypes: Number[] = [];
 
   deploySelection: Boolean = false;
@@ -19,11 +18,11 @@ export class DocumentTypeWallComponent implements OnInit {
   ngOnInit() {
     this.documentTypeService.fetchData();
     this.documentTypeService.documentTypesChanged.subscribe(
-      (documentTypes: DocumentType[]) => this.documentTypes = documentTypes
+      (documentTypes: M.DocumentType[]) => this.documentTypes = documentTypes
     );
   }
 
-  onActive(documentType: DocumentType) {
+  onActive(documentType: M.DocumentType) {
     if (this.isActive(documentType)) {
       this.selectedDocumentTypes.splice(this.selectedDocumentTypes.indexOf(documentType.id), 1);
     } else {
@@ -31,21 +30,21 @@ export class DocumentTypeWallComponent implements OnInit {
     }
   }
 
-  isActive(documentType: DocumentType): Boolean {
+  isActive(documentType: M.DocumentType): Boolean {
     return this.selectedDocumentTypes.indexOf(documentType.id) >= 0;
   }
 
-  getSelectedDocumentTypes(): DocumentType[] {
+  getSelectedDocumentTypes(): M.DocumentType[] {
     if (this.documentTypes)
       return this.documentTypes.filter(
-        (value: DocumentType, index: number, array: DocumentType[]) => (this.selectedDocumentTypes.indexOf(value.id) >= 0));
+        (value: M.DocumentType, index: number, array: M.DocumentType[]) => (this.selectedDocumentTypes.indexOf(value.id) >= 0));
   }
 
-  onAutocompletFilter(documentTypes: DocumentType[]) {
+  onAutocompletFilter(documentTypes: M.DocumentType[]) {
     console.log(this.selectedDocumentTypes);
 
     if (documentTypes)
-      documentTypes.forEach(ace => {
+      documentTypes.forEach((ace: M.DocumentType) => {
         let existIn = false;
         this.selectedDocumentTypes.forEach(se => {
           if (ace.id == se) existIn = true;

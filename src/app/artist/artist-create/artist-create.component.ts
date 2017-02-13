@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 import { ArtistService } from '../../shared/service/artist.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { ModelResponse } from '../../shared/model/core/model-response';
-import { Artist } from '../../shared/model/artist';
 
 @Component({
   selector: 'rb-artist-create',
@@ -28,7 +26,7 @@ export class ArtistCreateComponent implements OnInit {
 
   onArtisCreate() {
     this.artistService.create(this.myForm.value)
-      .map((res: ModelResponse<Artist>) => {
+      .map((res: M.ModelResponse<M.Artist>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User creation Sucess' }]);
         } else {

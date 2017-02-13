@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentType } from '../../shared/model/document-type';
 import { DocumentTypeService } from '../../shared/service/document-type.service';
 
 @Component({
@@ -8,8 +7,8 @@ import { DocumentTypeService } from '../../shared/service/document-type.service'
 })
 export class DocumentTypeItemComponent implements OnInit {
 
-  @Input() documentType: DocumentType;
-  @Output() editClicked = new EventEmitter<DocumentType>();
+  @Input() documentType: M.DocumentType;
+  @Output() editClicked = new EventEmitter<M.DocumentType>();
 
   constructor(private documentTypeService: DocumentTypeService) { }
 

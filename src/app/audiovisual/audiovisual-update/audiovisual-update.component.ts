@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AudioVisualService } from '../../shared/service/audiovisual.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { ModelResponse } from '../../shared/model/core/model-response';
-import { AudioVisual } from '../../shared/model/audiovisual';
 
 @Component({
   selector: 'rb-audiovisual-update',
@@ -54,7 +52,7 @@ export class UserAudiovisualUpdateComponent implements OnInit {
 
   onUserAudiovisual() {
     this.audioVisualService.update(this.myForm.value)
-      .map((res: ModelResponse<AudioVisual>) => {
+      .map((res: M.ModelResponse<M.AudioVisual>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Audiovisual Sucess' }]);
         } else {

@@ -4,8 +4,6 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 import { UserService } from '../../shared/service/user.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { ModelResponse } from '../../shared/model/core/model-response';
-import { User } from '../../shared/model/user';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
@@ -37,8 +35,8 @@ export class UserUpdateComponent implements OnInit {
     });
     const userID = this.activatedRoute.snapshot.params['id'];
     this.userService.get(userID)
-      .map((res: ModelResponse<User>) => res.model)
-      .subscribe((user: User) => {
+      .map((res: M.ModelResponse<M.User>) => res.model)
+      .subscribe((user: M.User) => {
         this.myForm.setValue(
           {
             userID: user.userID,
@@ -59,7 +57,7 @@ export class UserUpdateComponent implements OnInit {
 
   onUserUpdate() {
     this.userService.update(this.myForm.value)
-      .map((res: ModelResponse<User>) => {
+      .map((res: M.ModelResponse<M.User>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User update Sucess' }]);
         } else {

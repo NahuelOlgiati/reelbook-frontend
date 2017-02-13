@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
-import { Session } from '../../model/session';
-import { User } from '../../model/user';
-import { ModelResponse } from '../../model/core/model-response';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
@@ -14,20 +11,20 @@ export class SessionService {
 
   constructor(private http: Http) { }
 
-  getSession(): Observable<ModelResponse<Session>> {
+  getSession(): Observable<M.ModelResponse<M.RestSession>> {
     return this.http.get('/rest/session')
-      .map((res: ModelResponse<Session>) => res.json());
+      .map((response: Response) => response.json());
   }
 
-  getUser(): Observable<ModelResponse<User>> {
+  getUser(): Observable<M.ModelResponse<M.User>> {
     const body = 'token=' + localStorage.getItem('token');
     return this.http.post('/rest/session/user', body, this.options)
-      .map((res: ModelResponse<User>) => res.json());
+      .map((res: Response) => res.json());
   }
 
-  refreshUser(): Observable<ModelResponse<User>> {
+  refreshUser(): Observable<M.ModelResponse<M.User>> {
     const body = 'token=' + localStorage.getItem('token');
     return this.http.post('/rest/session/refreshuser', body, this.options)
-      .map((res: ModelResponse<User>) => res.json());
+      .map((res: Response) => res.json());
   }
 }

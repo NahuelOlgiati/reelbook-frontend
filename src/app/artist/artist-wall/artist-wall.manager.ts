@@ -1,15 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Artist } from '../../shared/model/artist';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
 import { ArtistService } from '../../shared/service/artist.service';
-import { PagedModelResponse } from '../../shared/model/core/paged-model-response';
 
 @Injectable()
 export class ArtistWallManager {
 
-  private artists: Artist[];
+  private artists: M.Artist[];
   private rowCount: Number = 0;
   public artistsChanged = new EventEmitter<Boolean>();
 
@@ -20,40 +17,40 @@ export class ArtistWallManager {
 
   fetch(description: String, firstResult: Number, maxResults: Number): Observable<void> {
     return this.artistService.getPagedList(description, firstResult, maxResults)
-      .map((res: PagedModelResponse<Artist>) => {
+      .map((res: M.PagedModelResponse<M.Artist>) => {
         this.rowCount = res.rowCount;
         this.artists = res.queryList;
         this.artistsChanged.emit(true);
       });
   }
 
-  getPagedList(description: String, firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
+  getPagedList(description: String, firstResult: number, maxResults: number): Observable<M.PagedModelResponse<M.Artist>> {
     return this.artistService.getPagedList(description, firstResult, maxResults);
   }
 
-  getPagedlistWithTags(tags: String[], firstResult: number, maxResults: number): Observable<PagedModelResponse<Artist>> {
+  getPagedlistWithTags(tags: String[], firstResult: number, maxResults: number): Observable<M.PagedModelResponse<M.Artist>> {
     return this.artistService.getPagedlistWithTags(tags, firstResult, maxResults);
   }
 
-  removeFromSelection(artist: Artist) {
+  removeFromSelection(artist: M.Artist) {
     this.artistsSelection.splice(this.artistsSelection.indexOf(artist.id), 1);
     this.artistsSelectionChanged.emit(this.artistsSelection);
   }
 
-  addToSelection(artist: Artist) {
+  addToSelection(artist: M.Artist) {
     this.artistsSelection.push(artist.id);
     this.artistsSelectionChanged.emit(this.artistsSelection);
   }
 
-  isOnSelection(artist: Artist): Boolean {
+  isOnSelection(artist: M.Artist): Boolean {
     return this.artistsSelection.indexOf(artist.id) >= 0;
   }
 
-  getList(): Artist[] {
+  getList(): M.Artist[] {
     return this.artists;
   }
 
-  setList(list: Artist[]): void {
+  setList(list: M.Artist[]): void {
     this.artists = list;
   }
 
@@ -65,14 +62,14 @@ export class ArtistWallManager {
     this.rowCount = rowCount;
   }
 
-  getSelection(): Artist[] {
+  getSelection(): M.Artist[] {
     if (this.artists)
-      return this.artists.filter((value: Artist, index: number, array: Artist[]) => (this.artistsSelection.indexOf(value.id) >= 0));
+      return this.artists.filter((value: M.Artist, index: number, array: M.Artist[]) => (this.artistsSelection.indexOf(value.id) >= 0));
   }
 
-  getModelSelection(): Artist[] {
+  getModelSelection(): M.Artist[] {
     if (this.artists)
       return this.artists.filter(
-        (value: Artist, index: number, array: Artist[]) => (this.artistsSelection.indexOf(value.id) >= 0));
+        (value: M.Artist, index: number, array: M.Artist[]) => (this.artistsSelection.indexOf(value.id) >= 0));
   }
 }

@@ -1,7 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { ModelResponse } from '../../model/core/model-response';
-import { User } from '../../model/user';
-import { Session } from '../../model/session';
 import { SessionService } from '../../service/core/session.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -9,15 +6,15 @@ import 'rxjs/add/operator/mergeMap';
 @Injectable()
 export class SessionManager {
 
-  private session: Session;
-  public sessionChanged = new EventEmitter<Session>();
+  private session: M.RestSession;
+  public sessionChanged = new EventEmitter<M.RestSession>();
 
-  private user: User;
-  public userChanged = new EventEmitter<User>();
+  private user: M.User;
+  public userChanged = new EventEmitter<M.User>();
 
   constructor(private sessionService: SessionService) { }
 
-  authenticate(session: Session): void {
+  authenticate(session: M.RestSession): void {
     localStorage.setItem('token', session.token);
     this.setUser(session.user);
     this.setSession(session);
@@ -25,12 +22,12 @@ export class SessionManager {
 
   fetchSession(): void {
     this.sessionService.getSession()
-      .map((res: ModelResponse<Session>) => this.setSession(res.model)).subscribe();
+      .map((res: M.ModelResponse<M.RestSession>) => this.setSession(res.model)).subscribe();
   }
 
   fetchUser(): void {
     this.sessionService.getUser()
-      .map((res: ModelResponse<User>) => {
+      .map((res: M.ModelResponse<M.User>) => {
         this.setUser(res.model);
       }
       ).subscribe();
@@ -38,7 +35,7 @@ export class SessionManager {
 
   refreshUser(): void {
     this.sessionService.refreshUser()
-      .map((res: ModelResponse<User>) => {
+      .map((res: M.ModelResponse<M.User>) => {
         this.setUser(res.model);
       }
       ).subscribe();
@@ -59,11 +56,11 @@ export class SessionManager {
     return isAuth;
   }
 
-  getSession(): Session {
+  getSession(): M.RestSession {
     return this.session;
   }
 
-  setSession(session: Session): void {
+  setSession(session: M.RestSession): void {
     this.session = session;
     this.sessionChanged.emit(session);
     if (session) {
@@ -73,11 +70,11 @@ export class SessionManager {
     }
   }
 
-  getUser(): User {
+  getUser(): M.User {
     return this.user;
   }
 
-  setUser(user: User): void {
+  setUser(user: M.User): void {
     this.user = user;
     this.userChanged.emit(user);
   }

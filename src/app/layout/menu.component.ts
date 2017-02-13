@@ -1,8 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionManager } from '../shared/manager/core/session.manager';
-import { User } from '../shared/model/user';
-import { Session } from '../shared/model/session';
 
 @Component({
   selector: 'rb-menu',
@@ -12,7 +10,7 @@ import { Session } from '../shared/model/session';
 })
 export class MenuComponent implements OnInit, AfterViewInit {
 
-  sessionUser: User;
+  sessionUser: M.User;
   hasArtistProfile: boolean;
   avatarDataSquare: any = {
     size: 40,
@@ -23,7 +21,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   };
 
   constructor(private router: Router, private sessionManager: SessionManager) {
-    this.sessionManager.sessionChanged.subscribe((session: Session) => {
+    this.sessionManager.sessionChanged.subscribe((session: M.RestSession) => {
       if (session) {
         this.hasArtistProfile = Boolean(session.user.artistID);
         this.avatarDataSquare.text = this.sessionManager.getFullName();

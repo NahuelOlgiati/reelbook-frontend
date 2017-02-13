@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 import { AuthService } from '../../shared/service/core/auth.service';
-import { ModelResponse } from '../../shared/model/core/model-response';
-import { User } from '../../shared/model/user';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -18,7 +16,7 @@ export class SignupComponent implements OnInit {
 
   onSignup() {
     this.authService.signupUser(this.myForm.value)
-      .map((res: ModelResponse<User>) => {
+      .map((res: M.ModelResponse<M.User>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signup Sucess' }]);
         } else {

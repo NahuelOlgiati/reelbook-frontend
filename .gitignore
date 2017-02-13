@@ -37,3 +37,6 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+#Derived Files
+/src/rb-model.d.ts

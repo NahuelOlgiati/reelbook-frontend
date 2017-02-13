@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { SessionManager } from '../manager/core/session.manager';
-import { Artist } from '../model/artist';
-import { ModelResponse } from '../model/core/model-response';
-import { ResponseHeader } from '../model/core/response-header';
-import { PagedModelResponse } from '../model/core/paged-model-response';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
@@ -16,43 +12,43 @@ export class ArtistService {
 
   constructor(private http: Http, private sessionManager: SessionManager) { }
 
-  get(modelID: Number): Observable<ModelResponse<Artist>> {
+  get(modelID: Number): Observable<M.ModelResponse<M.Artist>> {
     return this.http.get('/rest/artist/get:' + modelID)
       .map((response: Response) => response.json());
   }
 
-  create(artist: Artist): Observable<ModelResponse<Artist>> {
+  create(artist: M.Artist): Observable<M.ModelResponse<M.Artist>> {
     return this.http.post('/rest/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => {
-        if (response.headers.get(ResponseHeader.REFRESH_SESSION_USER)) {
+        if (response.headers.get('REFRESH_SESSION_USER')) {// M.ResponseHeaderEnum
           this.sessionManager.refreshUser();
         }
         return response.json();
       });
   }
 
-  update(artist: Artist): Observable<ModelResponse<Artist>> {
+  update(artist: M.Artist): Observable<M.ModelResponse<M.Artist>> {
     return this.http.put('/rest/artist', JSON.stringify(artist), this.options)
       .map((response: Response) => response.json());
   }
 
-  delete(artist: Artist): Observable<ModelResponse<Artist>> {
+  delete(artist: M.Artist): Observable<M.ModelResponse<M.Artist>> {
     return this.http.delete('/rest/artist/' + artist.id, this.options)
       .map((response: Response) => response.json());
   }
 
-  getList(): Observable<Artist[]> {
+  getList(): Observable<M.Artist[]> {
     return this.http.get('/rest/artist')
       .map((response: Response) => response.json())
-      .map((res: ModelResponse<Artist[]>) => res.model);
+      .map((res: M.ModelResponse<M.Artist[]>) => res.model);
   }
 
-  getPagedList(description: String, firstResult: Number, maxResults: Number): Observable<PagedModelResponse<Artist>> {
+  getPagedList(description: String, firstResult: Number, maxResults: Number): Observable<M.PagedModelResponse<M.Artist>> {
     return this.http.get('/rest/artist/pagedlist:' + description + '?firstResult=' + firstResult + '&maxResults=' + maxResults)
       .map((response: Response) => response.json());
   }
 
-  getPagedlistWithTags(tags: String[], firstResult: Number, maxResults: Number): Observable<PagedModelResponse<Artist>> {
+  getPagedlistWithTags(tags: String[], firstResult: Number, maxResults: Number): Observable<M.PagedModelResponse<M.Artist>> {
     let tagsParameter = '';
     for (let _i = 0; _i < tags.length; _i++) {
       const tag = tags[_i];

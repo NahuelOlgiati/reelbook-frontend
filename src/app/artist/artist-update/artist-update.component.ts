@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArtistService } from '../../shared/service/artist.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { ModelResponse } from '../../shared/model/core/model-response';
-import { Artist } from '../../shared/model/artist';
 
 @Component({
   selector: 'rb-artist-update',
@@ -25,8 +23,8 @@ export class ArtistUpdateComponent implements OnInit {
     });
     const artistID = this.activatedRoute.snapshot.params['id'];
     this.artistService.get(artistID)
-      .map((res: ModelResponse<Artist>) => res.model)
-      .subscribe((artist: Artist) => {
+      .map((res: M.ModelResponse<M.Artist>) => res.model)
+      .subscribe((artist: M.Artist) => {
         this.myForm.setValue({ artistID: artistID, description: artist.description });
       });
 
@@ -34,7 +32,7 @@ export class ArtistUpdateComponent implements OnInit {
 
   onArtisUpdate() {
     this.artistService.update(this.myForm.value)
-      .map((res: ModelResponse<Artist>) => {
+      .map((res: M.ModelResponse<M.Artist>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User update Sucess' }]);
         } else {

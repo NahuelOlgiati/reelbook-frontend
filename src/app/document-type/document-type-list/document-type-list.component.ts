@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DocumentType } from '../../shared/model/document-type';
 import { DocumentTypeService } from '../../shared/service/document-type.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 
@@ -18,7 +17,7 @@ export class DocumentTypeListComponent implements OnInit {
 
   myForm: FormGroup;
 
-  id : Number;
+  id: number;
 
   constructor(private fb: FormBuilder, private documentTypeService: DocumentTypeService, private growlMessageService: GrowlMessageService) {
     this.growlMessageService.onError(err => {
@@ -43,14 +42,14 @@ export class DocumentTypeListComponent implements OnInit {
     this.documentTypeService.createDocumentType(this.myForm.value);
   }
 
-  onEditClicked(documentType: DocumentType) {
+  onEditClicked(documentType: M.DocumentType) {
     this.id = documentType.id;
-    this.myForm.setValue({description : 'hola', summaryDescription: 'HOLIS'});
+    this.myForm.setValue({ description: 'hola', summaryDescription: 'HOLIS' });
     // console.log(JSON.stringify(documentType));
   }
 
   edit() {
-    const dt = new DocumentType(this.id, this.myForm.value.description, this.myForm.value.summaryDescription);
+    const dt: M.DocumentType = { 'documentTypeID': this.id, 'fullDescription': undefined, 'persisted': undefined, 'new': undefined, 'id': undefined, 'country': undefined, 'format': undefined, 'description': undefined, 'summaryDescription': undefined };
     console.log(JSON.stringify(dt));
     this.documentTypeService.editDocumentType(dt);
   }

@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 import { AuthService } from '../../shared/service/core/auth.service';
 import { SessionManager } from '../../shared/manager/core/session.manager';
-import { ModelResponse } from '../../shared/model/core/model-response';
-import { Session } from '../../shared/model/session';
 
 @Component({
   selector: 'rb-signin',
@@ -19,7 +17,7 @@ export class SigninComponent implements OnInit {
 
   onSignin() {
     this.authService.signinUser(this.myForm.value)
-      .map((res: ModelResponse<Session>) => {
+      .map((res: M.ModelResponse<M.RestSession>) => {
         if (res.success) {
           this.sessionManager.authenticate(res.model);
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { ModelResponse } from '../model/core/model-response';
-import { YoutubeCredential } from '../model/youtube-credential';
 import { Observable } from 'rxjs/Rx';
 
 declare var jQuery: any;
@@ -60,11 +58,11 @@ export class YoutubeService {
     });
   }
 
-  saveCredential(accessToken: String, refreshToken: String): Observable<YoutubeCredential> {
+  saveCredential(accessToken: String, refreshToken: String): Observable<M.YoutubeCredential> {
     const body = 'accessToken=' + accessToken + '&refreshToken=' + refreshToken;
     return this.http.post('/rest/youtube/credential/save', body, this.options)
       .map((response: Response) => response.json())
-      .map((res: ModelResponse<YoutubeCredential>) => res.model);
+      .map((res: M.ModelResponse<M.YoutubeCredential>) => res.model);
   }
 
   getInfo(): Observable<any> {

@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { Artist } from '../../shared/model/artist';
 import { RbBlockUI } from '../../third-party/primeng/blockui.component';
 import { ArtistWallManager } from './artist-wall.manager';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -13,7 +12,7 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
 
   @ViewChild('blockUI')
   blockUI: RbBlockUI;
-  artists: Artist[];
+  artists: M.Artist[];
   artistsSelection: Number[] = [];
   deploySelection: Boolean = false;
   rowCount: Number = 0;
@@ -21,7 +20,7 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
   constructor(private artistWallManager: ArtistWallManager, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.artistWallManager.artistsChanged.subscribe((artists: Artist[]) => {
+    this.artistWallManager.artistsChanged.subscribe((artists: M.Artist[]) => {
       this.artists = this.artistWallManager.getList();
       this.rowCount = this.artistWallManager.getRowCount();
     });
@@ -39,7 +38,7 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onSelect(artist: Artist) {
+  onSelect(artist: M.Artist) {
     if (this.isActive(artist)) {
       this.artistWallManager.removeFromSelection(artist);
     } else {
@@ -47,11 +46,11 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
     }
   }
 
-  isActive(artist: Artist): Boolean {
+  isActive(artist: M.Artist): Boolean {
     return this.artistWallManager.isOnSelection(artist);
   }
 
-  getModelSelection(): Artist[] {
+  getModelSelection(): M.Artist[] {
     return this.artistWallManager.getModelSelection();
   }
 
