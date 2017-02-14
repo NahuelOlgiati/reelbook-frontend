@@ -1,0 +1,21 @@
+<section id="drive-response" class="major">
+	<div class="inner">
+		<header class="major">
+			<h2 *ngIf="success">SUCCESS</h2>
+			<h2 *ngIf="!success">UNSUCCESS</h2>
+			<button type="button" class="btn btn-default" (click)="onClick()">Get Info</button>
+		</header>
+	</div>
+
+	<div class="container wall-container">
+		<div class="row" *ngFor="let driveVideo of driveVideos">
+			<div class="col-md-3">
+				<h5>{{driveVideo.driveFileID}}</h5>
+			</div>
+			<div class="col-md-9">
+				<h5>{{driveVideo.name}}</h5>
+			</div>
+		</div>
+	</div>
+
+</section>

@@ -10,6 +10,7 @@ import { ArtistCreateComponent } from './artist/artist-create/artist-create.comp
 import { ArtistUpdateComponent } from './artist/artist-update/artist-update.component';
 import { UserUpdateComponent } from './user/user-update/user-update.component';
 import { YoutubeResponseComponent } from './youtube/youtube-response.component';
+import { DriveResponseComponent } from './drive/drive-response.component';
 
 const APP_ROUTES: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const APP_ROUTES: Routes = [
   { path: 'artist-update/:id', component: ArtistUpdateComponent, canActivate: [AuthGuard] },
   { path: 'user-update/:id', component: UserUpdateComponent, canActivate: [AuthGuard] },
   { path: 'youtube-response', component: YoutubeResponseComponent, canActivate: [AuthGuard] },
+  { path: 'drive-response', component: DriveResponseComponent, canActivate: [AuthGuard] },
   { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }];
 
 export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

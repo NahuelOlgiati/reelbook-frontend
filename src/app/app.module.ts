@@ -14,6 +14,8 @@ import { ProtectedComponent } from './protected/protected.component';
 import { ModalDemoComponent } from './protected/modal-demo/modal-demo.component';
 import { YoutubeReadOnlyComponent } from './youtube/youtube-readonly.component';
 import { YoutubeResponseComponent } from './youtube/youtube-response.component';
+import { DriveReadOnlyComponent } from './drive/drive-readonly.component';
+import { DriveResponseComponent } from './drive/drive-response.component';
 
 // Provider
 import { CustomHttpProvider } from './shared/service/core/custom-http.provider';
@@ -32,6 +34,7 @@ import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
 import { UserService } from './shared/service/user.service';
 import { AudioVisualService } from './shared/service/audiovisual.service';
 import { YoutubeService } from './shared/service/youtube.service';
+import { DriveService } from './shared/service/drive.service';
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -51,7 +54,9 @@ import { UserModule } from './user/user.module';
     ProtectedComponent,
     ModalDemoComponent,
     YoutubeReadOnlyComponent,
-    YoutubeResponseComponent
+    YoutubeResponseComponent,
+    DriveReadOnlyComponent,
+    DriveResponseComponent
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule,
     GrowlModule,
@@ -68,7 +73,8 @@ import { UserModule } from './user/user.module';
     ArtistWallManager,
     UserService,
     AudioVisualService,
-    YoutubeService
+    YoutubeService,
+    DriveService
   ],
   bootstrap: [AppComponent]
 })
