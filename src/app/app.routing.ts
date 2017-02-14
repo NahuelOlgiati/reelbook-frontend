@@ -18,8 +18,8 @@ const APP_ROUTES: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'error-page', component: ErrorPageComponent },
   { path: 'artist-create', component: ArtistCreateComponent, canActivate: [AuthGuard] },
-  { path: 'artist-update/:id', component: ArtistUpdateComponent, canActivate: [AuthGuard] },
-  { path: 'user-update/:id', component: UserUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'artist-update', component: ArtistUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'user-update', component: UserUpdateComponent, canActivate: [AuthGuard] },
   { path: 'youtube-response', component: YoutubeResponseComponent, canActivate: [AuthGuard] },
   { path: 'drive-response', component: DriveResponseComponent, canActivate: [AuthGuard] },
   { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }];

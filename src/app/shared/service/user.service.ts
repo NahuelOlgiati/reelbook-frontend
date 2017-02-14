@@ -15,6 +15,11 @@ export class UserService {
     return this.http.get('/rest/user/get:' + modelID)
       .map((response: Response) => response.json());
   }
+  
+  getCurrent(): Observable<M.ModelResponse<M.User>> {
+    return this.http.get('/rest/user/current')
+      .map((response: Response) => response.json());
+  }
 
   create(user: M.User): Observable<M.ModelResponse<M.User>> {
     return this.http.post('/rest/user', JSON.stringify(user), this.options)

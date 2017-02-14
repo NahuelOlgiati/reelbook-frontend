@@ -7,9 +7,10 @@ import { AudiovisualModule } from '../audiovisual/audiovisual.module';
 import { RbFileUploadModule } from '../third-party/primeng/fileupload.component';
 
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { OauthBarComponent } from '../oauth/oauth-bar.component';
 
 @NgModule({
-  declarations: [UserUpdateComponent],
+  declarations: [UserUpdateComponent, OauthBarComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, AudiovisualModule, RbFileUploadModule],
   exports: [UserUpdateComponent]
 })

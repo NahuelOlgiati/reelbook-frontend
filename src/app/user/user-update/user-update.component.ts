@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 import { UserService } from '../../shared/service/user.service';
@@ -19,7 +18,7 @@ export class UserUpdateComponent implements OnInit {
   myForm: FormGroup;
   description: string;
 
-  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private userService: UserService,
+  constructor(private fb: FormBuilder, private userService: UserService,
     private domSanitizer: DomSanitizer, private growlMessageService: GrowlMessageService) { }
 
   ngOnInit(): any {
@@ -33,8 +32,7 @@ export class UserUpdateComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required]
     });
-    const userID = this.activatedRoute.snapshot.params['id'];
-    this.userService.get(userID)
+    this.userService.getCurrent()
       .map((res: M.ModelResponse<M.User>) => res.model)
       .subscribe((user: M.User) => {
         this.myForm.setValue(
@@ -68,7 +66,7 @@ export class UserUpdateComponent implements OnInit {
 
   onUpload(event) {
     for (let file of event.files) {
-//      this.uploadedFiles.push(file);
+      //      this.uploadedFiles.push(file);
     }
   }
 

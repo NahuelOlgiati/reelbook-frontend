@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArtistService } from '../../shared/service/artist.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
@@ -14,18 +13,17 @@ export class ArtistUpdateComponent implements OnInit {
   myForm: FormGroup;
   description: string;
 
-  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private artistService: ArtistService, private growlMessageService: GrowlMessageService) { }
+  constructor(private fb: FormBuilder, private artistService: ArtistService, private growlMessageService: GrowlMessageService) { }
 
   ngOnInit(): any {
     this.myForm = this.fb.group({
       artistID: ['', Validators.required],
       description: ['', Validators.required]
     });
-    const artistID = this.activatedRoute.snapshot.params['id'];
-    this.artistService.get(artistID)
+    this.artistService.getCurrent()
       .map((res: M.ModelResponse<M.Artist>) => res.model)
       .subscribe((artist: M.Artist) => {
-        this.myForm.setValue({ artistID: artistID, description: artist.description });
+        this.myForm.setValue({ artistID: artist.artistID, description: artist.description });
       });
 
   }

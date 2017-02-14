@@ -16,6 +16,11 @@ export class YoutubeService {
 
   constructor(private http: Http) { }
 
+  hasCredential(): Observable<M.ModelResponse<Boolean>> {
+    return this.http.get('/rest/youtube/credential/has')
+      .map((response: Response) => response.json());
+  }
+  
   getReadOnlyPermitUrl(redirect_uri: String): String {
     const data = {
       'client_id': this.API_GOOGLE_CLIENT_ID,
@@ -58,11 +63,11 @@ export class YoutubeService {
     });
   }
 
-  saveCredential(accessToken: String, refreshToken: String): Observable<M.YoutubeCredential> {
+  saveCredential(accessToken: String, refreshToken: String): Observable<M.OauthCredential> {
     const body = 'accessToken=' + accessToken + '&refreshToken=' + refreshToken;
     return this.http.post('/rest/youtube/credential/save', body, this.options)
       .map((response: Response) => response.json())
-      .map((res: M.ModelResponse<M.YoutubeCredential>) => res.model);
+      .map((res: M.ModelResponse<M.OauthCredential>) => res.model);
   }
 
   getUserVideos(): Observable<M.PagedModelResponse<M.YoutubeVideo>> {

@@ -58,11 +58,11 @@ export class DriveService {
     });
   }
 
-  saveCredential(accessToken: String, refreshToken: String): Observable<M.DriveCredential> {
+  saveCredential(accessToken: String, refreshToken: String): Observable<M.OauthCredential> {
     const body = 'accessToken=' + accessToken + '&refreshToken=' + refreshToken;
     return this.http.post('/rest/drive/credential/save', body, this.options)
       .map((response: Response) => response.json())
-      .map((res: M.ModelResponse<M.DriveCredential>) => res.model);
+      .map((res: M.ModelResponse<M.OauthCredential>) => res.model);
   }
 
   getUserVideos(): Observable<M.PagedModelResponse<M.DriveFile>> {

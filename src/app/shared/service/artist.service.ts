@@ -16,6 +16,11 @@ export class ArtistService {
     return this.http.get('/rest/artist/get:' + modelID)
       .map((response: Response) => response.json());
   }
+  
+  getCurrent(): Observable<M.ModelResponse<M.Artist>> {
+    return this.http.get('/rest/artist/current')
+      .map((response: Response) => response.json());
+  }
 
   create(artist: M.Artist): Observable<M.ModelResponse<M.Artist>> {
     return this.http.post('/rest/artist', JSON.stringify(artist), this.options)
