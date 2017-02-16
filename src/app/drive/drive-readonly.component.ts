@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DriveService } from '../shared/service/drive.service';
+import { OauthService } from '../shared/service/oauth.service';
 
 @Component({
   selector: 'rb-drive-readonly',
@@ -13,10 +13,10 @@ export class DriveReadOnlyComponent implements OnInit {
 
   public readOnlyPermitUrl: String;
 
-  constructor(private driveService: DriveService) {
+  constructor(private oauthService: OauthService) {
   }
 
   ngOnInit() {
-    this.readOnlyPermitUrl = this.driveService.getReadOnlyPermitUrl('http://localhost:4200/drive-response');
+    this.readOnlyPermitUrl = this.oauthService.getDriveReadOnlyPermitUrl('http://localhost:4200/drive-response');
   }
 }

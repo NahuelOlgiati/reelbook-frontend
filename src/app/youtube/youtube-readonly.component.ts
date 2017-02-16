@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeService } from '../shared/service/youtube.service';
+import { OauthService } from '../shared/service/oauth.service';
 
 @Component({
   selector: 'rb-youtube-readonly',
@@ -13,10 +13,10 @@ export class YoutubeReadOnlyComponent implements OnInit {
 
   public readOnlyPermitUrl: String;
 
-  constructor(private youtubeService: YoutubeService) {
+  constructor(private oauthService: OauthService) {
   }
 
   ngOnInit() {
-    this.readOnlyPermitUrl = this.youtubeService.getReadOnlyPermitUrl('http://localhost:4200/youtube-response');
+    this.readOnlyPermitUrl = this.oauthService.getYoutubeReadOnlyPermitUrl('http://localhost:4200/youtube-response');
   }
 }

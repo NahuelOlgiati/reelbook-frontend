@@ -33,8 +33,10 @@ import { ArtistService } from './shared/service/artist.service';
 import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
 import { UserService } from './shared/service/user.service';
 import { AudioVisualService } from './shared/service/audiovisual.service';
+import { OauthService } from './shared/service/oauth.service';
 import { YoutubeService } from './shared/service/youtube.service';
 import { DriveService } from './shared/service/drive.service';
+
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -73,6 +75,7 @@ import { UserModule } from './user/user.module';
     ArtistWallManager,
     UserService,
     AudioVisualService,
+    OauthService,
     YoutubeService,
     DriveService
   ],

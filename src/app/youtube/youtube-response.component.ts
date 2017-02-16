@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { OauthService } from '../shared/service/oauth.service';
 import { YoutubeService } from '../shared/service/youtube.service';
 
 declare var window: any;
@@ -14,7 +15,7 @@ export class YoutubeResponseComponent implements OnInit {
   public success: Boolean = false; // TODO
   youtubeVideos: M.YoutubeVideo[];
 
-  constructor(private activatedRoute: ActivatedRoute, private youtubeService: YoutubeService) {
+  constructor(private activatedRoute: ActivatedRoute, private oauthService: OauthService, private youtubeService: YoutubeService) {
   }
 
   onClick() {
@@ -27,11 +28,11 @@ export class YoutubeResponseComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      const accessToken = params['code'];
-      this.youtubeService.getAccessToken(accessToken, 'http://localhost:4200/youtube-response')
-        .flatMap((response: any) => this.youtubeService.saveCredential(accessToken, response.refresh_token))
-        .map((response: any) => { console.log('entro'); console.log(response); })
-        .subscribe();
+      const authCode = params['code'];
+      if (authCode) {
+        this.oauthService.saveYoutubeCredential(authCode, 'http://localhost:4200/user-update')
+          .subscribe();
+      }
     });
   }
 }

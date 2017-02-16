@@ -1,38 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeService } from '../shared/service/youtube.service';
-import { DriveService } from '../shared/service/drive.service';
-import { Observable } from 'rxjs'
+import { ActivatedRoute, Params } from '@angular/router';
+import { OauthService } from '../shared/service/oauth.service';
 
 @Component({
   selector: 'rb-oauth-bar',
   template: `
-              <a *ngIf="hasYoutubeCredential" class="btn btn-block btn-social btn-twitter">
+              <a *ngIf="hasDriveCredential" class="btn btn-block btn-social btn-twitter">
                 <span class="fa fa-twitter"></span> Tiene
               </a>
-              <a *ngIf="!hasYoutubeCredential" class="btn btn-block btn-social btn-twitter">
+              <a *ngIf="!hasDriveCredential" [href]="driveReadOnlyPermitUrl" class="btn btn-block btn-social btn-twitter">
                 <span class="fa fa-twitter"></span> No Tiene
               </a>
-              <a [href]="readOnlyPermitUrl">
-                  <div>Drive Read Only Permssion</div>
+
+              <a *ngIf="hasYoutubeCredential" class="btn btn-block btn-social btn-youtube">
+                <span class="fa fa-youtube"></span> Tiene
+              </a>
+              <a *ngIf="!hasYoutubeCredential" [href]="youtubeReadOnlyPermitUrl" class="btn btn-block btn-social btn-youtube">
+                <span class="fa fa-youtube"></span> No Tiene
               </a>
             `
 })
 export class OauthBarComponent implements OnInit {
 
-  public readOnlyPermitUrl: String;
   public hasYoutubeCredential: Boolean = false;
+  public youtubeReadOnlyPermitUrl: String;
   public hasDriveCredential: Boolean = false;
+  public driveReadOnlyPermitUrl: String;
 
-  constructor(private youtubeService: YoutubeService, private driveService: DriveService) {
+  constructor(private activatedRoute: ActivatedRoute, private oauthService: OauthService) {
   }
 
-  // TODO make OAUTH ENDPOINT
   ngOnInit() {
-    this.youtubeService.hasCredential()
-      .map((res: M.ModelResponse<Boolean>) => {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      const credential = params['credential'];
+      const authCode = params['code'];
+      if ('youtube' == credential) {
+        this.oauthService.saveYoutubeCredential(authCode, 'http://localhost:4200/user-update')
+          .subscribe();
+      }
+
+      if ('drive' == credential) {
+        this.oauthService.saveDriveCredential(authCode, 'http://localhost:4200/user-update')
+          .subscribe();
+      }
+    });
+
+
+    this.oauthService.hasYoutubeCredential()
+      .do((res: M.ModelResponse<Boolean>) => {
         if (res.success) {
           this.hasYoutubeCredential = res.model;
-          if (!res.model) this.readOnlyPermitUrl = this.youtubeService.getReadOnlyPermitUrl('http://localhost:4200/user-update');
+          if (!this.hasYoutubeCredential) {
+            this.youtubeReadOnlyPermitUrl = this.oauthService.getYoutubeReadOnlyPermitUrl('http://localhost:4200/user-update');
+          }
+        };
+      })
+      .subscribe();
+
+    this.oauthService.hasDriveCredential()
+      .do((res: M.ModelResponse<Boolean>) => {
+        if (res.success) {
+          this.hasDriveCredential = res.model;
+          if (!this.hasDriveCredential) {
+            this.driveReadOnlyPermitUrl = this.oauthService.getDriveReadOnlyPermitUrl('http://localhost:4200/user-update');
+          }
         };
       })
       .subscribe();
