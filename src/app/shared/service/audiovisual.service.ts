@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AudioVisualService {
 
-    private headers = new Headers({ '-Type': 'application/json' });
+    private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
     constructor(private http: Http) { }
