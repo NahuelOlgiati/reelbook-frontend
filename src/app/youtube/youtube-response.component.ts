@@ -1,3 +1,4 @@
+import { YoutubeVideo, PagedModelResponse } from '../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { OauthService } from '../shared/service/oauth.service';
@@ -13,14 +14,14 @@ declare var window: any;
 export class YoutubeResponseComponent implements OnInit {
 
   public success: Boolean = false; // TODO
-  youtubeVideos: M.YoutubeVideo[];
+  youtubeVideos: YoutubeVideo[];
 
   constructor(private activatedRoute: ActivatedRoute, private oauthService: OauthService, private youtubeService: YoutubeService) {
   }
 
   onClick() {
     this.youtubeService.getUserVideos()
-      .map((res: M.PagedModelResponse<M.YoutubeVideo>) => {
+      .map((res: PagedModelResponse<YoutubeVideo>) => {
         this.youtubeVideos = res.queryList;
       })
       .subscribe();

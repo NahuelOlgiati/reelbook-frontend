@@ -1,7 +1,8 @@
+import { ModelResponse, User, AuthenticationService } from '../../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Response } from '@angular/http';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { AuthService } from '../../shared/service/core/auth.service';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -12,11 +13,12 @@ export class SignupComponent implements OnInit {
   error = false;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private growlMessageService: GrowlMessageService) { }
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private growlMessageService: GrowlMessageService) { }
 
   onSignup() {
-    this.authService.signupUser(this.myForm.value)
-      .map((res: M.ModelResponse<M.User>) => {
+    this.authenticationService.signup(this.myForm.value)
+      .map((res: Response) => res.json())
+      .map((res: ModelResponse<User>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signup Sucess' }]);
         } else {

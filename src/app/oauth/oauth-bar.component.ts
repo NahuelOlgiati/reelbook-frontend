@@ -1,3 +1,4 @@
+import { ModelResponse } from '../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { OauthService } from '../shared/service/oauth.service';
@@ -47,7 +48,7 @@ export class OauthBarComponent implements OnInit {
 
 
     this.oauthService.hasYoutubeCredential()
-      .do((res: M.ModelResponse<Boolean>) => {
+      .do((res: ModelResponse<Boolean>) => {
         if (res.success) {
           this.hasYoutubeCredential = res.model;
           if (!this.hasYoutubeCredential) {
@@ -58,7 +59,7 @@ export class OauthBarComponent implements OnInit {
       .subscribe();
 
     this.oauthService.hasDriveCredential()
-      .do((res: M.ModelResponse<Boolean>) => {
+      .do((res: ModelResponse<Boolean>) => {
         if (res.success) {
           this.hasDriveCredential = res.model;
           if (!this.hasDriveCredential) {

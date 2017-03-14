@@ -1,7 +1,8 @@
+import { ModelResponse, Artist, ArtistService } from '../../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ArtistService } from '../../shared/service/artist.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'rb-artist-update',
@@ -20,17 +21,18 @@ export class ArtistUpdateComponent implements OnInit {
       artistID: ['', Validators.required],
       description: ['', Validators.required]
     });
-    this.artistService.getCurrent()
-      .map((res: M.ModelResponse<M.Artist>) => res.model)
-      .subscribe((artist: M.Artist) => {
+    this.artistService.current()
+      .map((response: Response) => response.json())
+      .map((res: ModelResponse<Artist>) => res.model)
+      .subscribe((artist: Artist) => {
         this.myForm.setValue({ artistID: artist.artistID, description: artist.description });
       });
-
   }
 
   onArtisUpdate() {
     this.artistService.update(this.myForm.value)
-      .map((res: M.ModelResponse<M.Artist>) => {
+      .map((response: Response) => response.json())
+      .map((res: ModelResponse<Artist>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User update Sucess' }]);
         } else {

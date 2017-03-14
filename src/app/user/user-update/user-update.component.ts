@@ -1,8 +1,9 @@
+import { ModelResponse, User, UserService } from '../../app.backend';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
-import { UserService } from '../../shared/service/user.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
+import { Response } from '@angular/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
@@ -33,8 +34,9 @@ export class UserUpdateComponent implements OnInit {
       lastName: ['', Validators.required]
     });
     this.userService.getCurrent()
-      .map((res: M.ModelResponse<M.User>) => res.model)
-      .subscribe((user: M.User) => {
+      .map((response: Response) => response.json())
+      .map((res: ModelResponse<User>) => res.model)
+      .subscribe((user: User) => {
         this.myForm.setValue(
           {
             userID: user.userID,
@@ -55,7 +57,8 @@ export class UserUpdateComponent implements OnInit {
 
   onUserUpdate() {
     this.userService.update(this.myForm.value)
-      .map((res: M.ModelResponse<M.User>) => {
+      .map((response: Response) => response.json())
+      .map((res: ModelResponse<User>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User update Sucess' }]);
         } else {
@@ -84,12 +87,14 @@ export class UserUpdateComponent implements OnInit {
   x: any;
 
   getStream() {
+    /*
     this.userService.stream()
       .subscribe(
       (x: any) => {
         this.x = x; console.log(x);
       }
       );
+     */
   }
 
   sani(): SafeUrl {

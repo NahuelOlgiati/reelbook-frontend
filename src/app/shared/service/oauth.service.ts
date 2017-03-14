@@ -1,3 +1,4 @@
+import { ModelResponse } from '../../app.backend';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -28,12 +29,12 @@ export class OauthService {
     return 'https://accounts.google.com/o/oauth2/auth?' + param;
   }
 
-  hasYoutubeCredential(): Observable<M.ModelResponse<Boolean>> {
+  hasYoutubeCredential(): Observable<ModelResponse<Boolean>> {
     return this.http.get('/rest/oauth/credential/youtube/has')
       .map((response: Response) => response.json());
   }
 
-  saveYoutubeCredential(authCode: String, redirectUri: String): Observable<M.ModelResponse<Boolean>> {
+  saveYoutubeCredential(authCode: String, redirectUri: String): Observable<ModelResponse<Boolean>> {
     const body = 'authCode=' + authCode + '&redirectUri=' + redirectUri + '?credential=youtube';
     return this.http.post('/rest/oauth/credential/youtube/save', body, this.options)
       .map((response: Response) => response.json());
@@ -52,12 +53,12 @@ export class OauthService {
     return 'https://accounts.google.com/o/oauth2/auth?' + param;
   }
 
-  hasDriveCredential(): Observable<M.ModelResponse<Boolean>> {
+  hasDriveCredential(): Observable<ModelResponse<Boolean>> {
     return this.http.get('/rest/oauth/credential/drive/has')
       .map((response: Response) => response.json());
   }
 
-  saveDriveCredential(authCode: String, redirectUri: String): Observable<M.ModelResponse<Boolean>> {
+  saveDriveCredential(authCode: String, redirectUri: String): Observable<ModelResponse<Boolean>> {
     const body = 'authCode=' + authCode + '&redirectUri=' + redirectUri + '?credential=drive';
     return this.http.post('/rest/oauth/credential/drive/save', body, this.options)
       .map((response: Response) => response.json());

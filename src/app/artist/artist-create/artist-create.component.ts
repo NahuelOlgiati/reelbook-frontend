@@ -1,8 +1,10 @@
+import { ModelResponse, Artist, ArtistService } from '../../app.backend';
+import { SessionManager } from '../../shared/manager/core/session.manager';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
-import { ArtistService } from '../../shared/service/artist.service';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'rb-artist-create',
@@ -16,7 +18,7 @@ export class ArtistCreateComponent implements OnInit {
   myForm: FormGroup;
   uploadedFiles: any[] = [];
 
-  constructor(private fb: FormBuilder, private artistService: ArtistService, private growlMessageService: GrowlMessageService) { }
+  constructor(private fb: FormBuilder, private sessionManager: SessionManager, private artistService: ArtistService, private growlMessageService: GrowlMessageService) { }
 
   ngOnInit(): any {
     this.myForm = this.fb.group({
@@ -26,7 +28,13 @@ export class ArtistCreateComponent implements OnInit {
 
   onArtisCreate() {
     this.artistService.create(this.myForm.value)
-      .map((res: M.ModelResponse<M.Artist>) => {
+      .map((response: Response) => {
+        if (response.headers.get('REFRESH_SESSION_USER')) {// ResponseHeaderEnum
+          this.sessionManager.refreshUser();
+        }
+        return response.json();
+      })
+      .map((res: ModelResponse<Artist>) => {
         if (res.success) {
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'User creation Sucess' }]);
         } else {

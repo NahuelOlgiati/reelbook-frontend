@@ -1,3 +1,4 @@
+import { Artist, PagedModelResponse } from '../../app.backend';
 import { Component } from '@angular/core';
 import { ArtistWallManager } from '../artist-wall/artist-wall.manager';
 
@@ -7,15 +8,15 @@ import { ArtistWallManager } from '../artist-wall/artist-wall.manager';
 })
 export class ArtistTagSearchComponent {
 
-  selection: M.Artist[];
-  artists: M.Artist[];
+  selection: Artist[];
+  artists: Artist[];
 
   constructor(private artistWallManager: ArtistWallManager) {
   }
 
   search(event) {
     this.artistWallManager.getPagedList(event.query, 0, 8)
-      .map((res: M.PagedModelResponse<M.Artist>) => {
+      .map((res: PagedModelResponse<Artist>) => {
         this.artists = res.queryList;
       })
       .subscribe();
@@ -29,7 +30,7 @@ export class ArtistTagSearchComponent {
         artistDescriptions.push(artist.description);
       }
       this.artistWallManager.getPagedlistWithTags(artistDescriptions, 0, 8)
-        .map((res: M.PagedModelResponse<M.Artist>) => {
+        .map((res: PagedModelResponse<Artist>) => {
           this.artists = res.queryList;
           this.artistWallManager.setList(this.artists);
           this.artistWallManager.setRowCount(res.rowCount);

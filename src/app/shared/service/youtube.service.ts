@@ -1,3 +1,4 @@
+import { PagedModelResponse, YoutubeVideo } from '../../app.backend';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -9,7 +10,7 @@ export class YoutubeService {
 
   constructor(private http: Http) { }
 
-  getUserVideos(): Observable<M.PagedModelResponse<M.YoutubeVideo>> {
+  getUserVideos(): Observable<PagedModelResponse<YoutubeVideo>> {
     return this.http.get('/rest/youtube/userVideos')
       .map((response: Response) => response.json());
   }

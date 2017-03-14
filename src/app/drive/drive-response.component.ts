@@ -1,3 +1,4 @@
+import { DriveFile, PagedModelResponse } from '../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DriveService } from '../shared/service/drive.service';
@@ -13,14 +14,14 @@ declare var window: any;
 export class DriveResponseComponent implements OnInit {
 
   public success: Boolean = false; // TODO
-  driveVideos: M.DriveFile[];
+  driveVideos: DriveFile[];
 
   constructor(private activatedRoute: ActivatedRoute, private driveService: DriveService, private oauthService: OauthService) {
   }
 
   onClick() {
     this.driveService.getUserVideos()
-      .map((res: M.PagedModelResponse<M.DriveFile>) => {
+      .map((res: PagedModelResponse<DriveFile>) => {
         console.log(res.queryList[0]);
         console.log(res.queryList);
         this.driveVideos = res.queryList;

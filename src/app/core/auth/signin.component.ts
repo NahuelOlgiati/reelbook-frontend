@@ -1,8 +1,9 @@
+import { ModelResponse, RestSession, AuthenticationService } from '../../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
-import { AuthService } from '../../shared/service/core/auth.service';
 import { SessionManager } from '../../shared/manager/core/session.manager';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'rb-signin',
@@ -13,11 +14,12 @@ export class SigninComponent implements OnInit {
   error = false;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) { }
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) { }
 
   onSignin() {
-    this.authService.signinUser(this.myForm.value)
-      .map((res: M.ModelResponse<M.RestSession>) => {
+    this.authenticationService.signin(this.myForm.value)
+      .map((res: Response) => res.json())
+      .map((res: ModelResponse<RestSession>) => {
         if (res.success) {
           this.sessionManager.authenticate(res.model);
           this.growlMessageService.notifyError([{ severity: 'info', summary: 'Info Message', detail: 'Signin Sucess' }]);

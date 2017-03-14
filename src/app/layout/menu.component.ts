@@ -1,3 +1,4 @@
+import { User, RestSession } from '../app.backend';
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionManager } from '../shared/manager/core/session.manager';
@@ -10,7 +11,7 @@ import { SessionManager } from '../shared/manager/core/session.manager';
 })
 export class MenuComponent implements OnInit, AfterViewInit {
 
-  sessionUser: M.User;
+  sessionUser: User;
   hasArtistProfile: boolean;
   avatarDataSquare: any = {
     size: 40,
@@ -21,7 +22,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   };
 
   constructor(private router: Router, private sessionManager: SessionManager) {
-    this.sessionManager.sessionChanged.subscribe((session: M.RestSession) => {
+    this.sessionManager.sessionChanged.subscribe((session: RestSession) => {
       if (session) {
         this.hasArtistProfile = Boolean(session.user.artistID);
         this.avatarDataSquare.text = this.sessionManager.getFullName();
