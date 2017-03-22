@@ -54,6 +54,7 @@ export class ArtistCreateComponent implements OnInit {
     event.xhr.open('POST', this.fileUpload.url, true);
     event.xhr.setRequestHeader('Accept', 'text/html');
     event.formData.append('description', this.myForm.controls['description'].value);
+    event.formData.append('uploadedFile', this.uploadedFiles.values);
   }
 
   upload() {

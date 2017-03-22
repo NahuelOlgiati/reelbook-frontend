@@ -18,10 +18,10 @@ import { ArtistUpdateComponent } from './artist-update/artist-update.component';
   declarations: [
     ArtistWallComponent,
     ArtistTagSearchComponent,
-    ArtistCreateComponent,
+//    ArtistCreateComponent,
     ArtistUpdateComponent
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RbBlockUIModule, RbFileUploadModule, ProfileImageModule, AutoCompleteModule, PaginatorModule],
-  exports: [ArtistWallComponent, ArtistTagSearchComponent, ArtistCreateComponent, ArtistUpdateComponent]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RbBlockUIModule, RbFileUploadModule, /*ProfileImageModule,*/ AutoCompleteModule, PaginatorModule],
+  exports: [ArtistWallComponent, ArtistTagSearchComponent, /*ArtistCreateComponent, */ArtistUpdateComponent]
 })
 export class ArtistModule { }

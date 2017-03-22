@@ -11,8 +11,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class ArtistWallComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('blockUI')
-  blockUI: RbBlockUI;
+//  @ViewChild('blockUI')
+//  blockUI: RbBlockUI;
   artists: Artist[];
   artistsSelection: Number[] = [];
   deploySelection: Boolean = false;
@@ -31,12 +31,12 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.blockUI._blocked = true;
-    this.blockUI.block();
-    this.artistWallManager.fetch(' ', 0, 8).subscribe(() => {
-      this.blockUI._blocked = false;
-      this.blockUI.unblock();
-    });
+//    this.blockUI._blocked = true;
+//    this.blockUI.block();
+//    this.artistWallManager.fetch(' ', 0, 8).subscribe(() => {
+//      this.blockUI._blocked = false;
+//      this.blockUI.unblock();
+//    });
   }
 
   onSelect(artist: Artist) {
@@ -56,13 +56,13 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
   }
 
   paginate(event) {
-    this.blockUI._blocked = true;
-    this.blockUI.block();
-    this.artistWallManager.fetch(' ', (event.rows * event.page), event.rows)
-      .subscribe(() => {
-        this.blockUI._blocked = false;
-        this.blockUI.unblock();
-      });
+//    this.blockUI._blocked = true;
+//    this.blockUI.block();
+//    this.artistWallManager.fetch(' ', (event.rows * event.page), event.rows)
+//      .subscribe(() => {
+//        this.blockUI._blocked = false;
+//        this.blockUI.unblock();
+//      });
   }
 
   imgBase64(caca: any): SafeUrl {
