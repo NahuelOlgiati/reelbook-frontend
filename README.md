@@ -1,6 +1,6 @@
 # ReelbookFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.31.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
 ## Development server
 Run `ng serve  --proxy-config ./src/environments/proxy.json` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -28,7 +28,7 @@ Run `ng github-pages:deploy --environment=heroku` to deploy to GitHub Pages.
 
 ## Further help
 
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Responsive Test
 Go to [screenfly](http://quirktools.com/screenfly/#u=http%3A//localhost%3A4200/signin&w=1920&h=1080).

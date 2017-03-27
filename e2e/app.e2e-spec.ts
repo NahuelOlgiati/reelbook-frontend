@@ -1,6 +1,6 @@
 import { ReelbookFrontendPage } from './app.po';
 
-describe('reelbook-frontend App', function() {
+describe('reelbook-frontend App', () => {
   let page: ReelbookFrontendPage;
 
   beforeEach(() => {
