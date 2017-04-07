@@ -23,9 +23,7 @@ export class CustomHttp extends Http {
     } else {
       req = url;
     }
-    const opt = this._buildRequestOptionsArgs(req.method, req.url, options, null);
-    this._beforeCall(req.url, opt);
-    return this._handle(super.request(url, opt), req.url, opt);
+    return super.request(url, options);
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<Response> {

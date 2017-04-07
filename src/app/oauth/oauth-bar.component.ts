@@ -1,7 +1,8 @@
-import { ModelResponse } from '../app.backend';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { OauthService } from '../shared/service/oauth.service';
+import { OauthService } from '../app.backend';
+import { SessionManager } from '../shared/manager/core/session.manager';
+import { OauthManager } from '../shared/manager/core/oauth.manager';
 
 @Component({
   selector: 'rb-oauth-bar',
@@ -28,7 +29,7 @@ export class OauthBarComponent implements OnInit {
   public hasDriveCredential: Boolean = false;
   public driveReadOnlyPermitUrl: String;
 
-  constructor(private activatedRoute: ActivatedRoute, private oauthService: OauthService) {
+  constructor(private activatedRoute: ActivatedRoute, private oauthService: OauthService, private sessionManager: SessionManager, private oauthManager: OauthManager) {
   }
 
   ngOnInit() {
@@ -36,37 +37,26 @@ export class OauthBarComponent implements OnInit {
       const credential = params['credential'];
       const authCode = params['code'];
       if ('youtube' == credential) {
-        this.oauthService.saveYoutubeCredential(authCode, 'http://localhost:4200/user-update')
+        this.oauthService.saveYoutubeCredential({ authCode: authCode, redirectUri: 'http://localhost:4200/user-update?credential=youtube' })
           .subscribe();
       }
 
       if ('drive' == credential) {
-        this.oauthService.saveDriveCredential(authCode, 'http://localhost:4200/user-update')
+        this.oauthService.saveDriveCredential({ authCode: authCode, redirectUri: 'http://localhost:4200/user-update?credential=drive' })
           .subscribe();
       }
     });
 
+    const oauthCredential = this.sessionManager.getUser().oauthCredential;
 
-    this.oauthService.hasYoutubeCredential()
-      .do((res: ModelResponse<Boolean>) => {
-        if (res.success) {
-          this.hasYoutubeCredential = res.model;
-          if (!this.hasYoutubeCredential) {
-            this.youtubeReadOnlyPermitUrl = this.oauthService.getYoutubeReadOnlyPermitUrl('http://localhost:4200/user-update');
-          }
-        };
-      })
-      .subscribe();
+    this.hasYoutubeCredential = oauthCredential.youtubeRefreshToken ? true : false;
+    if (!this.hasYoutubeCredential) {
+      this.youtubeReadOnlyPermitUrl = this.oauthManager.getYoutubeReadOnlyPermitUrl('http://localhost:4200/user-update');
+    }
 
-    this.oauthService.hasDriveCredential()
-      .do((res: ModelResponse<Boolean>) => {
-        if (res.success) {
-          this.hasDriveCredential = res.model;
-          if (!this.hasDriveCredential) {
-            this.driveReadOnlyPermitUrl = this.oauthService.getDriveReadOnlyPermitUrl('http://localhost:4200/user-update');
-          }
-        };
-      })
-      .subscribe();
+    this.hasDriveCredential = oauthCredential.driveRefreshToken ? true : false;
+    if (!this.hasDriveCredential) {
+      this.driveReadOnlyPermitUrl = this.oauthManager.getDriveReadOnlyPermitUrl('http://localhost:4200/user-update');
+    }
   }
 }

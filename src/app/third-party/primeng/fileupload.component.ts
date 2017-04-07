@@ -28,7 +28,7 @@ import { BlockableUI } from 'primeng/components/common/api';
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
-                        <div class="ui-fileupload-row" *ngFor="let file of files">
+                        <div class="ui-fileupload-row" *ngFor="let file of files"; let i = index;>
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
@@ -36,7 +36,7 @@ import { BlockableUI } from 'primeng/components/common/api';
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
-                        <template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></template>
+                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
                 

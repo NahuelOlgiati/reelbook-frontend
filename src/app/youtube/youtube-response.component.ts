@@ -1,8 +1,7 @@
-import { YoutubeVideo, PagedModelResponse } from '../app.backend';
+import { YoutubeVideo, PagedModelResponse, YoutubeService, OauthService } from '../app.backend';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
-import { OauthService } from '../shared/service/oauth.service';
-import { YoutubeService } from '../shared/service/youtube.service';
 
 declare var window: any;
 
@@ -21,6 +20,7 @@ export class YoutubeResponseComponent implements OnInit {
 
   onClick() {
     this.youtubeService.getUserVideos()
+      .map((response: Response) => response.json())
       .map((res: PagedModelResponse<YoutubeVideo>) => {
         this.youtubeVideos = res.queryList;
       })
@@ -31,7 +31,8 @@ export class YoutubeResponseComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const authCode = params['code'];
       if (authCode) {
-        this.oauthService.saveYoutubeCredential(authCode, 'http://localhost:4200/user-update')
+        this.oauthService.saveYoutubeCredential({ authCode: authCode, redirectUri: 'http://localhost:4200/user-update?credential=youtube' })
+          .map((response: Response) => response.json())
           .subscribe();
       }
     });

@@ -1,5 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+import { Component, ViewChild, NgModule } from '@angular/core';
+import { ImageCropperComponent, CropperSettings, ImageCropperModule } from 'ng2-img-cropper';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'rb-img-cropper',
@@ -15,7 +16,7 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
         </span>
     `
 })
-export class ImgCropper {
+export class ImgCropperComponent {
 
     @ViewChild('cropper')
     public cropper: ImageCropperComponent;
@@ -40,7 +41,7 @@ export class ImgCropper {
         this.cropperSettings.minHeight = 100;
 
         this.cropperSettings.rounded = false;
-        this.cropperSettings.responsive = true;
+        this.cropperSettings.dynamicSizing = true;
 
         this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
         this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
@@ -66,3 +67,10 @@ export class ImgCropper {
     }
 
 }
+
+@NgModule({
+    declarations: [ImgCropperComponent],
+    imports: [CommonModule, ImageCropperModule],
+    exports: [ImgCropperComponent]
+})
+export class ImgCropperModule { }

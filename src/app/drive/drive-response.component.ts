@@ -1,8 +1,7 @@
-import { DriveFile, PagedModelResponse } from '../app.backend';
+import { DriveFile, PagedModelResponse, DriveService, OauthService } from '../app.backend';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DriveService } from '../shared/service/drive.service';
-import { OauthService } from '../shared/service/oauth.service';
 
 declare var window: any;
 
@@ -20,7 +19,8 @@ export class DriveResponseComponent implements OnInit {
   }
 
   onClick() {
-    this.driveService.getUserVideos()
+    this.driveService.getUserFiles()
+      .map((response: Response) => response.json())
       .map((res: PagedModelResponse<DriveFile>) => {
         console.log(res.queryList[0]);
         console.log(res.queryList);
@@ -33,7 +33,8 @@ export class DriveResponseComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const authCode = params['code'];
       if (authCode) {
-        this.oauthService.saveDriveCredential(authCode, 'http://localhost:4200/user-update')
+        this.oauthService.saveDriveCredential({ authCode: authCode, redirectUri: 'http://localhost:4200/user-update?credential=drive' })
+          .map((response: Response) => response.json())
           .subscribe();
       }
     });

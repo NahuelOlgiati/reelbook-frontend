@@ -46,7 +46,7 @@ export class UserUpdateComponent implements OnInit {
             lastName: user.lastName
           });
       });
-    this.getStream();
+    /*this.getStream();*/
   }
 
   isEmail(control: FormControl): { [s: string]: boolean } {
@@ -84,20 +84,20 @@ export class UserUpdateComponent implements OnInit {
     this.fileUpload.upload();
   }
 
+/*
   x: any;
 
   getStream() {
-    /*
     this.userService.stream()
       .subscribe(
       (x: any) => {
         this.x = x; console.log(x);
       }
       );
-     */
   }
 
   sani(): SafeUrl {
     return this.domSanitizer.bypassSecurityTrustUrl('data:video/mp4;' + this.x);
   }
+  */
 }

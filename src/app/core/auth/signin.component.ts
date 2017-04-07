@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   error = false;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) { }
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) {  }
 
   onSignin() {
     this.authenticationService.signin(this.myForm.value)

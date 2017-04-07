@@ -60,7 +60,7 @@ export class ProfileImageComponent {
     this.cropperSettings.minHeight = 100;
 
     this.cropperSettings.rounded = false;
-    this.cropperSettings.responsive = true;
+    this.cropperSettings.dynamicSizing = true;
 
     this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
     this.cropperSettings.cropperDrawSettings.strokeWidth = 2;

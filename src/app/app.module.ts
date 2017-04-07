@@ -12,9 +12,7 @@ import { MenuComponent } from './layout/menu.component';
 import { FooterComponent } from './layout/footer.component';
 import { ProtectedComponent } from './protected/protected.component';
 import { ModalDemoComponent } from './protected/modal-demo/modal-demo.component';
-import { YoutubeReadOnlyComponent } from './youtube/youtube-readonly.component';
 import { YoutubeResponseComponent } from './youtube/youtube-response.component';
-import { DriveReadOnlyComponent } from './drive/drive-readonly.component';
 import { DriveResponseComponent } from './drive/drive-response.component';
 
 // Provider
@@ -27,9 +25,7 @@ import { AuthGuard } from './shared/service/core/auth.guard';
 import { GrowlMessageService } from './shared/service/core/growl-message.service';
 import { SessionManager } from './shared/manager/core/session.manager';
 import { ArtistWallManager } from './artist/artist-wall/artist-wall.manager';
-import { OauthService } from './shared/service/oauth.service';
-import { YoutubeService } from './shared/service/youtube.service';
-import { DriveService } from './shared/service/drive.service';
+import { OauthManager } from './shared/manager/core/oauth.manager';
 
 // Modules
 import { CoreModule } from './core/core.module';
@@ -48,9 +44,7 @@ import { UserModule } from './user/user.module';
     FooterComponent,
     ProtectedComponent,
     ModalDemoComponent,
-    YoutubeReadOnlyComponent,
     YoutubeResponseComponent,
-    DriveReadOnlyComponent,
     DriveResponseComponent
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule,
@@ -62,9 +56,7 @@ import { UserModule } from './user/user.module';
     SessionManager,
     GrowlMessageService,
     ArtistWallManager,
-    OauthService,
-    YoutubeService,
-    DriveService
+    OauthManager
   ],
   bootstrap: [AppComponent]
 })

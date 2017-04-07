@@ -6,10 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AudiovisualModule } from '../audiovisual/audiovisual.module';
 
 import { RbFileUploadModule } from '../third-party/primeng/fileupload.component';
+import { ProfileImageModule } from "../third-party/img-cropper/profile-image.component";
 
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { OauthBarComponent } from '../oauth/oauth-bar.component';
-import { ProfileImageModule } from '../shared/component/profile-image.component';
 
 @NgModule({
   declarations: [UserUpdateComponent, OauthBarComponent, ArtistCreateComponent],

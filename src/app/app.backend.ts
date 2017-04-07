@@ -3,8 +3,8 @@ import { NgModule, Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 declare var jQuery: any;
-const jsonHeader = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json'}) });
 const xwwwformurlencodedHeader = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'}) });
+const jsonHeader = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json'}) });
 const formdataHeader = new RequestOptions({ headers: new Headers({ 'Content-Type': 'multipart/form-data'}) });
 
 export interface BaseModel extends Manageable, Validable, Describable, Serializable {
@@ -307,9 +307,9 @@ export interface TaxAgent<P, C> extends Agent {
     legalAddress: Address;
     notes: string;
     phoneList: P[];
-    phoneDefault: P;
     contactList: C[];
     contactDefault: C;
+    phoneDefault: P;
 }
 
 export interface TaxAgentClassification extends BaseSummarySimpleModel {
@@ -334,8 +334,8 @@ export interface MultipartFormDataInput extends MultipartInput {
 export interface InputPart {
     headers: any;
     mediaType: MediaType;
-    bodyAsString: string;
     contentTypeFromMessage: boolean;
+    bodyAsString: string;
 }
 
 export interface MultipartInput {

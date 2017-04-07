@@ -1,3 +1,4 @@
+--User Update
 <section id="user-update" class="major">
     <div class="inner">
         <header class="major">
@@ -28,11 +29,14 @@
         </form>
     </div>
 </section>
-HOLA
+
+--Oauth Bar
 <rb-oauth-bar></rb-oauth-bar>
-<!-- 
+
+--Audiovisual Update
 <rb-audiovisual-update></rb-audiovisual-update>
-CHAU
+
+--File Upload Audiovisual
 <div class="field box">
     <rb-fileUpload name="uploadedFile" url="/rest/audiovisual/submit" multiple="false" accept="*/*" maxFileSize="100000000000000000" (onUpload)="onUpload($event)"
         (onBeforeUpload)="onBeforeUpload($event)" #fileUpload>
@@ -41,8 +45,6 @@ CHAU
         <li><input type="button" value="Upload" class="special" (click)="upload()" /></li>
     </ul>
 </div>
-TEST
-<input type="button" value="Stream" class="special" (click)="getStream()" />
-<video [src]="sani()" >
- -->
+ 
+ --Audiovisual Create
  <rb-artist-create></rb-artist-create>

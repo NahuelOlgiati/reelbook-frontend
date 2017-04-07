@@ -28,7 +28,7 @@ export class SessionManager {
   }
 
   fetchUser(): void {
-    this.restSessionService.getUser({'token': localStorage.getItem('token')})
+    this.restSessionService.getUser({ 'token': localStorage.getItem('token') })
       .map((res: Response) => res.json())
       .map((res: ModelResponse<User>) => {
         this.setUser(res.model);
@@ -37,7 +37,7 @@ export class SessionManager {
   }
 
   refreshUser(): void {
-    this.restSessionService.refreshUser({'token': localStorage.getItem('token')})
+    this.restSessionService.refreshUser({ 'token': localStorage.getItem('token') })
       .map((res: Response) => res.json())
       .map((res: ModelResponse<User>) => {
         this.setUser(res.model);
@@ -65,6 +65,7 @@ export class SessionManager {
   }
 
   setSession(session: RestSession): void {
+    // TODO localstorage
     this.session = session;
     this.sessionChanged.emit(session);
     if (session) {
@@ -75,10 +76,15 @@ export class SessionManager {
   }
 
   getUser(): User {
-    return this.user;
+    if (this.user) {
+      return this.user;
+    } else {
+      return JSON.parse(localStorage.getItem('user'));
+    }
   }
 
   setUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
     this.user = user;
     this.userChanged.emit(user);
   }
