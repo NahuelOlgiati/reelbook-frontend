@@ -9,6 +9,8 @@ import { GrowlModule } from 'primeng/components/growl/growl';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header.component';
 import { MenuComponent } from './layout/menu.component';
+import { SubMenuComponent } from './layout/submenu.component';
+import { BodyComponent } from './layout/body.component';
 import { FooterComponent } from './layout/footer.component';
 import { ProtectedComponent } from './protected/protected.component';
 import { ModalDemoComponent } from './protected/modal-demo/modal-demo.component';
@@ -41,6 +43,8 @@ import { UserModule } from './user/user.module';
     AppComponent,
     HeaderComponent,
     MenuComponent,
+    SubMenuComponent,
+    BodyComponent,
     FooterComponent,
     ProtectedComponent,
     ModalDemoComponent,

@@ -11,6 +11,7 @@ import { ArtistUpdateComponent } from './artist/artist-update/artist-update.comp
 import { UserUpdateComponent } from './user/user-update/user-update.component';
 import { YoutubeResponseComponent } from './youtube/youtube-response.component';
 import { DriveResponseComponent } from './drive/drive-response.component';
+import { OauthBarComponent } from 'app/oauth/oauth-bar.component';
 
 const APP_ROUTES: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +23,14 @@ const APP_ROUTES: Routes = [
   { path: 'user-update', component: UserUpdateComponent, canActivate: [AuthGuard] },
   { path: 'youtube-response', component: YoutubeResponseComponent, canActivate: [AuthGuard] },
   { path: 'drive-response', component: DriveResponseComponent, canActivate: [AuthGuard] },
-  { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }];
+  { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] },
+  {
+    path: 'caca', component: UserUpdateComponent, canActivate: [AuthGuard],
+    children: [
+      { path: 'mandanga', component: OauthBarComponent, data: { label: 'Oauth button' } },
+      { path: 'fafafa', component: ArtistCreateComponent, data: { label: 'Creación Artista' } }
+    ]
+  }
+];
 
 export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

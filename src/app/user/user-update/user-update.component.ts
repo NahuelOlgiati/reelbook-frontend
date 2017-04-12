@@ -5,6 +5,7 @@ import { RbFileUpload } from '../../third-party/primeng/fileupload.component';
 import { GrowlMessageService } from '../../shared/service/core/growl-message.service';
 import { Response } from '@angular/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'rb-user-update',
@@ -20,7 +21,7 @@ export class UserUpdateComponent implements OnInit {
   description: string;
 
   constructor(private fb: FormBuilder, private userService: UserService,
-    private domSanitizer: DomSanitizer, private growlMessageService: GrowlMessageService) { }
+    private domSanitizer: DomSanitizer, private growlMessageService: GrowlMessageService, private router: Router, private activated: ActivatedRoute) { }
 
   ngOnInit(): any {
     this.myForm = this.fb.group({
@@ -47,6 +48,18 @@ export class UserUpdateComponent implements OnInit {
           });
       });
     /*this.getStream();*/
+    //this.router.config.forEach(x => console.log(x));
+
+
+console.log(this.activated.routeConfig.children);
+console.log(this.activated.snapshot);
+console.log(this.activated.snapshot.children);
+/*
+    console.log(this.router);
+    console.log(this.router.config);
+    console.log(this.activated);
+    */
+    this.activated.children.forEach(x => console.log(x));
   }
 
   isEmail(control: FormControl): { [s: string]: boolean } {
@@ -84,20 +97,20 @@ export class UserUpdateComponent implements OnInit {
     this.fileUpload.upload();
   }
 
-/*
-  x: any;
+  /*
+    x: any;
 
-  getStream() {
-    this.userService.stream()
-      .subscribe(
-      (x: any) => {
-        this.x = x; console.log(x);
-      }
-      );
-  }
+    getStream() {
+      this.userService.stream()
+        .subscribe(
+        (x: any) => {
+          this.x = x; console.log(x);
+        }
+        );
+    }
 
-  sani(): SafeUrl {
-    return this.domSanitizer.bypassSecurityTrustUrl('data:video/mp4;' + this.x);
-  }
-  */
+    sani(): SafeUrl {
+      return this.domSanitizer.bypassSecurityTrustUrl('data:video/mp4;' + this.x);
+    }
+    */
 }

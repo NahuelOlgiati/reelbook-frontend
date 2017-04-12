@@ -5,7 +5,27 @@ import { SessionManager } from '../shared/manager/core/session.manager';
 
 @Component({
   selector: 'rb-menu',
-  templateUrl: './menu.component.html',
+  template: `
+<nav id="menu">
+  <ul class="links">
+
+    <!-- <rb-avatar *ngIf="isAuth()" [routerLink]="['user-update']" [avatarData]="avatarDataSquare"></rb-avatar> -->
+    <rb-avatar *ngIf="isAuth()" [routerLink]="['caca']" [avatarData]="avatarDataSquare"></rb-avatar>
+
+    <li><a [routerLink]="['home']">Home</a></li>
+    <li><a [routerLink]="['protected']">Protected</a></li>
+    <li><a *ngIf="isAuth() && !hasArtistProfile" [routerLink]="['artist-create']">Create Artist</a></li>
+    <li><a *ngIf="isAuth() && hasArtistProfile" [routerLink]="['artist-update']">Update Artist</a></li>
+
+    <rb-signin *ngIf="!isAuth()"></rb-signin>
+
+    <div *ngIf="!isAuth()" class="bottom text-center">
+      New here ? <a [routerLink]="['signup']"><b>Join Us</b></a>
+    </div>
+
+  </ul>
+</nav>
+  `,
   styleUrls: ['./menu.component.scss'],
   encapsulation: ViewEncapsulation.None
 })

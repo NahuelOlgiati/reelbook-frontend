@@ -7,14 +7,34 @@ import { Response } from '@angular/http';
 
 @Component({
   selector: 'rb-signin',
-  templateUrl: './signin.component.html'
+  template: `
+<div>
+    <div class="social-buttons">
+        <rb-facebook-signin></rb-facebook-signin>
+        <a href="#" class="button btn-tw small fit"><i class="fa fa-twitter"></i> Twitter</a>
+    </div>
+    or
+    <form [formGroup]="myForm" (ngSubmit)="onSignin()">
+        <div class="form-group">
+            <input formControlName="userName" placeholder="User Name" type="text" id="userName" class="form-control">
+        </div>
+        <div class="form-group">
+            <input formControlName="password" id="password" placeholder="Password" type="password" class="form-control">
+            <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+        </div>
+        <div class="form-group">
+            <input type="submit" [disabled]="!myForm.valid" value="Sing in" class="button special fit" />
+        </div>
+    </form>
+</div>
+  `
 })
 export class SigninComponent implements OnInit {
   myForm: FormGroup;
   error = false;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) {  }
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private sessionManager: SessionManager, private growlMessageService: GrowlMessageService) { }
 
   onSignin() {
     this.authenticationService.signin(this.myForm.value)
