@@ -1,28 +1,30 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SessionManager } from '../shared/manager/core/session.manager';
+import { Component, OnInit } from '@angular/core';
+import { Route, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'rb-submenu',
   template: `
   <ul class="links">
-    <li *ngFor="let option of options">
-      <a [routerLink]="['mandanga']">Home</a>
+    <li *ngFor="let subRoute of subRoutes">
+    <a [routerLink]="['/'.concat(route.path).concat('/').concat(subRoute.path)]">{{subRoute.data.label}}</a>
     </li>
   </ul>
 
+  <input *ngFor="let subRoute of subRoutes" [routerLink]="['/'.concat(route.path).concat('/').concat(subRoute.path)]" class="special" type="button" [value]="subRoute.data.label">
+
+  <!-- Secondary router-outlet -->
+  <router-outlet></router-outlet>
   `,
 })
-export class SubMenuComponent implements OnInit, AfterViewInit {
+export class SubMenuComponent implements OnInit {
 
-  options: string[];
+  route: Route;
+  subRoutes: Route[];
 
-  constructor(private router: Router, private sessionManager: SessionManager) {
-  }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit(): void {
+    this.route = this.activatedRoute.routeConfig;
+    this.subRoutes = this.activatedRoute.routeConfig.children;
   }
 }
