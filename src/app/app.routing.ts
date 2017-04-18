@@ -20,17 +20,16 @@ const APP_ROUTES: Routes = [
   { path: 'error-page', component: ErrorPageComponent },
   { path: 'artist-create', component: ArtistCreateComponent, canActivate: [AuthGuard] },
   { path: 'artist-update', component: ArtistUpdateComponent, canActivate: [AuthGuard] },
-  { path: 'user-update', component: UserUpdateComponent, canActivate: [AuthGuard] },
+  {
+    path: 'user-update', component: UserUpdateComponent, canActivate: [AuthGuard],
+    children: [
+      { path: 'oauth-bar', component: OauthBarComponent, data: { label: 'Oauth button' } },
+      { path: 'artist-create', component: ArtistCreateComponent, data: { label: 'Creación Artista' } }
+    ]
+  },
   { path: 'youtube-response', component: YoutubeResponseComponent, canActivate: [AuthGuard] },
   { path: 'drive-response', component: DriveResponseComponent, canActivate: [AuthGuard] },
-  { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] },
-  {
-    path: 'caca', component: UserUpdateComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'mandanga', component: OauthBarComponent, data: { label: 'Oauth button' } },
-      { path: 'fafafa', component: ArtistCreateComponent, data: { label: 'Creación Artista' } }
-    ]
-  }
+  { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }
 ];
 
 export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

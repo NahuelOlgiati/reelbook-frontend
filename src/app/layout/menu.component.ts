@@ -9,8 +9,7 @@ import { SessionManager } from '../shared/manager/core/session.manager';
 <nav id="menu">
   <ul class="links">
 
-    <!-- <rb-avatar *ngIf="isAuth()" [routerLink]="['user-update']" [avatarData]="avatarDataSquare"></rb-avatar> -->
-    <rb-avatar *ngIf="isAuth()" [routerLink]="['caca']" [avatarData]="avatarDataSquare"></rb-avatar>
+    <rb-avatar *ngIf="isAuth()" [routerLink]="['user-update']" [avatarData]="avatarDataSquare"></rb-avatar>
 
     <li><a [routerLink]="['home']">Home</a></li>
     <li><a [routerLink]="['protected']">Protected</a></li>

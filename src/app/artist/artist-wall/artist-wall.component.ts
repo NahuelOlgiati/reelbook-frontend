@@ -65,7 +65,7 @@ export class ArtistWallComponent implements OnInit, AfterViewInit {
 //      });
   }
 
-  imgBase64(caca: any): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + caca);
+  imgBase64(imgUrl: any): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + imgUrl);
   }
 }

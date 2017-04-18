@@ -61,11 +61,15 @@ export class SessionManager {
   }
 
   getSession(): RestSession {
-    return this.session;
+    if (this.session) {
+      return this.session;
+    } else {
+      return JSON.parse(localStorage.getItem('session'));
+    }
   }
 
   setSession(session: RestSession): void {
-    // TODO localstorage
+    localStorage.setItem('session', JSON.stringify(session));
     this.session = session;
     this.sessionChanged.emit(session);
     if (session) {
@@ -90,16 +94,16 @@ export class SessionManager {
   }
 
   getUserName(): string {
-    if (this.user) {
-      return this.user.userName;
+    if (this.getUser()) {
+      return this.getUser().userName;
     } else {
       return '';
     }
   }
 
   getFullName(): string {
-    if (this.user) {
-      return this.user.firstName + ' ' + this.user.lastName;
+    if (this.getUser()) {
+      return this.getUser().firstName + ' ' + this.getUser().lastName;
     } else {
       return '';
     }
