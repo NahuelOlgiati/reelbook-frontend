@@ -44,23 +44,20 @@ export class SubMenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+
     this.ngZone.runOutsideAngular(() => {
-      const $this = jQuery(this.el.nativeElement);
-      const $tiles = $this.find('.tiles > article');
+
+      const $tiles = jQuery(this.el.nativeElement).find('.tiles > article');
 
       $tiles.each(function () {
+        let $this = jQuery(this);
         let $image = $this.find('.image');
         let $img = $image.find('img');
         let $link = $this.find('.link');
         let x;
 
-        console.log('HOLA');
-        console.log(this.$tiles);
-
-        console.log(this.$img);
-
         // Set image.
-        $this.css('background-image', 'url(' + this.$img.attr('src') + ')');
+        $this.css('background-image', 'url(' + jQuery($img).attr('src') + ')');
 
         // Set position.
         if (x = $img.data('position')) {
@@ -95,7 +92,6 @@ export class SubMenuComponent implements OnInit, AfterViewInit {
         }
 
       });
-
     });
 
   }
