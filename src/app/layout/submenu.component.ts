@@ -18,7 +18,7 @@ declare var jQuery: any;
   <section *ngFor="let subRoute of subRoutes; let i = index;" class="tiles">
     <article>
       <span class="image">
-										<img src="../../assets/images/pic01.jpg" alt="" />
+										<img [src]="['../../assets/images/pic0' + ((i % 6) + 1) + '.jpg']" alt="" />
 			</span>
       <header class="major">
         <h3><a [routerLink]="['/'.concat(route.path).concat('/').concat(subRoute.path)]" class="link">{{subRoute.data.label}}</a></h3>
